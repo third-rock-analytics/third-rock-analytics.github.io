@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Third Rock Analytics</title>
+    <link rel="icon" type="image/x-icon" href="/media/Favicon.png">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header id="main-header">
+        <div id="header-inner" class="content-max-width-center">
+            <img id="header-logo" src="/media/Color Logo_Text_No BG.png" alt="Third Rock Analytics logo">
+            <nav>
+                <ul class="inter-default">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div>
+        <div id="hero-img">
+            <div id="hero-header" class="content-max-width-center">
+                <h2 class="inter-default">Your Data Has a Story. Let's Map It.</h2>
+                <p class="roboto-default">Affordable, expert GIS support for people working with land, community, and data.</p>
+            </div>
+        </div>
+    </div>
+    <main class="content-max-width-center">
+        <section id="about">
+            <h2 class="section-header inter-default">About</h2>
+            <div class="section-content roboto-default">
+                Third Rock Analytics is a one-person consultancy dedicated to making sense of spatial data. Founded on a passion for maps, science, and storytelling, Third Rock delivers custom GIS solutions, insightful data analysis, and clear, compelling cartography. Whether you're managing natural resources, planning urban infrastructure, or exploring patterns in your data, I bring a practical, detail-oriented approach to every project.<br><br>With experience across environmental conservation, agriculture, and geospatial research, I specialize in turning complex datasets into actionable insights—bridging the gap between raw information and decision-making. At Third Rock Analytics, you get personal attention, flexible collaboration, and tools built to fit your unique needs—no cookie-cutter solutions, just thoughtful analysis grounded in real-world application.<br><br>Let's put your data on the map.
+            </div>
+        </section>
+        <section id="contact">
+            <h2 class="section-header inter-default">Contact</h2>
+            <div class="section-content" id="contact-content">
+                <p class="roboto-default">Have a project in mind or just want to connect? Reach out below.</p>
+                <form id="contact-form" class="roboto-default" action="https://formsubmit.co/contact@thirdrockanalytics.com" method="POST">
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name" required><br><br>
+
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required><br><br>
+
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message" rows="5" required></textarea><br><br>
+
+                    <div style="text-align: center;">
+                        <button id="button-contact-submit"
+                                class="inter-default"
+                                type="submit"
+                                onmouseover="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px #2e5745';"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px #2e5745';">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer class="content-max-width-center">
+        <p id="copyright" class="fira-code-default">&copy; 2025 Third Rock Analytics. All rights reserved.</p>
+    </footer>
+</body>
+<script>
+    window.addEventListener('scroll', function () {
+        const header = document.getElementById('main-header');
+        const logo = document.getElementById('header-logo');
+
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+            logo.src = '/media/Black Logo_Text_No BG.png'; // path to the smaller/alternate logo
+        } else {
+            header.classList.remove('scrolled');
+            logo.src = '/media/Color Logo_Text_No BG.png'; // path to the original logo
+        }
+    });
+ </script>   
+</html>

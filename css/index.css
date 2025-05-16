@@ -1,0 +1,236 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: rgb(245, 245, 245);
+}
+
+.inter-default {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+.roboto-default {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.fira-code-default {
+  font-family: "Fira Code", monospace;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+header {
+    height: 200px;
+    width: 100vw;
+    box-sizing: border-box;
+    background-color: rgb(235, 235, 235);
+    padding: 25px;
+    transition: all 0.3s ease;
+    top: 0;
+    position: fixed;
+    /* opacity: 1; */
+}
+
+header.scrolled {
+    height: 100px;
+    background-color: rgba(235, 235, 235, 1);
+    /* opacity: 0.75; */
+}
+
+header.scrolled:hover {
+    background-color: rgba(235, 235, 235, 1);
+    /* opacity: 1; */
+}
+
+#header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-max-width-center {
+    max-width: 1250px;
+    margin: auto;
+}
+
+#header-logo {
+    height: 150px;
+    width: auto;
+    transition: all 0.3s ease;
+}
+
+header.scrolled #header-logo {
+    height: 60px;
+}
+
+nav {
+    height: 2rem;
+    width: 250px;
+}
+
+nav ul {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+nav a:visited {
+    color: #000000;
+}
+
+a {
+  position: relative;
+  text-decoration: none;
+  color: #000000;
+  padding-bottom: 4px; /* Add spacing if needed */
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; /* Anchors the line to the bottom of the link */
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+  transform: translateX(-50%);
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+code {
+    background-color: rgba(31, 31, 31, 1);
+    color: rgb(230, 230, 230);
+    max-width: 750px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px 4px;
+    border: solid rgb(51, 51, 51) 2px;
+}
+
+section {
+    padding-top: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+main {
+    /* padding-top: 200px; */
+    transition: all 0.3s ease;
+}
+
+#hero-img {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(/media/usgs-aerial.jpg);
+    /* background-image: url(/media/usgs-aerial.jpg); */
+    height: 100vh;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#hero-header {
+    width: auto;
+    height: auto;
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    text-align: center;
+    color: rgb(245, 245, 245);
+    text-shadow: #000 1px 1px 3px;
+}
+
+#hero-header h2 {
+    font-weight: 500;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.section-header {
+    font-weight: 500;
+    font-size: 2.5rem;
+    border-bottom: solid black 2px;
+    border-image: linear-gradient(to right, #000 25%, transparent 25%) 100% 1;
+}
+
+.section-content {
+    font-size: 1.5rem;
+    /* background-color: red; */
+    padding-top: 25px;
+}
+
+#contact-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#contact-content p {
+    align-self: flex-start;
+}
+
+#contact-form {
+    width: 250px;
+    margin-top: 2rem;
+    border: solid black 1px;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 5px 1px;
+}
+
+#message {
+    width: calc(100% - 4px);
+    resize: none;
+}
+
+#button-contact-submit {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    background-color: #3a6f57;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px #2e5745;
+    transition: all 0.1s ease-in-out;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#copyright {
+    box-sizing: border-box;
+    padding: 2rem;
+}
