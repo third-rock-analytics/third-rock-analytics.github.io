@@ -233,4 +233,26 @@ footer {
 #copyright {
     box-sizing: border-box;
     padding: 2rem;
+    text-align: center;
+}
+
+a.anchor {
+    display: block;
+    position: relative;
+    top: -200px;
+    visibility: hidden;
+}
+
+@media screen and (max-width: 650px) {
+    #main-header {
+        height: auto;
+    }
+
+    #header-inner{
+        flex-direction: column;
+    }
+
+    nav {
+        margin-top: 1rem;
+    }
 }
