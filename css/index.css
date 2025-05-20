@@ -180,6 +180,12 @@ main {
     border-image: linear-gradient(to right, #000 25%, transparent 25%) 100% 1;
 }
 
+.section-subheader {
+    font-size: 1.75rem;
+    font-weight: 400;
+    margin-top: 75px;
+}
+
 .section-content {
     font-size: 1.5rem;
     /* background-color: red; */
