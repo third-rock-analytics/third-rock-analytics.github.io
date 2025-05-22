@@ -1,91 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Third Rock Analytics</title>
-    <link rel="icon" type="image/x-icon" href="/media/Favicon.png">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header id="main-header">
-        <div id="header-inner" class="content-max-width-center">
-            <img id="header-logo" src="/media/Color Logo_Text_No BG.png" alt="Third Rock Analytics logo">
-            <nav>
-                <ul class="inter-default">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#anchor-about">About</a></li>
-                    <li><a href="#anchor-contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/media/Favicon.png" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Header Section -->
+    <header class="header" id="header">
+      <div class="header__inner container">
+        <img
+          class="header__logo"
+          id="header-logo"
+          src="/media/Color Logo_Text_No BG.png"
+          alt="Third Rock Analytics logo"
+        />
+
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a href="#home" class="nav__link">Home</a>
+            </li>
+            <li class="nav__item">
+              <a href="#about" class="nav__link">About</a>
+            </li>
+            <li class="nav__item">
+              <a href="#contact" class="nav__link">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
-    <div>
-        <div id="hero-img">
-            <div id="hero-header" class="content-max-width-center">
-                <h2 class="inter-default">Your Data Has a Story.<br>Let's Map It.</h2>
-                <p class="roboto-default">Expert GIS and development support for people working with land, community, and data.</p>
-            </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home" role="banner">
+      <div class="hero__content container">
+        <h1 class="hero__title">Your Data Has a Story.<br />Let's Map It.</h1>
+        <p class="hero__subtitle">
+          Expert GIS and development support for people working with land,
+          community, and data.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main container">
+      <!-- About Section -->
+      <section class="section" id="about">
+        <h2 class="section__title">About</h2>
+
+        <div class="section__content">
+          <p class="section__text">
+            Third Rock Analytics is a one-person consultancy dedicated to making
+            sense of spatial data. Founded on a passion for maps, science, and
+            storytelling, Third Rock delivers custom GIS solutions, insightful
+            data analysis, and clear, compelling cartography. Whether you're
+            managing natural resources, planning infrastructure, or exploring
+            patterns in your data, I bring a practical, detail-oriented approach
+            to every project.
+          </p>
+
+          <p class="section__text">
+            With experience across environmental data, energy, and geospatial
+            research, I specialize in turning complex datasets into actionable
+            insights—bridging the gap between raw information and
+            decision-making. At Third Rock Analytics, you get personal
+            attention, flexible collaboration, and tools built to fit your
+            unique needs—no cookie-cutter solutions, just thoughtful analysis
+            grounded in real-world application.
+          </p>
+
+          <p class="section__text">Let's put your data on the map.</p>
         </div>
-    </div>
-    <main class="content-max-width-center">
-        <section id="about">
-            <a class="anchor" id="anchor-about"></a>
-            <h2 class="section-header inter-default">About</h2>
-            <div class="section-content roboto-default">
-                <p>Third Rock Analytics is a one-person consultancy dedicated to making sense of spatial data. Founded on a passion for maps, science, and storytelling, Third Rock delivers custom GIS solutions, insightful data analysis, and clear, compelling cartography. Whether you're managing natural resources, planning infrastructure, or exploring patterns in your data, I bring a practical, detail-oriented approach to every project.<br><br>With experience across environmental data, energy, and geospatial research, I specialize in turning complex datasets into actionable insights—bridging the gap between raw information and decision-making. At Third Rock Analytics, you get personal attention, flexible collaboration, and tools built to fit your unique needs—no cookie-cutter solutions, just thoughtful analysis grounded in real-world application.<br><br>Let's put your data on the map.</p>
-            </div>
-            <h3 class="section-subheader inter-default">Meet the Team</h3>
-            <div class="section-content roboto-defualt">
-                <p></p>
-            </div>
-        </section>
-        <section id="contact">
-            <a class="anchor" id="anchor-contact"></a>
-            <h2 class="section-header inter-default">Contact</h2>
-            <div class="section-content" id="contact-content">
-                <p class="roboto-default">Have a project in mind or just want to connect? Reach out below.</p>
-                <form id="contact-form" class="roboto-default" action="https://formsubmit.co/615cec5bd5c20980e87217904e704bb9" method="POST">
-                    <label for="name">Name:</label><br>
-                    <input type="text" id="name" name="name" required><br><br>
 
-                    <label for="email">Email:</label><br>
-                    <input type="email" id="email" name="email" required><br><br>
+        <!-- Team Section -->
+        <div class="team">
+          <h3 class="team__title">Meet the Team</h3>
 
-                    <label for="message">Message:</label><br>
-                    <textarea id="message" name="message" rows="5" required></textarea><br><br>
+          <div class="team__members">
+            <article class="team-member">
+              <img
+                class="team-member__image"
+                src="./media/Jeff.jpg"
+                alt="Jeff Zivkovic, Analyst/Developer/Founder"
+              />
+              <div class="team-member__content">
+                <h4 class="team-member__name">Jeff Zivkovic</h4>
+                <p class="team-member__title">Analyst/Developer/Founder</p>
+                <p class="team-member__description">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Facilis soluta, tenetur velit dolores accusantium perferendis
+                  quas odio iste ipsa sunt facere provident voluptatem
+                  blanditiis officia autem repudiandae saepe laborum? Labore?
+                </p>
+              </div>
+            </article>
 
-                    <div style="text-align: center;">
-                        <button id="button-contact-submit"
-                                class="inter-default"
-                                type="submit"
-                                onmouseover="this.style.transform='translateY(2px)'; this.style.boxShadow='0 2px #2e5745';"
-                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px #2e5745';">Send Message</button>
-                    </div>
-                </form>
+            <article class="team-member team-member--reverse">
+              <img
+                class="team-member__image"
+                src="./media/Luna.jpg"
+                alt="Luna, Certified Good Girl"
+              />
+              <div class="team-member__content team-member__content--right">
+                <h4 class="team-member__name">Luna</h4>
+                <p class="team-member__title">Certified Good Girl</p>
+                <p class="team-member__description">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Facilis soluta, tenetur velit dolores accusantium perferendis
+                  quas odio iste ipsa sunt facere provident voluptatem
+                  blanditiis officia autem repudiandae saepe laborum? Labore?
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="section" id="contact">
+        <h2 class="section__title">Contact</h2>
+
+        <div class="contact">
+          <p class="contact__intro">
+            Have a project in mind or just want to connect? Reach out below.
+          </p>
+
+          <form
+            class="contact__form"
+            action="https://formsubmit.co/615cec5bd5c20980e87217904e704bb9"
+            method="POST"
+            novalidate
+          >
+            <div class="form-group">
+              <label for="name" class="form-group__label">Name:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-group__input"
+                required
+                aria-describedby="name-error"
+              />
             </div>
-        </section>
+
+            <div class="form-group">
+              <label for="email" class="form-group__label">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-group__input"
+                required
+                aria-describedby="email-error"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-group__label">Message:</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                class="form-group__textarea"
+                required
+                aria-describedby="message-error"
+              ></textarea>
+            </div>
+
+            <div class="form-group form-group--submit">
+              <button type="submit" class="btn btn--primary">
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
     </main>
-    <footer class="content-max-width-center">
-        <p id="copyright" class="fira-code-default">&copy; 2025 Third Rock Analytics. All rights reserved.</p>
-    </footer>
-</body>
-<script>
-    window.addEventListener('scroll', function () {
-        const header = document.getElementById('main-header');
-        const logo = document.getElementById('header-logo');
 
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-            logo.src = '/media/Black Logo_Text_No BG.png'; // path to the smaller/alternate logo
-        } else {
-            header.classList.remove('scrolled');
-            logo.src = '/media/Color Logo_Text_No BG.png'; // path to the original logo
-        }
-    });
- </script>   
+    <!-- Footer -->
+    <footer class="footer container">
+      <p class="footer__copyright">
+        &copy; 2025 Third Rock Analytics. All rights reserved.
+      </p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/js/main.js"></script>
+  </body>
 </html>
