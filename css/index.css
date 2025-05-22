@@ -303,6 +303,7 @@ p:last-child {
 
 .team-member__content {
   flex: 1;
+  max-width: 500px;
 }
 
 .team-member__content--right {
@@ -491,7 +492,7 @@ p:last-child {
   }
 
   .hero {
-    min-height: 100vh;
+    min-height: 926px;
     padding: var(--spacing-xl) 0;
   }
 
