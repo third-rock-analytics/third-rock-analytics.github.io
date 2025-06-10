@@ -11,6 +11,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/map.css" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,6 +19,11 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/ol@v10.5.0/dist/ol.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/ol@v10.5.0/ol.css"
     />
   </head>
 
@@ -203,13 +209,30 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer container">
-      <p class="footer__copyright">
-        &copy; 2025 Third Rock Analytics. All rights reserved.
-      </p>
+    <footer class="footer">
+      <div id="map"></div>
+      <div class="footer__content">
+        <p class="footer__copyright">
+          &copy; 2025 Third Rock Analytics. All rights reserved.
+        </p>
+      </div>
     </footer>
 
     <!-- JavaScript -->
-    <script src="/js/main.js"></script>
+    <script src="./js/main.js"></script>
+    <script>
+      const map = new ol.Map({
+        target: "map",
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM(),
+          }),
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([-122.33, 47.6]), // Seattle example
+          zoom: 10,
+        }),
+      });
+    </script>
   </body>
 </html>

@@ -436,8 +436,18 @@ p:last-child {
    FOOTER COMPONENT
    ========================================================================== */
 .footer {
-  padding: var(--spacing-xl) 0;
+  padding: 0; /* Remove padding since map will be full-width */
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Create a container for just the copyright */
+.footer__content {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-md);
 }
 
 .footer__copyright {
