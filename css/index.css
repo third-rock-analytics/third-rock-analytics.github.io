@@ -297,7 +297,7 @@ p:last-child {
   flex-shrink: 0;
   width: 250px;
   height: auto;
-  border-radius: 20px;
+  padding: 10px;
   box-shadow: var(--color-shadow) 1px 1px 5px 1px;
 }
 
