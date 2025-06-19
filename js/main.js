@@ -97,9 +97,8 @@
     
     if (targetElement) {
       // Calculate how much space the fixed header takes up
-      // const headerHeight = elements.header ? elements.header.offsetHeight : 100;
-      const headerHeight = 100;
-      const extraPadding = 0; // Additional spacing for better visual separation
+      const headerHeight = elements.header ? elements.header.offsetHeight : 100;
+      const extraPadding = 20; // Additional spacing for better visual separation
       
       // Calculate final scroll position: element position minus header height minus padding
       const targetPosition = targetElement.offsetTop - headerHeight - extraPadding;
@@ -274,40 +273,32 @@
     });
 
     // ========================================================================
-    // DISABLE SCROLL WHEEL ZOOM
+    // DISABLE TOUCH INTERACTIONS FOR MOBILE
     // ========================================================================
-    // Manually disable scroll wheel zoom after map creation to prevent interference with page scrolling
+    // Disable touch interactions to prevent interference with page scrolling on mobile
     const interactions = heroMap.getInteractions(); // Get all map interactions
     interactions.forEach(function(interaction) {
-      // Check if this interaction is the mouse wheel zoom
+      // Remove mouse wheel zoom to prevent scroll interference
       if (interaction instanceof ol.interaction.MouseWheelZoom) {
-        heroMap.removeInteraction(interaction); // Remove it to disable scroll wheel zoom
+        heroMap.removeInteraction(interaction);
+      }
+      // Remove touch interactions that interfere with mobile scrolling
+      if (interaction instanceof ol.interaction.PinchZoom) {
+        heroMap.removeInteraction(interaction); // Disable pinch-to-zoom
+      }
+      if (interaction instanceof ol.interaction.DragPan) {
+        heroMap.removeInteraction(interaction); // Disable touch dragging
+      }
+      if (interaction instanceof ol.interaction.DoubleClickZoom) {
+        heroMap.removeInteraction(interaction); // Disable double-tap zoom
       }
     });
 
-    // ========================================================================
-    // MARKER LAYER SETUP
-    // ========================================================================
-    // Create marker layer for showing current location
-    const heroMarkerSource = new ol.source.Vector(); // Data source for markers
-    const heroMarkerLayer = new ol.layer.Vector({
-      source: heroMarkerSource,
-      // Style configuration for markers
-      style: new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 10, // Marker size in pixels
-          fill: new ol.style.Fill({ color: '#3a6f57' }), // Fill with brand green color
-          stroke: new ol.style.Stroke({ color: 'white', width: 3 }) // White border
-        })
-      })
-    });
-    heroMap.addLayer(heroMarkerLayer); // Add marker layer to map
+    // Map created without marker layer - clean visual presentation
+    // No marker layer needed since the tour itself shows the locations clearly
 
     let currentHeroLocationIndex = 0; // Track which location we're currently showing
 
-    // ========================================================================
-    // TILE PRELOADING FUNCTION
-    // ========================================================================
     /**
      * Simplified preloading - not as critical with zoom-based approach
      * With zoom-based transitions, tiles are mostly already cached
@@ -319,27 +310,17 @@
       console.log(`Preparing transition to ${location.name}`);
     }
 
-    // ========================================================================
-    // LOCATION TRANSITION FUNCTION
-    // ========================================================================
     /**
-     * Enhanced fly-to function with motion-sickness-friendly transitions
-     * Smoothly moves map to a new location with gentle animation
+     * Clean fly-to function with motion-sickness-friendly transitions
+     * Smoothly moves map to a new location with gentle animation - no markers
      * @param {Object} location - Location object with name, coords, zoom, description
      */
     function flyToHeroLocation(location) {
       const view = heroMap.getView(); // Get the map's view (camera)
       const coords = ol.proj.fromLonLat(location.coords); // Convert lat/lon to map projection
       
-      // Clear existing markers and add new marker for current location
-      heroMarkerSource.clear(); // Remove all existing markers
-      const marker = new ol.Feature({
-        geometry: new ol.geom.Point(coords), // Create point geometry at location
-        name: location.name // Store location name in marker
-      });
-      heroMarkerSource.addFeature(marker); // Add marker to map
-      
       // Execute very slow, gentle animation to prevent motion sickness
+      // No markers needed - the location is clear from the map imagery itself
       view.animate({
         center: coords,           // Target coordinates
         zoom: location.zoom,      // Target zoom level
@@ -364,28 +345,34 @@
     }
 
     // ========================================================================
-    // USER INTERACTION HANDLERS
+    // PREVENT TOUCH EVENTS ON MAP CONTAINER
     // ========================================================================
-    
-    // Handle user clicks on the map for exploration
-    heroMap.on('click', function(event) {
-      const coords = ol.proj.toLonLat(event.coordinate); // Convert click to lat/lon
+    // Add additional touch event prevention directly to the map container
+    const mapElement = document.getElementById('hero-map');
+    if (mapElement) {
+      // Prevent touch events from interfering with page scroll
+      mapElement.addEventListener('touchstart', function(e) {
+        e.preventDefault(); // Prevent default touch behavior
+      }, { passive: false }); // passive: false allows preventDefault to work
       
-      // Add a marker where user clicked for interactive exploration
-      heroMarkerSource.clear(); // Remove existing markers
-      const clickMarker = new ol.Feature({
-        geometry: new ol.geom.Point(event.coordinate) // Use map coordinates directly
+      mapElement.addEventListener('touchmove', function(e) {
+        e.preventDefault(); // Prevent touch scrolling/panning on map
+      }, { passive: false });
+      
+      mapElement.addEventListener('touchend', function(e) {
+        e.preventDefault(); // Prevent any touch end behaviors
+      }, { passive: false });
+      
+      // Also prevent mouse events for consistency
+      mapElement.addEventListener('mousedown', function(e) {
+        e.preventDefault(); // Prevent mouse dragging
       });
-      heroMarkerSource.addFeature(clickMarker);
-    });
-
-    // Change cursor on hover to indicate interactivity
-    heroMap.on('pointermove', function(event) {
-      // Check if mouse is over a clickable feature
-      const hit = heroMap.hasFeatureAtPixel(event.pixel);
-      // Change cursor style: pointer for features, crosshair for empty areas
-      heroMap.getTargetElement().style.cursor = hit ? 'pointer' : 'crosshair';
-    });
+      
+      // Set CSS to indicate the map is not interactive
+      mapElement.style.touchAction = 'none'; // CSS property to disable touch behaviors
+      mapElement.style.userSelect = 'none';  // Prevent text selection
+      mapElement.style.pointerEvents = 'none'; // Disable all pointer events
+    }
 
     // ========================================================================
     // MAP INITIALIZATION
@@ -397,9 +384,9 @@
     setTimeout(startHeroLocationCycle, 5000); // 5 seconds initial delay
 
     // ========================================================================
-    // KEYBOARD CONTROLS FOR POWER USERS
+    // KEYBOARD CONTROLS (DESKTOP ONLY)
     // ========================================================================
-    // Add keyboard navigation for advanced users
+    // Add keyboard navigation for advanced users (desktop only since mobile doesn't have easy keyboard access)
     document.addEventListener('keydown', function(event) {
       // Only respond to keyboard when focus is in the hero section
       if (event.target.closest('.hero')) {
