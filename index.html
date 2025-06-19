@@ -101,6 +101,7 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home" role="banner">
+      <div id="hero-map" class="hero__map"></div>
       <div class="hero__content container">
         <h1 class="hero__title">Your Data Has a Story.<br />Let's Map It.</h1>
         <p class="hero__subtitle">
@@ -255,7 +256,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <div id="map"></div>
+      <!-- You can keep a smaller map here or remove it since the hero now has the main map -->
       <div class="footer__content">
         <p class="footer__copyright">
           &copy; 2025 Third Rock Analytics. All rights reserved.
@@ -265,19 +266,5 @@
 
     <!-- JavaScript -->
     <script src="./js/main.js"></script>
-    <script>
-      const map = new ol.Map({
-        target: "map",
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM(),
-          }),
-        ],
-        view: new ol.View({
-          center: ol.proj.fromLonLat([-122.33, 47.6]), // Seattle example
-          zoom: 10,
-        }),
-      });
-    </script>
   </body>
 </html>

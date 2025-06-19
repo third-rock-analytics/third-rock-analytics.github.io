@@ -47,7 +47,7 @@
    BASE STYLES
    ========================================================================== */
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
   scroll-padding-top: 100px;
 }
 
@@ -187,25 +187,52 @@ p:last-child {
 }
 
 /* ==========================================================================
-   HERO COMPONENT
+   HERO COMPONENT WITH MAP BACKGROUND
    ========================================================================== */
 .hero {
   height: 100vh;
-  background-image: linear-gradient(var(--color-overlay), var(--color-overlay)),
-    url(/media/usgs-aerial.jpg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+
+.hero__map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Dark overlay for text readability */
+.hero__map::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(58, 111, 87, 0.3) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
 }
 
 .hero__content {
+  position: relative;
+  z-index: 3;
   padding-top: 100px;
   text-align: center;
   color: var(--color-text-light);
-  text-shadow: var(--color-text) 1px 1px 3px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  animation: fadeInUp 1s ease-out 0.5s both;
 }
 
 .hero__title {
@@ -213,6 +240,7 @@ p:last-child {
   font-weight: var(--fw-medium);
   font-size: 3rem;
   margin-bottom: var(--spacing-md);
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.9);
 }
 
 .hero__subtitle {
@@ -220,6 +248,61 @@ p:last-child {
   font-weight: var(--fw-light);
   font-size: 2rem;
   margin-bottom: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Fade in animation for hero content */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Style the map controls in hero */
+.hero__map .ol-control {
+  background-color: rgba(58, 111, 87, 0.9) !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.hero__map .ol-control button {
+  background-color: transparent !important;
+  color: white !important;
+  border: none !important;
+  font-size: 18px !important;
+  transition: all 0.2s ease !important;
+}
+
+.hero__map .ol-control button:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  transform: scale(1.1);
+}
+
+/* Position controls elegantly */
+.hero__map .ol-zoom {
+  top: 20px !important;
+  left: 20px !important;
+}
+
+.hero__map .ol-attribution {
+  bottom: 10px !important;
+  right: 10px !important;
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  color: white !important;
+  font-size: 11px !important;
+  border-radius: 6px !important;
+  backdrop-filter: blur(5px);
+  max-width: 200px !important;
+}
+
+.hero__map .ol-attribution a {
+  color: #f5f5f5 !important;
 }
 
 /* ==========================================================================
@@ -436,18 +519,16 @@ p:last-child {
    FOOTER COMPONENT
    ========================================================================== */
 .footer {
-  padding: 0; /* Remove padding since map will be full-width */
+  padding: var(--spacing-xl) 0;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  background-color: var(--color-bg-header);
+  border-top: 1px solid var(--color-border);
 }
 
-/* Create a container for just the copyright */
 .footer__content {
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: var(--spacing-xl) var(--spacing-md);
+  padding: 0 var(--spacing-md);
 }
 
 .footer__copyright {
@@ -502,7 +583,7 @@ p:last-child {
   }
 
   .hero {
-    min-height: 926px;
+    min-height: 100vh;
     padding: var(--spacing-xl) 0;
   }
 
@@ -512,6 +593,16 @@ p:last-child {
 
   .hero__subtitle {
     font-size: 1.25rem;
+  }
+
+  .hero__map .ol-zoom {
+    top: 15px !important;
+    left: 15px !important;
+  }
+
+  .hero__map .ol-attribution {
+    max-width: 150px !important;
+    font-size: 10px !important;
   }
 
   .section {
