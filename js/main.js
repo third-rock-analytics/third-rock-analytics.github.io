@@ -97,8 +97,9 @@
     
     if (targetElement) {
       // Calculate how much space the fixed header takes up
-      const headerHeight = elements.header ? elements.header.offsetHeight : 100;
-      const extraPadding = 20; // Additional spacing for better visual separation
+      // const headerHeight = elements.header ? elements.header.offsetHeight : 100;
+      const headerHeight = 100;
+      const extraPadding = 0; // Additional spacing for better visual separation
       
       // Calculate final scroll position: element position minus header height minus padding
       const targetPosition = targetElement.offsetTop - headerHeight - extraPadding;
@@ -324,7 +325,7 @@
       view.animate({
         center: coords,           // Target coordinates
         zoom: location.zoom,      // Target zoom level
-        duration: 8000,           // 8 seconds for very gentle movement
+        duration: 9000,           // 8 seconds for very gentle movement
         easing: ol.easing.easeInOut // Smooth acceleration/deceleration curve
       });
     }
@@ -341,7 +342,7 @@
         // Move to next location (with wraparound to beginning)
         currentHeroLocationIndex = (currentHeroLocationIndex + 1) % heroLocations.length;
         flyToHeroLocation(heroLocations[currentHeroLocationIndex]);
-      }, 12000); // 12 seconds between movements (8s animation + 4s pause)
+      }, 10000); // 12 seconds between movements (8s animation + 4s pause)
     }
 
     // ========================================================================
@@ -382,32 +383,6 @@
 
     // Start the automatic cycling with a delay to let users get oriented
     setTimeout(startHeroLocationCycle, 5000); // 5 seconds initial delay
-
-    // ========================================================================
-    // KEYBOARD CONTROLS (DESKTOP ONLY)
-    // ========================================================================
-    // Add keyboard navigation for advanced users (desktop only since mobile doesn't have easy keyboard access)
-    document.addEventListener('keydown', function(event) {
-      // Only respond to keyboard when focus is in the hero section
-      if (event.target.closest('.hero')) {
-        switch(event.key) {
-          case 'ArrowLeft':
-            // Go to previous location
-            currentHeroLocationIndex = (currentHeroLocationIndex - 1 + heroLocations.length) % heroLocations.length;
-            flyToHeroLocation(heroLocations[currentHeroLocationIndex]);
-            break;
-          case 'ArrowRight':
-            // Go to next location
-            currentHeroLocationIndex = (currentHeroLocationIndex + 1) % heroLocations.length;
-            flyToHeroLocation(heroLocations[currentHeroLocationIndex]);
-            break;
-          case ' ': // Spacebar
-            event.preventDefault(); // Prevent page scroll
-            // Could add pause/resume functionality here in the future
-            break;
-        }
-      }
-    });
 
     return heroMap; // Return the map instance for potential future use
   }
