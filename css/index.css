@@ -252,7 +252,7 @@ p:last-child {
 .hero__content {
   position: relative;
   z-index: 3;
-  padding-top: 100px;
+  padding-top: 250px;
   text-align: center;
   color: var(--color-text-light);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
@@ -567,8 +567,8 @@ p:last-child {
   .hero {
     /* Fixed height prevents jumping when mobile browser UI changes */
     height: 700px !important;
-    min-height: 600px;
-    max-height: 700px;
+    min-height: 500px;
+    max-height: 500px;
     /* Ensure the section doesn't resize with viewport changes */
     position: relative;
   }
