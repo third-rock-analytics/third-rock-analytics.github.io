@@ -98,7 +98,12 @@
     if (targetElement) {
       // Calculate how much space the fixed header takes up
       // const headerHeight = elements.header ? elements.header.offsetHeight : 100;
-      const headerHeight = 100;
+      var headerHeight = 100;
+      if (window.innerWidth < 650) {
+        headerHeight = 150;
+      } else {
+        headerHeight = 100;
+      }
       const extraPadding = 0; // Additional spacing for better visual separation
       
       // Calculate final scroll position: element position minus header height minus padding

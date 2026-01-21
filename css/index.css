@@ -137,7 +137,7 @@ p:last-child {
    ========================================================================== */
 .nav {
   height: 2rem;
-  min-width: 400px;
+  min-width: 500px;
 }
 
 .nav__list {
@@ -565,12 +565,18 @@ p:last-child {
   }
 
   .nav {
-    width: 100%;
+    width: 100vw;
+    padding-left: 5px;
+    padding-right: 5px;
     min-width: auto;
   }
 
   .nav__list {
     justify-content: space-around;
+  }
+
+  .nav__link {
+    font-size: 1.25rem;
   }
 
   .hero {
