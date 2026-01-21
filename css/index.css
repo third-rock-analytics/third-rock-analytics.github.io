@@ -107,6 +107,7 @@ p:last-child {
   padding: 25px;
   transition: var(--transition-normal);
   box-sizing: border-box;
+  border-bottom: solid 1px black;
 }
 
 .header.scrolled {
@@ -136,7 +137,7 @@ p:last-child {
    ========================================================================== */
 .nav {
   height: 2rem;
-  min-width: 250px;
+  min-width: 400px;
 }
 
 .nav__list {
@@ -193,7 +194,7 @@ p:last-child {
   height: 100vh; /* Initial height for desktop */
   min-height: 600px; /* Minimum height to ensure content is always visible */
   max-height: 800px; /* Maximum height to prevent overly tall sections on large screens */
-  background-image: url("../media/usgs-aerial.jpg");
+  background-image: url("../media/aerial-shot-rocky-cliffs-near-turquoise-seascape.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -252,7 +253,7 @@ p:last-child {
 .hero__content {
   position: relative;
   z-index: 3;
-  padding-top: 250px;
+  padding-top: 200px;
   text-align: center;
   color: var(--color-text-light);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
@@ -346,6 +347,7 @@ p:last-child {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xxl);
+  margin: 0 7% 0 7%;
 }
 
 .team-member {
@@ -362,13 +364,14 @@ p:last-child {
   flex-shrink: 0;
   width: 250px;
   height: auto;
-  padding: 10px;
-  box-shadow: var(--color-shadow) 1px 1px 5px 1px;
+  /* padding: 10px;
+  box-shadow: var(--color-shadow) 1px 1px 5px 1px; */
 }
 
 .team-member__content {
   flex: 1;
   max-width: 500px;
+  align-self: center;
 }
 
 .team-member__content--right {
@@ -519,6 +522,12 @@ p:last-child {
   margin: 0;
 }
 
+.footer__credit {
+  font-family: var(--font-roboto);
+  font-weight: var(--fw-light);
+  margin: 0;
+}
+
 /* ==========================================================================
    UTILITY CLASSES
    ========================================================================== */
@@ -571,6 +580,10 @@ p:last-child {
     max-height: 500px;
     /* Ensure the section doesn't resize with viewport changes */
     position: relative;
+  }
+
+  .hero__content {
+    padding-top: 250px;
   }
 
   .hero__title {
