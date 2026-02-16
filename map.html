@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/media/Favicon.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Third Rock Analytics - Map</title>
@@ -16,11 +18,24 @@
     <script src="https://unpkg.com/ol-mapbox-style@12.1.1/dist/olms.js"></script>
   </head>
   <body>
-    <header class="header-map">
-      <h1 class="header-map__title">Third Rock Analytics - Map</h1>
-      <a href="/index.html" class="back-link">← Back to Home</a>
+    <header id="map_header">
+      <div id="map_header__inner">
+        <img
+          id="map_header-logo"
+          src="/media/Color Logo_Text_No BG.png"
+          alt="Third Rock Analytics logo"
+        />
+
+        <nav id="map_nav" role="navigation" aria-label="Main navigation">
+          <ul id="map_nav__list">
+            <li class="map_nav__item">
+              <a href="/index.html" class="map_nav__link">Main Site</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
-    <div id="map" style="width: 100vw; height: 100vh"></div>
+    <div id="map"></div>
     <script src="./js/map.js"></script>
   </body>
 </html>
