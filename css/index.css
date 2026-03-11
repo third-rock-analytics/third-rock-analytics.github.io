@@ -364,8 +364,7 @@ p:last-child {
   flex-shrink: 0;
   width: 250px;
   height: auto;
-  /* padding: 10px;
-  box-shadow: var(--color-shadow) 1px 1px 5px 1px; */
+  border-radius: 10px;
 }
 
 .team-member__content {

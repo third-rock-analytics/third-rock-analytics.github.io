@@ -14,6 +14,8 @@ const map = new maplibregl.Map({
 
 map.getCanvas().style.cursor = "crosshair";
 
+map.addControl(new maplibregl.NavigationControl(), "top-right");
+
 const popup = new maplibregl.Popup({ closeOnClick: true }).setHTML(
   '<h3 class="popup-title">Third Rock Analytics</h3><p class="popup-content">TRA is headquartered in Tacoma, WA. We take projects from all over the country.</p>',
 );
