@@ -347,7 +347,8 @@ p:last-child {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xxl);
-  margin: 0 7% 0 7%;
+  margin: auto;
+  max-width: 750px;
 }
 
 .team-member {
@@ -362,9 +363,10 @@ p:last-child {
 
 .team-member__image {
   flex-shrink: 0;
-  width: 250px;
+  width: 350px;
   height: auto;
   border-radius: 10px;
+  margin: auto;
 }
 
 .team-member__content {
