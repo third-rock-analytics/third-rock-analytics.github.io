@@ -6,8 +6,8 @@ const bounds = [
 const map = new maplibregl.Map({
   // style: 'https://tiles.openfreemap.org/styles/liberty',
   style: "../json/basic.json",
-  center: [-98.5, 39.8],
-  zoom: 4,
+  center: [-122.4890, 47.2553],
+  zoom: 10,
   maxBounds: bounds,
   container: "map",
 });
@@ -19,6 +19,10 @@ const popup = new maplibregl.Popup({ closeOnClick: true }).setHTML(
 );
 
 const marker = new maplibregl.Marker({ color: "#FF5733" })
-  .setLngLat([-122.4659, 47.2587])
+  .setLngLat([-122.4890, 47.2553])
   .setPopup(popup)
   .addTo(map);
+
+map.on('load', () => {
+  marker.togglePopup();
+});

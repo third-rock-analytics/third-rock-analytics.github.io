@@ -177,3 +177,7 @@ p:last-child {
   margin-top: var(--spacing-sm);
   margin-bottom: 0;
 }
+
+.maplibregl-marker {
+  cursor: pointer;
+}
