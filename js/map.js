@@ -1,47 +1,22 @@
-const openfreemap = new ol.layer.Group();
+const bounds = [
+  [-130, 20], [-61.5, 53]
+];
 
-const container = document.getElementById("popup");
-const content = document.getElementById("popup-content");
-const closer = document.getElementById("popup-closer");
+const map = new maplibregl.Map({
+    // style: 'https://tiles.openfreemap.org/styles/liberty',
+    style: "../json/basic.json",
+    center: [-98.5, 39.8],
+    zoom: 4,
+    maxBounds: bounds,
+    container: 'map',
+  });
 
-const overlay = new ol.Overlay({
-  element: container,
-  autoPan: {
-    animation: {
-      duration: 250,
-    },
-  },
-});
-closer.onclick = function () {
-  overlay.setPosition(undefined);
-  closer.blur();
-  return false;
-};
+map.getCanvas().style.cursor = 'crosshair';
 
-const bbox = ol.proj.transformExtent(
-  [-130, 20, -61.5, 53],
-  "EPSG:4326",
-  "EPSG:3857",
-);
+const popup = new maplibregl.Popup({ closeOnClick: true })
+    .setHTML('<h3 class="popup-title">Third Rock Analytics</h3><p class="popup-content">TRA is headquartered in Tacoma, WA. We take projects from all over the country.</p>');
 
-const view = new ol.View({
-  center: ol.proj.fromLonLat([-98.5, 39.8]),
-  zoom: 4,
-  extent: bbox,
-});
-
-const map = new ol.Map({
-  layers: [openfreemap],
-  view: view,
-  overlays: [overlay],
-  target: "map",
-});
-olms.apply(openfreemap, "https://tiles.openfreemap.org/styles/bright");
-
-map.on("singleclick", function (evt) {
-  const coordinate = evt.coordinate;
-  const hdms = ol.coordinate.toStringHDMS(ol.proj.toLonLat(coordinate));
-
-  content.innerHTML = "<p>You clicked here:</p><code>" + hdms + "</code>";
-  overlay.setPosition(coordinate);
-});
+const marker = new maplibregl.Marker({ color: '#FF5733' })
+    .setLngLat([-122.4659, 47.2587])
+    .setPopup(popup)
+    .addTo(map);

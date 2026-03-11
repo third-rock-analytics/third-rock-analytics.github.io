@@ -218,3 +218,12 @@ p:last-child {
 .ol-popup-closer:after {
   content: "✖";
 }
+ .popup-title {
+  font-weight: var(--fw-bold);
+  font-size: large;
+ }
+
+ .popup-content {
+  margin-top: var(--spacing-sm);
+  margin-bottom: 0;
+ }

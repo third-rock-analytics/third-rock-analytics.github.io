@@ -194,7 +194,7 @@ p:last-child {
   height: 100vh; /* Initial height for desktop */
   min-height: 600px; /* Minimum height to ensure content is always visible */
   max-height: 800px; /* Maximum height to prevent overly tall sections on large screens */
-  background-image: url("../media/aerial-shot-rocky-cliffs-near-turquoise-seascape.jpg");
+  background-image: url("../media/aerial-shot-rocky-cliffs-near-turquoise-seascape.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
