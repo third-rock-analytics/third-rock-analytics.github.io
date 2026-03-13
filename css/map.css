@@ -164,9 +164,9 @@ p:last-child {
 
 #map {
   width: 100vw;
-  height: calc(100vh - 100px);
+  height: calc(100dvh - 100px);
   position: absolute;
-  bottom: 0;
+  top: 100px;
 }
 .popup-title {
   font-weight: var(--fw-bold);
