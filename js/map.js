@@ -3,9 +3,13 @@ const bounds = [
   [-61.5, 53],
 ];
 
+const basemaps = {
+  basic: "../json/basic.json",
+  outlines: "../json/outlines.json",
+}
+
 const map = new maplibregl.Map({
-  // style: 'https://tiles.openfreemap.org/styles/liberty',
-  style: "../json/basic.json",
+  style: basemaps.basic,
   center: [-122.4890, 47.2553],
   zoom: 10,
   maxBounds: bounds,
@@ -27,4 +31,14 @@ const marker = new maplibregl.Marker({ color: "#FF5733" })
 
 map.on('load', () => {
   marker.togglePopup();
+});
+
+document.getElementById('style-switcher').addEventListener('click', (event) => {
+    const styleId = event.target.id;
+    if (basemaps[styleId]) {
+        map.setStyle(basemaps[styleId]);
+        // Optional: Update active button styling
+        // removeActiveClass();
+        // event.target.classList.add('active');
+    }
 });

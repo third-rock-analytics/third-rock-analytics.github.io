@@ -181,3 +181,21 @@ p:last-child {
 .maplibregl-marker {
   cursor: pointer;
 }
+
+#style-switcher {
+  position: fixed;
+  top: 120px;
+  left: 20px;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-ctrl-group {
+  width: 75px !important;
+}
+
+.style-button {
+  width: 100% !important;
+  text-align: center !important;
+}
