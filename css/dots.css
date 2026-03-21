@@ -1,0 +1,19 @@
+:root {
+  --dot-color:   rgba(100, 100, 100, 0.15);
+  --dot-size:    1.5px;
+  --dot-spacing: 28px;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(
+    circle,
+    var(--dot-color) var(--dot-size),
+    transparent var(--dot-size)
+  );
+  background-size: var(--dot-spacing) var(--dot-spacing);
+  pointer-events: none;
+}
