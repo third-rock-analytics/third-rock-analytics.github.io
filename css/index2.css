@@ -19,19 +19,27 @@ html {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0);
+  background: transparent;
   backdrop-filter: none;
-  -webkit-backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.20);
   height: 150px;
-  transition: box-shadow var(--transition-base), background var(--transition-base), filter var(--transition-base), backdrop-filter var(--transition-base);
+  transition: box-shadow var(--transition-base), background var(--transition-base), backdrop-filter var(--transition-base);
   display: flex;
+}
+
+/* Invert logo and links to white when over the hero image */
+.site-header:not(.site-header--scrolled) .nav-logo-img {
+  filter: brightness(0) invert(1);
+}
+
+.site-header:not(.site-header--scrolled) .nav-link {
   filter: brightness(0) invert(1);
 }
 
 .site-header--scrolled {
-  filter: none;
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: var(--shadow-sm);
 }
@@ -79,14 +87,13 @@ html {
 .page-hero {
   position: relative;
   min-height: 100vh;
-  min-height: 100dvh; /* dynamic viewport height — accounts for iOS Safari chrome */
+  min-height: 100dvh; /* dynamic viewport — accounts for iOS Safari chrome */
   display: flex;
   align-items: center;
   background-image: url("../media/aerial-shot-rocky-cliffs-near-turquoise-seascape.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* Push content below the fixed header */
   padding-top: 150px;
   overflow: hidden;
 }
@@ -380,10 +387,9 @@ html {
 /* Mobile */
 @media (max-width: 768px) {
   html {
-    scroll-padding-top: 120px; /* taller stacked header */
+    scroll-padding-top: 120px;
   }
 
-  /* Stack header: logo on top, nav links centered below */
   .site-header {
     height: auto;
     flex-direction: column;
@@ -405,7 +411,6 @@ html {
     height: 72px;
   }
 
-  /* Show nav links as centered wrapping row, overriding third-rock.css hide */
   .site-header .nav-links {
     display: flex !important;
     flex-direction: row;
@@ -422,7 +427,7 @@ html {
 
   .page-hero {
     min-height: 100dvh;
-    padding-top: 110px; /* clear the stacked header */
+    padding-top: 110px;
   }
 
   .page-hero__title {
