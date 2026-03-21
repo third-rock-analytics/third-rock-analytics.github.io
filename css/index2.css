@@ -369,6 +369,11 @@ html {
     direction: ltr;
   }
 
+  .service-row__content {
+    align-items: center;
+    text-align: center;
+  }
+
   .service-row__media img {
     height: 260px;
   }
