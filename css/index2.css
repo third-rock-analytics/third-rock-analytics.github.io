@@ -374,8 +374,8 @@ html {
     text-align: center;
   }
 
-  .service-row__desc.align-right {
-    text-align: center;
+  .service-row__desc {
+    text-align: center !important;
   }
 
   .service-row__media img {
