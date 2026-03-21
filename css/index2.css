@@ -79,7 +79,7 @@ html {
 .page-hero {
   position: relative;
   min-height: 100vh;
-  min-height: 100svh; /* dynamic viewport height where supported */
+  min-height: 100dvh; /* dynamic viewport height — accounts for iOS Safari chrome */
   display: flex;
   align-items: center;
   background-image: url("../media/aerial-shot-rocky-cliffs-near-turquoise-seascape.webp");
@@ -87,7 +87,7 @@ html {
   background-position: center;
   background-repeat: no-repeat;
   /* Push content below the fixed header */
-  padding-top: 100px;
+  padding-top: 150px;
   overflow: hidden;
 }
 
@@ -356,17 +356,10 @@ html {
   .service-row {
     grid-template-columns: 1fr;
     gap: var(--space-8);
-    padding-left: var(--space-20);
-    padding-right: var(--space-20);
   }
 
   .service-row--reverse {
     direction: ltr;
-  }
-
-  .service-row__content {
-    align-items: center;
-    text-align: center;
   }
 
   .service-row__media img {
@@ -381,10 +374,6 @@ html {
   .team-card {
     grid-template-columns: 260px 1fr;
     gap: var(--space-8);
-  }
-
-  .service-row__desc.align-right {
-    text-align: center;
   }
 }
 
@@ -432,8 +421,8 @@ html {
   }
 
   .page-hero {
-    min-height: 100svh;
-    padding-top: 130px; /* clear the taller stacked header */
+    min-height: 100dvh;
+    padding-top: 110px; /* clear the stacked header */
   }
 
   .page-hero__title {
@@ -452,15 +441,6 @@ html {
 
   .services-list {
     gap: var(--space-16);
-  }
-
-  .service-row {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .service-row__desc {
-    width: 100%;
   }
 
   .service-row__media img {

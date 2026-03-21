@@ -69,7 +69,6 @@
               <li><a href="#about"    class="nav-link">About</a></li>
               <li><a href="#contact"  class="nav-link">Contact</a></li>
               <li><a href="/map.html" class="nav-link">Map</a></li>
-              <li><a href="/index.html" class="nav-link">Original Site</a></li>
             </ul>
           </nav>
 
@@ -414,10 +413,23 @@
     <!-- JavaScript -->
     <!-- <script src="./js/main.js"></script> -->
     <script>
+      // ── iOS Safari viewport fix ───────────────────────────────────────
+      // window.innerHeight excludes the browser chrome that 100vh includes.
+      // Setting --vh100 and --header-height as CSS vars lets the hero and
+      // scroll offset always match real rendered dimensions on any device.
+      function setViewportVars() {
+        document.documentElement.style.setProperty('--vh100', window.innerHeight + 'px');
+        const h = document.getElementById('header');
+        if (h) document.documentElement.style.setProperty('--header-height', h.offsetHeight + 'px');
+      }
+      setViewportVars();
+      window.addEventListener('resize', setViewportVars, { passive: true });
+
       // ── Header scroll shrink ──────────────────────────────────────────
       const header = document.getElementById('header');
       window.addEventListener('scroll', () => {
         header.classList.toggle('site-header--scrolled', window.scrollY > 40);
+        setViewportVars(); // re-measure after header shrinks/grows
       }, { passive: true });
 
       // ── Smooth scroll for all anchor links ───────────────────────────
