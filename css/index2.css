@@ -374,6 +374,10 @@ html {
     text-align: center;
   }
 
+  .service-row__desc.align-right {
+    text-align: center;
+  }
+
   .service-row__media img {
     height: 260px;
   }
