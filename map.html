@@ -1,46 +1,292 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/media/Favicon.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Third Rock Analytics - Map</title>
+    <title>Third Rock Analytics — Story Map</title>
 
-    <link rel="stylesheet" href="/css/reset.css" />
-    <link rel="stylesheet" href="/css/map.css" />
-    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
-    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+    <!-- SEO -->
+    <meta name="description" content="Explore Third Rock Analytics' GIS capabilities through an interactive story map — cartography, spatial analysis, and web mapping projects across the U.S." />
+    <meta name="author" content="Jeff Zivkovic" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/media/Favicon.png" />
+
+    <!-- Google Fonts — brand typefaces -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header id="map_header">
-      <div id="map_header__inner">
-        <img
-          id="map_header-logo"
-          src="/media/Color Logo_Text_No BG.png"
-          alt="Third Rock Analytics logo"
-        />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-        <nav id="map_nav" role="navigation" aria-label="Main navigation">
-          <ul id="map_nav__list">
-            <li class="map_nav__item">
-              <a href="/index.html" class="map_nav__link">Main Site</a>
-            </li>
+    <!-- MapLibre GL -->
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+
+    <!-- Brand base + page styles -->
+    <link rel="stylesheet" href="/css/third-rock.css" />
+    <link rel="stylesheet" href="/css/map.css" />
+  </head>
+
+  <body>
+
+    <!-- ── HEADER ─────────────────────────────────────────────────── -->
+    <header class="map-header" id="map-header">
+      <div class="map-header__inner">
+        <a href="/index.html" class="map-header__logo" aria-label="Third Rock Analytics home">
+          <img
+            class="map-header__logo-img"
+            src="/media/Color Logo_Text_No BG.png"
+            alt="Third Rock Analytics"
+          />
+        </a>
+        <nav role="navigation" aria-label="Map navigation">
+          <ul class="map-header__nav">
+            <li><a href="/index.html" class="map-header__link">Home</a></li>
+            <li><a href="/index.html#services" class="map-header__link">Services</a></li>
+            <li><a href="/index.html#contact" class="map-header__link">Contact</a></li>
           </ul>
         </nav>
       </div>
     </header>
-    <div id="map"></div>
-    <div id="style-switcher" class="maplibregl-ctrl maplibregl-ctrl-group custom-ctrl-group">
-      <button id="basic" class="style-button">Basic</button>
-      <button id="outlines" class="style-button">Outlines</button>
+
+    <!-- ── PROGRESS BAR (spans full header width) ─────────────────── -->
+    <div class="story-progress">
+      <div class="story-progress__bar" id="progress-bar"></div>
     </div>
-    <script src="./js/map.js"></script>
+
+    <!-- ── MAP CONTAINER ──────────────────────────────────────────── -->
+    <div id="map"></div>
+
+    <!-- ── STYLE SWITCHER ─────────────────────────────────────────── -->
+    <div id="style-switcher">
+      <button id="basic" class="style-btn active" aria-label="Basic map style">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16"/><path d="M16 6v16"/></svg>
+        <span>Basic</span>
+      </button>
+      <button id="outlines" class="style-btn" aria-label="Outlines map style">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        <span>Outlines</span>
+      </button>
+    </div>
+
+    <!-- ── STORY PANEL ────────────────────────────────────────────── -->
+    <aside id="story-panel" class="story-panel">
+      <div class="story-panel__scroll">
+
+        <!-- Chapter 0: Welcome -->
+        <section class="story-chapter active" data-chapter="0" data-lng="-122.4890" data-lat="47.2553" data-zoom="11" data-pitch="40" data-bearing="0">
+          <div class="story-chapter__eyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            <span>01 — Headquarters</span>
+          </div>
+          <h2 class="story-chapter__title">Tacoma, Washington</h2>
+          <div class="story-chapter__rule"></div>
+          <p class="story-chapter__body">
+            Third Rock Analytics is headquartered in Tacoma, WA. We build custom GIS solutions for environmental, land, and community projects — from raw data to publication-ready outputs and live web tools.
+          </p>
+          <div class="story-chapter__meta">
+            <div class="meta-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Tacoma, WA
+            </div>
+            <div class="meta-chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              Nationwide reach
+            </div>
+          </div>
+          <div class="story-chapter__hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+            Scroll to explore our work
+          </div>
+        </section>
+
+        <!-- Chapter 1: Cartography -->
+        <section class="story-chapter" data-chapter="1" data-lng="-121.7405" data-lat="46.8523" data-zoom="12" data-pitch="60" data-bearing="-30">
+          <div class="story-chapter__eyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            <span>02 — Cartography</span>
+          </div>
+          <h2 class="story-chapter__title">Mt. Rainier Watershed Mapping</h2>
+          <div class="story-chapter__rule"></div>
+          <p class="story-chapter__body">
+            Publication-ready cartographic products for a watershed conservation study in the Mt. Rainier corridor. We processed LiDAR-derived DEMs, delineated sub-basins, and produced a 36×48" poster-format map series for agency stakeholders.
+          </p>
+          <div class="story-chapter__stats">
+            <div class="stat-block">
+              <span class="stat-value">14</span>
+              <span class="stat-label">Map sheets</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">1m</span>
+              <span class="stat-label">DEM resolution</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">3</span>
+              <span class="stat-label">Agencies served</span>
+            </div>
+          </div>
+          <div class="story-chapter__tags">
+            <span class="tag">LiDAR</span>
+            <span class="tag">Hydrology</span>
+            <span class="tag">QGIS</span>
+            <span class="tag">Adobe Illustrator</span>
+          </div>
+        </section>
+
+        <!-- Chapter 2: Spatial Analysis -->
+        <section class="story-chapter" data-chapter="2" data-lng="-122.6765" data-lat="45.5231" data-zoom="11" data-pitch="30" data-bearing="15">
+          <div class="story-chapter__eyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
+            <span>03 — Spatial Analysis</span>
+          </div>
+          <h2 class="story-chapter__title">Portland Urban Heat Island Study</h2>
+          <div class="story-chapter__rule"></div>
+          <p class="story-chapter__body">
+            Thermal analysis of land surface temperatures across Portland metro using Landsat 8/9 imagery. We built a raster-based heat vulnerability index combining NDVI, impervious surface coverage, and census demographic data to identify priority cooling corridors.
+          </p>
+          <div class="story-chapter__stats">
+            <div class="stat-block">
+              <span class="stat-value">30m</span>
+              <span class="stat-label">Landsat resolution</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">847</span>
+              <span class="stat-label">Census tracts</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">5</span>
+              <span class="stat-label">Risk layers</span>
+            </div>
+          </div>
+          <div class="story-chapter__tags">
+            <span class="tag">Remote Sensing</span>
+            <span class="tag">Python</span>
+            <span class="tag">Rasterio</span>
+            <span class="tag">ArcGIS Pro</span>
+          </div>
+        </section>
+
+        <!-- Chapter 3: Web Mapping -->
+        <section class="story-chapter" data-chapter="3" data-lng="-117.1611" data-lat="46.7324" data-zoom="8" data-pitch="0" data-bearing="0">
+          <div class="story-chapter__eyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            <span>04 — Web Mapping</span>
+          </div>
+          <h2 class="story-chapter__title">Idaho Wildfire Risk Dashboard</h2>
+          <div class="story-chapter__rule"></div>
+          <p class="story-chapter__body">
+            An interactive web dashboard for a rural county emergency management office. Real-time fire weather data overlaid with structure locations, evacuation routes, and historical burn perimeters. Built with MapLibre GL and deployed as a lightweight static site.
+          </p>
+          <div class="story-chapter__stats">
+            <div class="stat-block">
+              <span class="stat-value">12k</span>
+              <span class="stat-label">Structures mapped</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">24/7</span>
+              <span class="stat-label">Live data feeds</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">&lt;2s</span>
+              <span class="stat-label">Load time</span>
+            </div>
+          </div>
+          <div class="story-chapter__tags">
+            <span class="tag">MapLibre GL</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">GeoJSON</span>
+            <span class="tag">PostGIS</span>
+          </div>
+        </section>
+
+        <!-- Chapter 4: Data & Automation -->
+        <section class="story-chapter" data-chapter="4" data-lng="-110.5885" data-lat="44.4280" data-zoom="9" data-pitch="50" data-bearing="-20">
+          <div class="story-chapter__eyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            <span>05 — Data Engineering</span>
+          </div>
+          <h2 class="story-chapter__title">Yellowstone Wildlife Telemetry Pipeline</h2>
+          <div class="story-chapter__rule"></div>
+          <p class="story-chapter__body">
+            Automated ETL pipeline ingesting GPS collar data from 200+ tagged ungulates across the Greater Yellowstone Ecosystem. We built spatial clustering analysis, migration corridor identification, and weekly automated report generation for park biologists.
+          </p>
+          <div class="story-chapter__stats">
+            <div class="stat-block">
+              <span class="stat-value">200+</span>
+              <span class="stat-label">GPS collars</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">3M</span>
+              <span class="stat-label">Data points/yr</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-value">52</span>
+              <span class="stat-label">Auto reports/yr</span>
+            </div>
+          </div>
+          <div class="story-chapter__tags">
+            <span class="tag">Python</span>
+            <span class="tag">PostGIS</span>
+            <span class="tag">Airflow</span>
+            <span class="tag">GeoPandas</span>
+          </div>
+        </section>
+
+        <!-- Chapter 5: CTA -->
+        <section class="story-chapter" data-chapter="5" data-lng="-100.0" data-lat="40.0" data-zoom="4" data-pitch="0" data-bearing="0">
+          <div class="story-chapter__eyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>06 — Let's Work Together</span>
+          </div>
+          <h2 class="story-chapter__title">Your Project, On the Map</h2>
+          <div class="story-chapter__rule"></div>
+          <p class="story-chapter__body">
+            Every project starts with a conversation. Whether you need a single publication map or a full-stack spatial platform, we'll scope it, build it, and deliver it — no cookie-cutter solutions.
+          </p>
+          <div class="story-chapter__cta">
+            <a href="/index.html#contact" class="btn btn-primary btn-lg">Get in touch</a>
+            <a href="/index.html#services" class="btn btn-ghost btn-lg">View services</a>
+          </div>
+        </section>
+
+        <!-- Bottom spacer -->
+        <div class="story-panel__spacer"></div>
+
+      </div>
+    </aside>
+
+    <!-- ── CHAPTER NAV DOTS ───────────────────────────────────────── -->
+    <nav id="chapter-dots" class="chapter-dots" aria-label="Chapter navigation">
+      <button class="dot active" data-target="0" aria-label="Chapter 1: Headquarters"><span class="dot-label">HQ</span></button>
+      <button class="dot" data-target="1" aria-label="Chapter 2: Cartography"><span class="dot-label">Carto</span></button>
+      <button class="dot" data-target="2" aria-label="Chapter 3: Analysis"><span class="dot-label">Analysis</span></button>
+      <button class="dot" data-target="3" aria-label="Chapter 4: Web"><span class="dot-label">Web</span></button>
+      <button class="dot" data-target="4" aria-label="Chapter 5: Data"><span class="dot-label">Data</span></button>
+      <button class="dot" data-target="5" aria-label="Chapter 6: Contact"><span class="dot-label">Contact</span></button>
+    </nav>
+
+    <!-- ── MOBILE FLOATING CARD (hidden on desktop) ─────────────────── -->
+    <div id="mobile-story" class="mobile-story">
+      <div class="mobile-story__card" id="mobile-card">
+        <div class="mobile-story__eyebrow" id="mobile-eyebrow"></div>
+        <h3 class="mobile-story__title" id="mobile-title"></h3>
+        <div class="mobile-story__rule"></div>
+        <p class="mobile-story__body" id="mobile-body"></p>
+        <div class="mobile-story__stats" id="mobile-stats"></div>
+        <div class="mobile-story__tags" id="mobile-tags"></div>
+        <div class="mobile-story__cta" id="mobile-cta"></div>
+      </div>
+      <div class="mobile-story__nav">
+        <button class="mobile-story__btn" id="mobile-prev" aria-label="Previous chapter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="mobile-story__pips" id="mobile-pips"></div>
+        <button class="mobile-story__btn" id="mobile-next" aria-label="Next chapter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── JAVASCRIPT ─────────────────────────────────────────────── -->
+    <script src="js/map-story.js"></script>
   </body>
 </html>
