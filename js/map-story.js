@@ -92,8 +92,53 @@ function addMarkers() {
   });
 }
 
+// ── MOJAVE GEOJSON OVERLAY ────────────────────────────────────────────────
+function addMojaveLayer() {
+  // Avoid double-adding if source already exists
+  if (map.getSource("mojave")) return;
+
+  map.addSource("mojave", {
+    type: "geojson",
+    data: "./json/mojave.geojson",
+  });
+
+  // Fill layer — starts fully transparent; fades in via setLayoutProperty/setPaintProperty
+  map.addLayer({
+    id: "mojave-fill",
+    type: "fill",
+    source: "mojave",
+    paint: {
+      "fill-color": "#F59E0B",   // amber — matches the Mojave marker
+      "fill-opacity": 0,
+      "fill-opacity-transition": { duration: 800, delay: 0 },
+    },
+  });
+
+  // Stroke layer
+  map.addLayer({
+    id: "mojave-outline",
+    type: "line",
+    source: "mojave",
+    paint: {
+      "line-color": "#FBBF24",
+      "line-width": 1.5,
+      "line-opacity": 0,
+      "line-opacity-transition": { duration: 800, delay: 0 },
+    },
+  });
+}
+
+function setMojaveVisibility(visible) {
+  if (!map.getLayer("mojave-fill")) return;
+  const fillOpacity = visible ? 0.18 : 0;
+  const lineOpacity = visible ? 0.7 : 0;
+  map.setPaintProperty("mojave-fill",    "fill-opacity", fillOpacity);
+  map.setPaintProperty("mojave-outline", "line-opacity", lineOpacity);
+}
+
 // Re-add markers when style changes (setStyle removes all markers/sources)
 map.on("load", addMarkers);
+map.on("load", addMojaveLayer);
 
 // ── STYLE SWITCHER ────────────────────────────────────────────────────────
 const styleSwitcher = document.getElementById("style-switcher");
@@ -114,9 +159,12 @@ styleSwitcher.addEventListener("click", (e) => {
   styleSwitcher.querySelectorAll(".style-btn").forEach((b) => b.classList.remove("active"));
   btn.classList.add("active");
 
-  // Re-add markers when new style loads
+  // Re-add markers + Mojave layer when new style loads
   map.once("styledata", () => {
     addMarkers();
+    addMojaveLayer();
+    // Restore Mojave visibility if we're on chapter 1
+    if (activeChapter === 1) setMojaveVisibility(true);
   });
 });
 
@@ -141,9 +189,9 @@ function flyToChapter(index) {
   // Stop any in-progress animation so we don't queue flights
   if (isFlying) map.stop();
 
-  // On mobile, the bottom of the map is covered by the floating card.
-  // Use map padding to shift the effective center upward into the
-  // visible area between the header and the card.
+  // Compute padding so the camera centers in the *visible* map area,
+  // not the full canvas.  On desktop the story panel covers the left side;
+  // on mobile the header and floating card eat top/bottom.
   let padding = { top: 0, bottom: 0, left: 0, right: 0 };
   if (window.innerWidth <= 768) {
     const mobileStoryEl = document.getElementById("mobile-story");
@@ -152,6 +200,11 @@ function flyToChapter(index) {
       const headerHeight = 72;
       padding = { top: headerHeight, bottom: cardHeight, left: 0, right: 0 };
     }
+  } else {
+    // Story panel sits on the left; offset the center into the open map area.
+    const panelEl = document.getElementById("story-panel");
+    const panelWidth = panelEl ? panelEl.offsetWidth : 0;
+    padding = { top: 0, bottom: 0, left: panelWidth, right: 0 };
   }
 
   isFlying = true;
@@ -170,6 +223,36 @@ function flyToChapter(index) {
   });
 }
 
+// ── CHAPTER-DRIVEN SIDE EFFECTS ───────────────────────────────────────────
+// Maps chapter index → marker id whose popup should be shown, or null
+const chapterPopupMap = {
+  0: "hq",
+  1: "mojave",
+};
+
+// Maps chapter index → whether the Mojave overlay should be visible
+const chapterMojaveVisible = {
+  1: true,
+};
+
+function applyChapterSideEffects(index) {
+  // ── Popups ──────────────────────────────────────────────────────────────
+  // Close all popups first, then open the one for this chapter (if any)
+  markers.forEach(({ popup }) => {
+    if (popup.isOpen()) popup.remove();
+  });
+
+  const popupTargetId = chapterPopupMap[index];
+  if (popupTargetId) {
+    const target = markers.find((m) => m.id === popupTargetId);
+    // Small delay so the popup appears after flyTo starts
+    if (target) setTimeout(() => target.marker.togglePopup(), 600);
+  }
+
+  // ── Mojave overlay ───────────────────────────────────────────────────────
+  setMojaveVisibility(!!chapterMojaveVisible[index]);
+}
+
 function setActiveChapter(index) {
   if (index === activeChapter) return;
   activeChapter = index;
@@ -186,6 +269,9 @@ function setActiveChapter(index) {
 
   // Fly the map
   flyToChapter(index);
+
+  // Popups + layer effects
+  applyChapterSideEffects(index);
 
   // Update progress
   const progress = ((index + 1) / chapters.length) * 100;
@@ -361,6 +447,9 @@ function setMobileChapter(index) {
   activeChapter = index;
   chapters.forEach((ch, i) => ch.classList.toggle("active", i === index));
   dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+
+  // Popups + layer effects
+  applyChapterSideEffects(index);
 }
 
 // Prev / Next buttons
@@ -406,12 +495,6 @@ mobileCard.addEventListener("touchend", (e) => {
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 map.on("load", () => {
-  // Show HQ popup on load
-  setTimeout(() => {
-    const hq = markers.find((m) => m.id === "hq");
-    if (hq) hq.marker.togglePopup();
-  }, 800);
-
   // Init mobile pips
   initMobilePips();
 
@@ -420,8 +503,10 @@ map.on("load", () => {
     populateMobileCard(0);
     activeChapter = 0;
     progressBar.style.width = `${(1 / chapters.length) * 100}%`;
+    // Trigger side effects for chapter 0 (opens HQ popup)
+    setTimeout(() => applyChapterSideEffects(0), 800);
   } else {
-    // Init scroll observer (will also set chapter 0 active)
+    // Init scroll observer (will also set chapter 0 active + open HQ popup)
     initScrollObserver();
   }
 });
