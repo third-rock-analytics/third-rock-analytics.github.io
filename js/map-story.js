@@ -54,32 +54,11 @@ const projects = [
     desc: "Headquartered in Tacoma, WA. We take projects from all over the country.",
   },
   {
-    id: "rainier",
-    lngLat: [-121.7405, 46.8523],
-    markerClass: "",
-    title: "Mt. Rainier Watershed Study",
-    desc: "LiDAR-derived cartographic products for watershed conservation across the Rainier corridor.",
-  },
-  {
-    id: "portland",
-    lngLat: [-122.6765, 45.5231],
-    markerClass: "custom-marker--teal",
-    title: "Portland Heat Island Analysis",
-    desc: "Landsat thermal analysis and heat vulnerability indexing across 847 census tracts.",
-  },
-  {
-    id: "idaho",
-    lngLat: [-117.1611, 46.7324],
-    markerClass: "custom-marker--violet",
-    title: "Idaho Wildfire Risk Dashboard",
-    desc: "Interactive web dashboard with live fire weather, evacuation routes, and burn perimeters.",
-  },
-  {
-    id: "yellowstone",
-    lngLat: [-110.5885, 44.428],
+    id: "mojave",
+    lngLat: [-117.2183, 34.4851],
     markerClass: "custom-marker--amber",
-    title: "Yellowstone Telemetry Pipeline",
-    desc: "Automated ETL pipeline for 200+ GPS-collared ungulates across the Greater Yellowstone Ecosystem.",
+    title: "Mojave Water Levels",
+    desc: "USGS-sourced live groundwater levels across the Mojave Desert, visualized in a custom dashboard.",
   },
 ];
 
