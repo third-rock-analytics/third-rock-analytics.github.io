@@ -237,16 +237,20 @@ const chapterMojaveVisible = {
 
 function applyChapterSideEffects(index) {
   // ── Popups ──────────────────────────────────────────────────────────────
-  // Close all popups first, then open the one for this chapter (if any)
+  // Always close any open popups first
   markers.forEach(({ popup }) => {
     if (popup.isOpen()) popup.remove();
   });
 
-  const popupTargetId = chapterPopupMap[index];
-  if (popupTargetId) {
-    const target = markers.find((m) => m.id === popupTargetId);
-    // Small delay so the popup appears after flyTo starts
-    if (target) setTimeout(() => target.marker.togglePopup(), 600);
+  // Only auto-open popups on desktop — on mobile the floating card
+  // already shows the chapter info, so popups just add clutter.
+  if (!isMobile()) {
+    const popupTargetId = chapterPopupMap[index];
+    if (popupTargetId) {
+      const target = markers.find((m) => m.id === popupTargetId);
+      // Small delay so the popup appears after flyTo starts
+      if (target) setTimeout(() => target.marker.togglePopup(), 600);
+    }
   }
 
   // ── Mojave overlay ───────────────────────────────────────────────────────
@@ -396,21 +400,9 @@ function populateMobileCard(index) {
   const bodyEl = ch.querySelector(".story-chapter__body");
   mobileBody.textContent = bodyEl ? bodyEl.textContent.trim() : "";
 
-  // Stats — clone them
-  const statsEl = ch.querySelector(".story-chapter__stats");
-  if (statsEl) {
-    mobileStats.innerHTML = statsEl.innerHTML;
-  } else {
-    mobileStats.innerHTML = "";
-  }
-
-  // Tags — clone them
-  const tagsEl = ch.querySelector(".story-chapter__tags");
-  if (tagsEl) {
-    mobileTags.innerHTML = tagsEl.innerHTML;
-  } else {
-    mobileTags.innerHTML = "";
-  }
+  // Stats & tags are hidden on mobile to keep the card compact
+  mobileStats.innerHTML = "";
+  mobileTags.innerHTML = "";
 
   // CTA — clone them
   const ctaEl = ch.querySelector(".story-chapter__cta");

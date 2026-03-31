@@ -760,6 +760,17 @@
   pointer-events: none;
 }
 
+.mobile-story__btn:focus,
+.mobile-story__btn:focus-visible {
+  outline: none;
+}
+
+.mobile-story__btn:active {
+  background: rgba(14, 165, 233, 0.12);
+  border-color: rgba(14, 165, 233, 0.25);
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .mobile-story__pips {
   display: flex;
   align-items: center;
