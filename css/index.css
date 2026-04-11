@@ -15,6 +15,11 @@ html {
    Extends .nav from third-rock.css with a taller initial state and
    smooth shrink-on-scroll behaviour driven by JS adding .site-header--scrolled
 */
+#header-container {
+  max-width: 1800px;
+}
+
+
 .site-header {
   position: fixed;
   top: 0; left: 0; right: 0;
