@@ -1,0 +1,441 @@
+/* ==========================================================================
+   Third Rock — additions.css
+   New page-level styles for: image-led service cards, About / Team section,
+   and the Field notes "coming soon" state.
+   ========================================================================== */
+
+/* ── SERVICES (image-led) ─────────────────────────────────────────── */
+
+.srv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.srv-card {
+  background: #fff;
+  border: 1px solid var(--color-stone-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition-base);
+}
+.srv-card:hover { border-color: var(--color-stone); }
+
+.srv-card__image {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--color-sand);
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-stone-soft);
+}
+.srv-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out-soft);
+}
+.srv-card:hover .srv-card__image img { transform: scale(1.035); }
+
+.srv-card__num {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  background: var(--color-cream);
+  color: var(--color-sun-deep);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  padding: 4px 8px;
+  border-radius: var(--radius-xs);
+  box-shadow: 0 1px 2px rgba(31, 26, 20, 0.06);
+}
+
+.srv-card__body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+.srv-card__body h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  font-variation-settings: 'opsz' 24;
+  letter-spacing: -0.015em;
+  color: var(--fg-1);
+  text-wrap: balance;
+}
+.srv-card__body p {
+  color: var(--fg-3);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+.srv-card__delivers {
+  margin-top: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-stone-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--fg-3);
+  letter-spacing: 0.04em;
+  display: flex; gap: var(--space-2); align-items: baseline;
+  flex-wrap: wrap;
+}
+.srv-card__delivers b {
+  color: var(--fg-1);
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-size: var(--text-2xs);
+}
+
+@media (max-width: 980px) {
+  .srv-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .srv-grid { grid-template-columns: 1fr; }
+}
+
+/* ── ABOUT / TEAM ─────────────────────────────────────────────────── */
+
+.about {
+  background: var(--color-sand);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: var(--space-16);
+  align-items: start;
+}
+
+.about-intro h2 {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-3xl), 4vw, var(--text-4xl));
+  font-variation-settings: 'opsz' 56;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--fg-1);
+  margin-bottom: var(--space-5);
+  text-wrap: balance;
+}
+.about-intro h2 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-earth-deep);
+  font-variation-settings: 'opsz' 56;
+  letter-spacing: -0.015em;
+}
+.about-intro .lead { max-width: 44ch; margin-bottom: var(--space-6); }
+
+.about-tag {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-xl);
+  font-variation-settings: 'opsz' 32;
+  color: var(--color-earth-deep);
+  line-height: 1.35;
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-sun);
+  max-width: 32ch;
+}
+
+.about-people {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.person {
+  background: #fff;
+  border: 1px solid var(--color-stone-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  transition: border-color var(--transition-base);
+}
+.person:hover { border-color: var(--color-stone); }
+.person-photo {
+  background: var(--color-sand);
+  position: relative;
+  min-height: 240px;
+}
+.person-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.person--luna .person-photo {
+  background: var(--color-earth-tint);
+}
+.person-body {
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  justify-content: center;
+}
+.person-role {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-sun-deep);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.person-body h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  font-variation-settings: 'opsz' 32;
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+}
+.person-body p {
+  color: var(--fg-2);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  margin: 0;
+}
+.person-coord {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-stone-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--fg-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.person-coord b {
+  color: var(--color-sun-deep);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  margin-right: 4px;
+}
+
+@media (max-width: 980px) {
+  .about-grid { grid-template-columns: 1fr; gap: var(--space-10); }
+  .about-intro h2 { max-width: 18ch; }
+}
+@media (max-width: 640px) {
+  .person { grid-template-columns: 1fr; }
+  .person-photo { min-height: 220px; aspect-ratio: 4 / 3; }
+}
+
+/* ── BLOG (coming soon) ───────────────────────────────────────────── */
+
+.notes-hero {
+  padding: var(--space-24) 0 var(--space-12);
+  border-bottom: 1px solid var(--color-stone-soft);
+}
+.notes-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-4xl), 5.5vw, var(--text-5xl));
+  font-weight: 600;
+  font-variation-settings: 'opsz' 72;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  color: var(--fg-1);
+  max-width: 16ch;
+  margin-bottom: var(--space-5);
+  text-wrap: balance;
+}
+.notes-hero h1 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-earth-deep);
+  font-variation-settings: 'opsz' 72;
+  letter-spacing: -0.015em;
+}
+.notes-hero .lead { max-width: 56ch; }
+
+.notes-body {
+  padding: var(--space-16) 0 var(--space-24);
+}
+
+.coming-soon {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--space-12);
+  align-items: stretch;
+}
+
+.cs-card {
+  background: #fff;
+  border: 1px solid var(--color-stone-soft);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12) var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.cs-card__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-sun-deep);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cs-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-sun);
+  position: relative;
+}
+.cs-dot::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid var(--color-sun);
+  opacity: 0.6;
+  animation: pulse-dot 2.4s var(--ease-out-soft) infinite;
+}
+@keyframes pulse-dot {
+  0%   { transform: scale(0.6); opacity: 0.7; }
+  70%  { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.cs-card h2 {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-2xl), 3.4vw, var(--text-4xl));
+  font-weight: 600;
+  font-variation-settings: 'opsz' 56;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--fg-1);
+  text-wrap: balance;
+}
+.cs-card h2 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-earth-deep);
+  font-variation-settings: 'opsz' 56;
+  letter-spacing: -0.015em;
+}
+.cs-card p {
+  color: var(--fg-2);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  max-width: 60ch;
+}
+
+.cs-divider {
+  height: 1px;
+  background: var(--color-stone-soft);
+  margin: var(--space-2) 0;
+}
+
+.cs-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+.cs-meta__item b {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--color-sun-deep);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.cs-meta__item span {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  color: var(--fg-1);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+.cs-side {
+  background: var(--color-loam);
+  color: var(--fg-on-dark);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+.cs-side::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 80% 30%,
+              rgba(212, 160, 58, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cs-side > * { position: relative; }
+.cs-side__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-sun-soft);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.cs-side h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  font-variation-settings: 'opsz' 36;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.15;
+}
+.cs-side ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+}
+.cs-side li {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: var(--space-3);
+  font-size: var(--text-base);
+  color: rgba(246, 241, 231, 0.85);
+  line-height: 1.55;
+}
+.cs-side li b {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-sun-soft);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  padding-top: 3px;
+}
+
+.cs-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .coming-soon { grid-template-columns: 1fr; }
+  .cs-card { padding: var(--space-8); }
+}

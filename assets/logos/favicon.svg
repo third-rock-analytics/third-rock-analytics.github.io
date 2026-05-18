@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+
+<svg width="75" height="75" viewBox="0 0 19.843749 19.843749" version="1.1" id="svg1" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <namedview id="namedview1" pagecolor="#505050" bordercolor="#eeeeee" borderopacity="1" showgrid="true">
+    <grid id="grid1" units="px" originx="-2.645833" originy="-3.96875" spacingx="0.26458332" spacingy="0.26458333" empcolor="#0099e5" empopacity="0.30196078" color="#0099e5" opacity="0.14901961" empspacing="5" enabled="true" visible="true"></grid>
+  </namedview>
+  <defs id="defs1">
+    <rect x="84" y="188" width="316.5" height="59" id="rect121"></rect>
+    <clipPath clipPathUnits="userSpaceOnUse" id="clipPath119">
+      <path style="fill:#3f6288;stroke-width:0.28348" d="m 105.83333,30.427082 a 9.9218749,9.9218749 0 0 1 -9.921878,9.921875 9.9218749,9.9218749 0 0 1 -9.921875,-9.921875 9.9218749,9.9218749 0 0 1 9.921875,-9.921875 9.9218749,9.9218749 0 0 1 9.921878,9.921875 z" id="path119"></path>
+    </clipPath>
+  </defs>
+  <g id="layer1" transform="translate(-2.645833,-3.96875)">
+    <path style="opacity:1;fill:#3f6288;stroke-width:0.283481" d="m 22.489586,13.890626 a 9.921875,9.921875 0 0 1 -9.92188,9.921875 9.921875,9.921875 0 0 1 -9.92187,-9.921875 9.921875,9.921875 0 0 1 9.92187,-9.9218756 9.921875,9.921875 0 0 1 9.92188,9.9218756 z" id="path4"></path>
+    <path d="M -9.9156991,1.3213136 V 80.69631 M 16.542633,1.3213136 V 80.69631 M 43.000965,1.3213136 V 80.69631 M 69.459297,1.3213136 V 80.69631 M 95.917631,1.3213136 V 80.69631 M 122.37596,1.3213136 V 80.69631 M -9.9156991,1.3213136 H 122.37596 M -9.9156991,7.1421466 H 122.37596 M -9.9156991,12.96298 H 122.37596 M -9.9156991,18.783813 H 122.37596 M -9.9156991,24.604646 H 122.37596 M -9.9156991,30.425479 H 122.37596 M -9.9156991,36.246312 H 122.37596 M -9.9156991,42.067145 H 122.37596 M -9.9156991,47.887978 H 122.37596 M -9.9156991,53.708811 H 122.37596 M -9.9156991,59.529644 H 122.37596 M -9.9156991,65.350477 H 122.37596 M -9.9156991,71.17131 H 122.37596 M -9.9156991,76.992144 H 122.37596" style="opacity:1;fill:none;stroke:#5b768f;stroke-width:0.396875;stroke-dasharray:none;stroke-opacity:1" id="path118" clip-path="url(#clipPath119)" transform="translate(-83.343744,-16.536457)"></path>
+    <ellipse style="opacity:1;fill:none;fill-opacity:1;stroke:#5b768f;stroke-width:0.408764;stroke-dasharray:none;stroke-opacity:1" id="path120" cx="12.567711" cy="13.890625" rx="4.4258256" ry="9.7174921"></ellipse>
+    <ellipse style="opacity:1;fill:none;fill-opacity:1;stroke:#5b768f;stroke-width:0.481061;stroke-dasharray:none;stroke-opacity:1" id="path121" cx="12.567711" cy="13.890625" rx="0.42092806" ry="0.42092803"></ellipse>
+  </g>
+</svg>

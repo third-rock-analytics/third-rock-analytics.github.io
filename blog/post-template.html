@@ -1,0 +1,597 @@
+<!doctype html>
+<!--
+  FIELD NOTES — POST TEMPLATE
+  ───────────────────────────
+  To create a new post:
+    1. Copy this file to blog/YYYY-MM-slug.html
+    2. Fill in the <head> meta, post-header, and post-body content
+    3. Delete any example content blocks you don't need
+    4. Link from blog/index.html when ready to publish
+
+  This file is intentionally not linked from any page.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- ── EDIT THESE ───────────────────────────────────────────────── -->
+  <title>Post title — Field notes — Third Rock Analytics</title>
+  <meta name="description" content="One or two sentences describing this post for search engines and link previews.">
+  <meta property="og:title"       content="Post title — Third Rock Analytics">
+  <meta property="og:description" content="One or two sentences.">
+  <meta property="og:image"       content="https://thirdrockanalytics.com/assets/photos/HERO-IMAGE.webp">
+  <meta property="og:url"         content="https://thirdrockanalytics.com/blog/YYYY-MM-slug.html">
+  <meta property="og:type"        content="article">
+  <!-- ── END EDIT ─────────────────────────────────────────────────── -->
+
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/colors_and_type.css">
+  <link rel="stylesheet" href="/site.css">
+  <link rel="stylesheet" href="/additions.css">
+
+  <style>
+    /* ── POST LAYOUT ──────────────────────────────────────────────── */
+    .post-header {
+      padding: var(--space-24) 0 var(--space-12);
+      border-bottom: 1px solid var(--color-stone-soft);
+    }
+    .post-header .page { max-width: 760px; }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+    .post-date {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--fg-3);
+      letter-spacing: 0.06em;
+    }
+    .post-header h1 {
+      font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+      font-weight: 600;
+      font-variation-settings: 'opsz' 72;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      color: var(--fg-1);
+      margin-bottom: var(--space-5);
+      text-wrap: balance;
+    }
+    .post-header .lead { max-width: 56ch; margin-bottom: var(--space-6); }
+    .post-byline {
+      display: flex;
+      gap: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--fg-3);
+      letter-spacing: 0.06em;
+    }
+    .post-byline span + span::before { content: '·'; margin-right: var(--space-3); }
+
+    /* Optional full-width hero image below the header */
+    .post-hero-img {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+    .post-hero-caption {
+      max-width: 760px;
+      margin: var(--space-3) auto 0;
+      padding: 0 var(--space-6);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--fg-3);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── ARTICLE BODY ─────────────────────────────────────────────── */
+    .post-body {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: var(--space-16) var(--space-6) var(--space-24);
+    }
+
+    .post-body h2 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      font-variation-settings: 'opsz' 36;
+      letter-spacing: -0.02em;
+      color: var(--fg-1);
+      margin-top: var(--space-16);
+      margin-bottom: var(--space-4);
+    }
+    .post-body h3 {
+      font-size: var(--text-xl);
+      font-weight: 600;
+      font-variation-settings: 'opsz' 24;
+      letter-spacing: -0.015em;
+      color: var(--fg-1);
+      margin-top: var(--space-10);
+      margin-bottom: var(--space-3);
+    }
+    .post-body p {
+      font-size: var(--text-md);
+      line-height: 1.72;
+      color: var(--fg-2);
+      margin-bottom: var(--space-5);
+      max-width: 65ch;
+    }
+    .post-body a {
+      color: var(--color-earth);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.18em;
+    }
+    .post-body a:hover { color: var(--color-earth-deep); }
+
+    /* Inline code */
+    .post-body code {
+      font-family: var(--font-mono);
+      font-size: 0.875em;
+      background: var(--color-sand);
+      color: var(--color-rust);
+      padding: 1px 5px;
+      border-radius: var(--radius-xs);
+    }
+
+    /* Code blocks */
+    .post-body pre {
+      background: var(--color-loam);
+      border-radius: var(--radius-md);
+      padding: var(--space-6) var(--space-7);
+      overflow-x: auto;
+      margin: var(--space-8) 0;
+      position: relative;
+    }
+    .post-body pre code {
+      background: none;
+      padding: 0;
+      color: rgba(246, 241, 231, 0.88);
+      font-size: var(--text-sm);
+      line-height: 1.65;
+      border-radius: 0;
+    }
+    /* Language label — add data-lang="python" to <pre> */
+    .post-body pre[data-lang]::before {
+      content: attr(data-lang);
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-2xs);
+      color: var(--color-sun-soft);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Images */
+    .post-body figure {
+      margin: var(--space-10) 0;
+    }
+    .post-body figure img {
+      width: 100%;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-stone-soft);
+      display: block;
+    }
+    .post-body figcaption {
+      margin-top: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--fg-3);
+      letter-spacing: 0.04em;
+      line-height: 1.55;
+    }
+    /* Side-by-side image pair */
+    .post-body .img-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      margin: var(--space-10) 0;
+    }
+    .post-body .img-pair figure { margin: 0; }
+    @media (max-width: 640px) { .post-body .img-pair { grid-template-columns: 1fr; } }
+
+    /* Pull quote / blockquote */
+    .post-body blockquote {
+      border-left: 2px solid var(--color-sun);
+      padding: var(--space-1) 0 var(--space-1) var(--space-6);
+      margin: var(--space-10) 0;
+    }
+    .post-body blockquote p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--text-xl);
+      font-variation-settings: 'opsz' 32;
+      color: var(--color-earth-deep);
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      margin-bottom: 0;
+      max-width: 52ch;
+    }
+
+    /* Lists */
+    .post-body ul, .post-body ol {
+      margin-bottom: var(--space-5);
+      padding-left: var(--space-6);
+    }
+    .post-body ul { list-style: disc; }
+    .post-body ol { list-style: decimal; }
+    .post-body li {
+      font-size: var(--text-md);
+      line-height: 1.65;
+      color: var(--fg-2);
+      margin-bottom: var(--space-2);
+    }
+
+    /* Callout boxes */
+    .callout {
+      border-radius: var(--radius-md);
+      padding: var(--space-5) var(--space-6);
+      margin: var(--space-8) 0;
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
+    }
+    .callout p { margin-bottom: 0; font-size: var(--text-base); }
+    .callout__icon {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding-top: 3px;
+    }
+    .callout--note   { background: var(--color-earth-wash); }
+    .callout--note   .callout__icon { color: var(--color-earth-deep); }
+    .callout--note   p { color: var(--color-earth-deep); }
+    .callout--tip    { background: var(--color-sun-wash); }
+    .callout--tip    .callout__icon { color: var(--color-sun-deep); }
+    .callout--tip    p { color: var(--color-sun-deep); }
+    .callout--warn   { background: var(--color-rust-soft); }
+    .callout--warn   .callout__icon { color: var(--color-rust); }
+    .callout--warn   p { color: var(--color-rust); }
+
+    /* Data table */
+    .post-body table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      margin: var(--space-8) 0;
+    }
+    .post-body th {
+      text-align: left;
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-sand);
+      color: var(--fg-1);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--color-stone);
+    }
+    .post-body td {
+      padding: var(--space-2) var(--space-4);
+      color: var(--fg-2);
+      border-bottom: 1px solid var(--color-stone-soft);
+    }
+    .post-body tr:last-child td { border-bottom: none; }
+
+    /* Section divider */
+    .post-divider {
+      border: none;
+      border-top: 1px solid var(--color-stone-soft);
+      margin: var(--space-12) 0;
+    }
+
+    /* Post footer nav */
+    .post-footer-nav {
+      border-top: 1px solid var(--color-stone-soft);
+      padding: var(--space-10) 0 var(--space-16);
+    }
+    .post-footer-nav .page {
+      max-width: 760px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+    .post-footer-nav a {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-earth);
+      text-decoration: none;
+    }
+    .post-footer-nav a:hover { color: var(--color-earth-deep); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Third Rock Analytics home">
+        <img src="/assets/logos/color-logo-text-no-bg-compressed.png" alt="Third Rock Analytics">
+      </a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="/#services" class="nav-link">Services</a></li>
+        <li><a href="/#about"    class="nav-link">About</a></li>
+        <li><a href="/blog/"     class="nav-link active">Field notes</a></li>
+        <li><a href="/map.html"  class="nav-link">Project map</a></li>
+      </ul>
+      <a href="/#contact" class="nav-cta">Get in touch <span aria-hidden="true">→</span></a>
+      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- POST HEADER ─ edit title, date, lede, reading time -->
+  <header class="post-header">
+    <div class="page">
+      <div class="post-meta">
+        <span class="eyebrow">Field notes</span>
+        <span class="post-date">Month YYYY</span>
+      </div>
+      <h1>Post title goes here</h1>
+      <p class="lead">
+        A sentence or two that sets up the post. What problem does it address,
+        and why does it matter? Keep it honest and specific.
+      </p>
+      <div class="post-byline">
+        <span>Jeff Zivkovic</span>
+        <span>X min read</span>
+      </div>
+    </div>
+  </header>
+
+  <!--
+    OPTIONAL: Full-width hero image. Delete if not needed.
+    Replace the src and alt. The caption below the image is also optional.
+  -->
+  <img class="post-hero-img" src="/assets/photos/REPLACE-ME.webp" alt="Describe the image for screen readers.">
+  <p class="post-hero-caption">Caption text, data source, or credit line. Optional.</p>
+
+
+  <!-- ARTICLE BODY -->
+  <article>
+    <div class="post-body">
+
+      <!--
+        ══════════════════════════════════════════════════════════════
+        CONTENT BLOCKS — delete what you don't need, copy what you do
+        ══════════════════════════════════════════════════════════════
+      -->
+
+      <!-- PARAGRAPHS ─────────────────────────────────────────────── -->
+      <p>
+        Opening paragraph. Get to the point quickly. What happened, what broke,
+        what you figured out. The reader came here for a specific answer, not
+        background.
+      </p>
+      <p>
+        Second paragraph. You can link to external sources like
+        <a href="#">USGS data pages</a> or documentation inline.
+        Inline <code>code()</code> looks like this.
+      </p>
+
+
+      <!-- SECTION HEADING ────────────────────────────────────────── -->
+      <h2>A meaningful section heading</h2>
+      <p>
+        Section body text. Break long posts into sections. Keep headings
+        descriptive, not clever.
+      </p>
+
+      <h3>A sub-section if needed</h3>
+      <p>Sub-section body.</p>
+
+
+      <!-- IMAGE WITH CAPTION ─────────────────────────────────────── -->
+      <figure>
+        <img src="/assets/photos/REPLACE-ME.webp" alt="Describe what is shown in the image.">
+        <figcaption>
+          Figure 1. Caption describing what the map or screenshot shows.
+          Include data source if applicable: NAIP 2022, USGS 3DEP, etc.
+        </figcaption>
+      </figure>
+
+
+      <!-- SIDE-BY-SIDE IMAGE PAIR (before / after, compare two maps) -->
+      <div class="img-pair">
+        <figure>
+          <img src="/assets/photos/REPLACE-ME.webp" alt="Before.">
+          <figcaption>Before — describe what changed.</figcaption>
+        </figure>
+        <figure>
+          <img src="/assets/photos/REPLACE-ME.webp" alt="After.">
+          <figcaption>After — result of the change.</figcaption>
+        </figure>
+      </div>
+
+
+      <!-- CODE BLOCK ─────────────────────────────────────────────── -->
+      <!-- Add data-lang="python" | "javascript" | "sql" | "bash" | "qgis" -->
+      <pre data-lang="python"><code>import geopandas as gpd
+
+# Load the parcel shapefile
+parcels = gpd.read_file("parcels.shp")
+
+# Reproject to UTM Zone 11N
+parcels = parcels.to_crs(epsg=32611)
+
+print(f"CRS: {parcels.crs}")
+print(f"Features: {len(parcels)}")</code></pre>
+
+
+      <!-- BLOCKQUOTE / PULL QUOTE ─────────────────────────────────── -->
+      <blockquote>
+        <p>
+          A key finding, a surprising result, or a line worth calling out.
+          Use sparingly.
+        </p>
+      </blockquote>
+
+
+      <!-- LISTS ──────────────────────────────────────────────────── -->
+      <ul>
+        <li>First item in an unordered list</li>
+        <li>Second item</li>
+        <li>Third item, with an inline <code>value</code> if needed</li>
+      </ul>
+
+      <ol>
+        <li>Step one of a numbered process</li>
+        <li>Step two</li>
+        <li>Step three</li>
+      </ol>
+
+
+      <!-- CALLOUT BOXES ──────────────────────────────────────────── -->
+      <!-- Types: callout--note  callout--tip  callout--warn -->
+
+      <div class="callout callout--note">
+        <span class="callout__icon">Note</span>
+        <p>
+          A clarification, caveat, or context the reader needs before continuing.
+        </p>
+      </div>
+
+      <div class="callout callout--tip">
+        <span class="callout__icon">Tip</span>
+        <p>
+          A shortcut, tool, or approach that saved time on this problem.
+        </p>
+      </div>
+
+      <div class="callout callout--warn">
+        <span class="callout__icon">Watch out</span>
+        <p>
+          A common mistake, gotcha, or thing that will silently produce wrong results.
+        </p>
+      </div>
+
+
+      <!-- DATA TABLE ─────────────────────────────────────────────── -->
+      <table>
+        <thead>
+          <tr>
+            <th>Column A</th>
+            <th>Column B</th>
+            <th>Column C</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>EPSG:4326</td>
+            <td>WGS 84</td>
+            <td>Geographic</td>
+          </tr>
+          <tr>
+            <td>EPSG:32611</td>
+            <td>UTM Zone 11N</td>
+            <td>Projected</td>
+          </tr>
+          <tr>
+            <td>EPSG:3857</td>
+            <td>Web Mercator</td>
+            <td>Projected</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <!-- SECTION DIVIDER ────────────────────────────────────────── -->
+      <hr class="post-divider">
+
+
+      <!-- CLOSING PARAGRAPH ──────────────────────────────────────── -->
+      <p>
+        Closing thought. What to take away, what's still open, what you'd
+        do differently next time.
+      </p>
+
+    </div><!-- /post-body -->
+  </article>
+
+
+  <!-- POST FOOTER NAV -->
+  <nav class="post-footer-nav" aria-label="Post navigation">
+    <div class="page">
+      <a href="/blog/">← All field notes</a>
+      <!-- Optional: link to next/prev post once more posts exist -->
+      <!-- <a href="/blog/next-post.html">Next post →</a> -->
+    </div>
+  </nav>
+
+
+  <!-- SITE FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/assets/logos/color-logo-text-no-bg-compressed.png" alt="Third Rock Analytics">
+        <p class="footer-tagline">
+          GIS, mapping, and spatial analysis for environmental, land, and community projects.
+          Based in Tacoma, WA.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="/#services" class="footer-link">Cartography</a>
+        <a href="/#services" class="footer-link">Spatial analysis</a>
+        <a href="/#services" class="footer-link">Web mapping</a>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <a href="/#about"    class="footer-link">About</a>
+        <a href="/blog/"     class="footer-link">Field notes</a>
+        <a href="/map.html"  class="footer-link">Project map</a>
+        <a href="/#contact"  class="footer-link">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Elsewhere</h5>
+        <a href="https://github.com/third-rock-analytics" class="footer-link">GitHub</a>
+        <a href="mailto:contact@thirdrockanalytics.com"    class="footer-link">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Third Rock Analytics · Tacoma, WA</span>
+      <span>47.2529° N · 122.4443° W</span>
+    </div>
+  </footer>
+
+
+  <script>
+    // Mobile nav toggle
+    const nav     = document.getElementById('nav');
+    const navMenu = document.getElementById('nav-menu-btn');
+    const navList = document.getElementById('nav-links');
+    if (navMenu) {
+      navMenu.addEventListener('click', () => {
+        const open = nav.classList.toggle('nav--open');
+        navMenu.setAttribute('aria-expanded', String(open));
+      });
+      navList.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          nav.classList.remove('nav--open');
+          navMenu.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

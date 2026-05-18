@@ -1,188 +1,554 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Third Rock Analytics // Story Map</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project map — Third Rock Analytics</title>
+  <meta name="description" content="An interactive map of Third Rock Analytics projects.">
+  <meta name="author" content="Jeff Zivkovic">
 
-    <!-- SEO -->
-    <meta name="description" content="Explore Third Rock Analytics' GIS capabilities through an interactive story map — cartography, spatial analysis, and web mapping projects across the U.S." />
-    <meta name="author" content="Jeff Zivkovic" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Project map — Third Rock Analytics">
+  <meta property="og:description" content="Every Third Rock Analytics project, pinned in place on an interactive map.">
+  <meta property="og:url" content="https://thirdrockanalytics.com/map.html">
+  <meta property="og:type" content="website">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/media/Favicon.png" />
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
 
-    <!-- Google Fonts — brand typefaces -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- MapLibre GL -->
-    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
-    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+  <!-- MapLibre -->
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 
-    <!-- Brand base + page styles -->
-    <link rel="stylesheet" href="/css/third-rock.css" />
-    <link rel="stylesheet" href="/css/map.css" />
-  </head>
+  <!-- Styles -->
+  <link rel="stylesheet" href="/colors_and_type.css">
+  <link rel="stylesheet" href="/site.css">
+  <link rel="stylesheet" href="/additions.css">
 
-  <body>
+  <style>
+    body { overflow: hidden; }
 
-    <!-- ── HEADER ─────────────────────────────────────────────────── -->
-    <header class="map-header" id="map-header">
-      <div class="map-header__inner">
-        <a href="/index.html" class="map-header__logo" aria-label="Third Rock Analytics home">
-          <img
-            class="map-header__logo-img"
-            src="/media/Color Logo_Text_No BG.png"
-            alt="Third Rock Analytics"
-          />
-        </a>
-        <nav role="navigation" aria-label="Map navigation">
-          <ul class="map-header__nav">
-            <li><a href="/index.html" class="map-header__link">Home</a></li>
-            <li><a href="/index.html#services" class="map-header__link">Services</a></li>
-            <li><a href="/index.html#contact" class="map-header__link">Contact</a></li>
-          </ul>
-        </nav>
+    .map-page {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+    }
+
+    /* ── SIDEBAR ─────────────────────────────────────────────────── */
+    .map-sidebar {
+      background: var(--color-cream);
+      border-right: 1px solid var(--color-stone-soft);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .map-sidebar__header {
+      padding: var(--space-6) var(--space-6) var(--space-5);
+      border-bottom: 1px solid var(--color-stone-soft);
+      background: var(--color-cream);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .map-sidebar__eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-sun-deep);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+      font-weight: 500;
+    }
+    .map-sidebar__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      font-variation-settings: 'opsz' 36;
+      color: var(--fg-1);
+      margin-bottom: var(--space-2);
+    }
+    .map-sidebar__title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--color-earth-deep);
+    }
+    .map-sidebar__sub {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--fg-3);
+      letter-spacing: 0.06em;
+    }
+    .map-sidebar__sub b { color: var(--color-sun-deep); font-weight: 500; letter-spacing: 0.10em; }
+
+    /* ── PROJECT LIST ────────────────────────────────────────────── */
+    .project-list { display: flex; flex-direction: column; }
+    .project-item {
+      padding: var(--space-5) var(--space-6);
+      border-bottom: 1px solid var(--color-stone-soft);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
+    }
+    .project-item:hover { background: rgba(212, 160, 58, 0.06); }
+    .project-item.active { background: var(--color-sun-tint); }
+    .project-item__index {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-sun-deep);
+      letter-spacing: 0.10em;
+      font-weight: 500;
+      min-width: 24px;
+      padding-top: 3px;
+    }
+    .project-item__body { flex: 1; min-width: 0; }
+    .project-item__title {
+      font-family: var(--font-display);
+      font-size: var(--text-md);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--fg-1);
+      line-height: 1.25;
+      margin-bottom: var(--space-1);
+      font-variation-settings: 'opsz' 24;
+    }
+    .project-item__loc {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--fg-3);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-1);
+    }
+    .project-item__tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: var(--space-2); }
+    .project-item__tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xs);
+      padding: 2px 7px;
+      background: var(--color-sand);
+      color: var(--fg-3);
+      border-radius: 9999px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .project-item__status {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xs);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--color-success);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: var(--space-2);
+      font-weight: 500;
+    }
+    .project-item__status::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--color-success);
+      border-radius: 50%;
+    }
+
+    /* ── COMING SOON BLOCK ───────────────────────────────────────── */
+    .sidebar-cs {
+      margin: var(--space-2) var(--space-6) var(--space-6);
+      padding: var(--space-5);
+      background: var(--color-sand);
+      border-radius: var(--radius-md);
+      border-left: 2px solid var(--color-sun);
+    }
+    .sidebar-cs__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-2xs);
+      color: var(--color-sun-deep);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: var(--space-2);
+    }
+    .sidebar-cs__body {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--text-sm);
+      color: var(--fg-2);
+      line-height: 1.55;
+    }
+    .sidebar-cs__action {
+      margin-top: var(--space-3);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-sun-deep);
+      letter-spacing: -0.005em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .sidebar-cs__action:hover { opacity: 0.8; }
+
+    /* ── MAP CANVAS ──────────────────────────────────────────────── */
+    .map-canvas { position: relative; background: var(--color-loam); }
+    #map { position: absolute; inset: 0; }
+
+    .maplibregl-ctrl-attrib {
+      font-family: var(--font-mono);
+      font-size: 10px !important;
+      background: rgba(246, 241, 231, 0.85) !important;
+      backdrop-filter: blur(8px);
+    }
+    .maplibregl-ctrl-attrib a { color: var(--color-earth-deep) !important; }
+    .maplibregl-ctrl-group {
+      background: rgba(246, 241, 231, 0.92) !important;
+      border-radius: var(--radius-sm) !important;
+      box-shadow: var(--shadow-sm) !important;
+    }
+    .maplibregl-ctrl-group button { border-radius: var(--radius-sm) !important; }
+
+    .tr-marker {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--color-sun);
+      border: 3px solid var(--color-loam);
+      box-shadow: 0 2px 8px rgba(31, 26, 20, 0.3);
+      cursor: pointer;
+      transition: transform var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--fg-on-primary);
+    }
+    .tr-marker:hover { transform: scale(1.15); }
+    .tr-marker.active {
+      background: var(--color-sun-deep);
+      transform: scale(1.2);
+      box-shadow: 0 0 0 8px rgba(212, 160, 58, 0.22), 0 2px 8px rgba(31, 26, 20, 0.3);
+    }
+
+    .maplibregl-popup-content {
+      background: var(--color-cream) !important;
+      padding: var(--space-5) var(--space-6) !important;
+      border-radius: var(--radius-md) !important;
+      box-shadow: var(--shadow-lg) !important;
+      max-width: 340px !important;
+      border: 1px solid var(--color-stone-soft) !important;
+    }
+    .maplibregl-popup-close-button {
+      font-family: var(--font-display) !important;
+      font-size: 20px !important;
+      color: var(--fg-3) !important;
+      padding: 4px 10px !important;
+    }
+    .maplibregl-popup-tip {
+      border-top-color: var(--color-cream) !important;
+      border-bottom-color: var(--color-cream) !important;
+    }
+    .popup-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--color-sun-deep);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .popup-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--fg-1);
+      margin-bottom: 8px;
+      line-height: 1.25;
+      font-variation-settings: 'opsz' 24;
+    }
+    .popup-desc { font-size: 13px; color: var(--fg-2); line-height: 1.55; margin-bottom: 12px; }
+    .popup-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 10px 0;
+      border-top: 1px solid var(--color-stone-soft);
+      border-bottom: 1px solid var(--color-stone-soft);
+      margin-bottom: 12px;
+    }
+    .popup-stat b {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--fg-3);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .popup-stat span {
+      font-family: var(--font-display);
+      font-size: 14px;
+      color: var(--fg-1);
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+    .popup-meta {
+      display: flex;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-3);
+      letter-spacing: 0.04em;
+    }
+    .popup-meta b { color: var(--color-sun-deep); font-weight: 500; letter-spacing: 0.08em; }
+
+    .map-locator {
+      position: absolute;
+      bottom: 36px;
+      left: 16px;
+      z-index: 5;
+      background: rgba(31, 26, 20, 0.78);
+      backdrop-filter: blur(8px);
+      color: rgba(246, 241, 231, 0.85);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      display: flex;
+      gap: var(--space-4);
+      pointer-events: none;
+    }
+    .map-locator b { color: var(--color-sun-soft); font-weight: 500; letter-spacing: 0.10em; }
+
+    @media (max-width: 780px) {
+      .map-page { grid-template-columns: 1fr; grid-template-rows: 320px 1fr; }
+      .map-sidebar { border-right: none; border-bottom: 1px solid var(--color-stone-soft); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Third Rock Analytics home">
+        <img src="/assets/logos/color-logo-text-no-bg-compressed.png" alt="Third Rock Analytics">
+      </a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="/#services" class="nav-link">Services</a></li>
+        <li><a href="/#about"    class="nav-link">About</a></li>
+        <li><a href="/blog/"     class="nav-link">Field notes</a></li>
+        <li><a href="/map.html"  class="nav-link active">Project map</a></li>
+      </ul>
+      <a href="/#contact" class="nav-cta">Get in touch <span aria-hidden="true">→</span></a>
+      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="map-page">
+
+    <aside class="map-sidebar" aria-label="Project list">
+      <div class="map-sidebar__header">
+        <div class="map-sidebar__eyebrow">Project map</div>
+        <div class="map-sidebar__title">Every project, <em>pinned in place.</em></div>
+        <div class="map-sidebar__sub"><b>2</b> projects live · click to fly</div>
       </div>
-    </header>
-
-    <!-- ── PROGRESS BAR (spans full header width) ─────────────────── -->
-    <div class="story-progress">
-      <div class="story-progress__bar" id="progress-bar"></div>
-    </div>
-
-    <!-- ── MAP CONTAINER ──────────────────────────────────────────── -->
-    <div id="map"></div>
-
-    <!-- ── STYLE SWITCHER ─────────────────────────────────────────── -->
-    <div id="style-switcher">
-      <button id="basic" class="style-btn active" aria-label="Basic map style">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16"/><path d="M16 6v16"/></svg>
-        <span>Basic</span>
-      </button>
-      <button id="outlines" class="style-btn" aria-label="Outlines map style">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-        <span>Outlines</span>
-      </button>
-    </div>
-
-    <!-- ── STORY PANEL ────────────────────────────────────────────── -->
-    <aside id="story-panel" class="story-panel">
-      <div class="story-panel__scroll">
-
-        <!-- Chapter 0: Welcome -->
-        <section class="story-chapter active" data-chapter="0" data-lng="-122.4890" data-lat="47.2553" data-zoom="11" data-pitch="40" data-bearing="0">
-          <div class="story-chapter__eyebrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-            <span>01 // Headquarters</span>
-          </div>
-          <h2 class="story-chapter__title">Tacoma, Washington</h2>
-          <div class="story-chapter__rule"></div>
-          <p class="story-chapter__body">
-            Third Rock Analytics is headquartered in Tacoma, WA. We build custom GIS solutions for environmental, land, and community projects.
-          </p>
-          <div class="story-chapter__meta">
-            <div class="meta-chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Tacoma, WA
-            </div>
-            <div class="meta-chip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-              Nationwide reach
-            </div>
-          </div>
-          <div class="story-chapter__hint">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-            Scroll to explore our work
-          </div>
-        </section>
-
-        <!-- Chapter 1: Live Data -->
-        <section class="story-chapter" data-chapter="1" data-lng="-117.2183" data-lat="34.4851" data-zoom="8" data-pitch="60" data-bearing="-30">
-          <div class="story-chapter__eyebrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-            <span>02 // Live Data</span>
-          </div>
-          <h2 class="story-chapter__title">Mojave Water Levels</h2>
-          <div class="story-chapter__rule"></div>
-          <p class="story-chapter__body">
-            Using USGS groundwater monitoring data, we built a live web map to visualize water level changes across the Mojave Desert at specified well locations.
-          </p>
-          <div class="story-chapter__stats">
-            <div class="stat-block">
-              <span class="stat-value">700+</span>
-              <span class="stat-label">Well locations</span>
-            </div>
-            <div class="stat-block">
-              <span class="stat-value">626 kb</span>
-              <span class="stat-label">File size</span>
-            </div>
-          </div>
-          <div class="story-chapter__tags">
-            <span class="tag">GeoJSON</span>
-            <span class="tag">Hydrology</span>
-            <span class="tag">Leaflet</span>
-            <span class="tag">Javascript</span>
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-          </div>
-        </section>
-
-        <!-- Chapter 2: CTA -->
-        <section class="story-chapter" data-chapter="2" data-lng="-100.0" data-lat="40.0" data-zoom="4" data-pitch="0" data-bearing="0">
-          <div class="story-chapter__eyebrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <span>03 // Let's Work Together</span>
-          </div>
-          <h2 class="story-chapter__title">Future Projects</h2>
-          <div class="story-chapter__rule"></div>
-          <p class="story-chapter__body">
-            Every project starts with a conversation. Whether you need a single publication map or a full-stack spatial platform, we have you covered.
-          </p>
-          <div class="story-chapter__cta">
-            <a href="/index.html#contact" class="btn btn-primary btn-lg">Get in touch</a>
-            <a href="/index.html#services" class="btn btn-ghost btn-lg">View services</a>
-          </div>
-        </section>
-
-        <!-- Bottom spacer -->
-        <div class="story-panel__spacer"></div>
-
+      <div class="project-list" id="project-list"></div>
+      <div class="sidebar-cs">
+        <div class="sidebar-cs__label">More to come</div>
+        <div class="sidebar-cs__body">
+          Additional projects will land here as they're published.
+          Every project starts with a conversation — if you have one in mind,
+          the contact form is the fastest way in.
+        </div>
+        <a href="/#contact" class="sidebar-cs__action">Start a project <span aria-hidden="true">→</span></a>
       </div>
     </aside>
 
-    <!-- ── CHAPTER NAV DOTS ───────────────────────────────────────── -->
-    <nav id="chapter-dots" class="chapter-dots" aria-label="Chapter navigation">
-      <button class="dot active" data-target="0" aria-label="Chapter 1: Headquarters"><span class="dot-label">HQ</span></button>
-      <button class="dot" data-target="1" aria-label="Chapter 2: Live Data"><span class="dot-label">Data</span></button>
-      <button class="dot" data-target="2" aria-label="Chapter 3: Contact"><span class="dot-label">Contact</span></button>
-    </nav>
-
-    <!-- ── MOBILE FLOATING CARD (hidden on desktop) ─────────────────── -->
-    <div id="mobile-story" class="mobile-story">
-      <div class="mobile-story__card" id="mobile-card">
-        <div class="mobile-story__eyebrow" id="mobile-eyebrow"></div>
-        <h3 class="mobile-story__title" id="mobile-title"></h3>
-        <div class="mobile-story__rule"></div>
-        <p class="mobile-story__body" id="mobile-body"></p>
-        <div class="mobile-story__stats" id="mobile-stats"></div>
-        <div class="mobile-story__tags" id="mobile-tags"></div>
-        <div class="mobile-story__cta" id="mobile-cta"></div>
-      </div>
-      <div class="mobile-story__nav">
-        <button class="mobile-story__btn" id="mobile-prev" aria-label="Previous chapter">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <div class="mobile-story__pips" id="mobile-pips"></div>
-        <button class="mobile-story__btn" id="mobile-next" aria-label="Next chapter">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
+    <div class="map-canvas">
+      <div id="map"></div>
+      <div class="map-locator">
+        <span><b>BASEMAP</b> OpenFreeMap positron</span>
+        <span><b>CRS</b> EPSG:3857</span>
       </div>
     </div>
 
-    <!-- ── JAVASCRIPT ─────────────────────────────────────────────── -->
-    <script src="js/map-story.js"></script>
-  </body>
+  </div>
+
+
+  <script>
+    // Design-package color palette mapped to tag names
+    const TAG_COLORS = {
+      'HQ':        'background:rgba(212,160,58,0.20);color:#B5832A',
+      'Studio':    'background:rgba(52,90,120,0.14);color:#234159',
+      'GeoJSON':   'background:rgba(107,122,90,0.18);color:#44503A',
+      'Hydrology': 'background:rgba(149,179,199,0.28);color:#234159',
+      'Leaflet':   'background:rgba(181,104,62,0.18);color:#7A371A',
+    };
+
+    function tagHtml(t) {
+      const s = TAG_COLORS[t] || '';
+      return `<span class="project-item__tag" style="${s}">${t}</span>`;
+    }
+
+    const PROJECTS = [
+      {
+        id: 'tacoma',
+        index: '01',
+        title: 'Tacoma, Washington · HQ',
+        location: 'Tacoma, WA',
+        coords: [-122.4443, 47.2529],
+        zoom: 10,
+        category: 'Headquarters',
+        kind: 'HQ',
+        desc: 'Third Rock Analytics is based in Tacoma. We work with nonprofits and private clients on environmental, land, and community GIS projects, mostly in the Pacific Northwest but anywhere the work makes sense.',
+        stats: [
+          { label: 'Founded', value: 'One-person studio' },
+          { label: 'Reach',   value: 'Nationwide' },
+        ],
+        tags: ['HQ', 'Studio'],
+      },
+      {
+        id: 'mojave',
+        index: '02',
+        title: 'Mojave water levels',
+        location: 'Mojave Desert, CA',
+        coords: [-117.2183, 34.4851],
+        zoom: 7,
+        category: 'Live data',
+        kind: 'Web map',
+        desc: 'A live web map showing USGS groundwater monitoring data across well locations in the Mojave Desert. Kept lightweight so it loads reliably in the field.',
+        stats: [
+          { label: 'Wells',  value: '700+' },
+          { label: 'Bundle', value: '626 kb' },
+        ],
+        tags: ['GeoJSON', 'Hydrology', 'Leaflet'],
+      },
+    ];
+
+    let activeId = 'tacoma';
+    const markers = {};
+
+    // Build sidebar list
+    const listEl = document.getElementById('project-list');
+    PROJECTS.forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'project-item' + (p.id === activeId ? ' active' : '');
+      item.dataset.id = p.id;
+      item.innerHTML = `
+        <div class="project-item__index">${p.index}</div>
+        <div class="project-item__body">
+          <div class="project-item__title">${p.title}</div>
+          <div class="project-item__loc">${p.location} · ${p.kind}</div>
+          <div class="project-item__tags">${p.tags.map(tagHtml).join('')}</div>
+          <div class="project-item__status">Live</div>
+        </div>
+      `;
+      item.addEventListener('click', () => selectProject(p.id));
+      listEl.appendChild(item);
+    });
+
+    // Init MapLibre
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: 'https://tiles.openfreemap.org/styles/positron',
+      center: [-120, 40],
+      zoom: 4,
+      attributionControl: { compact: true },
+    });
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+    map.on('load', () => {
+      PROJECTS.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'tr-marker' + (p.id === activeId ? ' active' : '');
+        el.textContent = p.index;
+
+        const statsHtml = p.stats.map(s =>
+          `<div class="popup-stat"><b>${s.label}</b><span>${s.value}</span></div>`
+        ).join('');
+
+        const popup = new maplibregl.Popup({ offset: 20, closeButton: true })
+          .setHTML(`
+            <div class="popup-eyebrow">${p.index} // ${p.category}</div>
+            <div class="popup-title">${p.title}</div>
+            <div class="popup-desc">${p.desc}</div>
+            <div class="popup-stats">${statsHtml}</div>
+            <div class="popup-meta">
+              <span><b>LOC</b> ${p.location}</span>
+              <span><b>KIND</b> ${p.kind}</span>
+            </div>
+          `);
+
+        const marker = new maplibregl.Marker({ element: el })
+          .setLngLat(p.coords)
+          .setPopup(popup)
+          .addTo(map);
+
+        el.addEventListener('click', e => { e.stopPropagation(); selectProject(p.id); });
+        markers[p.id] = { marker, el };
+      });
+
+      // Open HQ popup on load
+      setTimeout(() => {
+        const entry = markers[activeId];
+        if (entry) entry.marker.togglePopup();
+      }, 400);
+    });
+
+    function selectProject(id) {
+      activeId = id;
+      const p = PROJECTS.find(x => x.id === id);
+      if (!p) return;
+
+      map.flyTo({ center: p.coords, zoom: p.zoom, speed: 1.2, curve: 1.4 });
+
+      Object.entries(markers).forEach(([mid, { el, marker }]) => {
+        el.classList.toggle('active', mid === id);
+        const isOpen = marker.getPopup() && marker.getPopup().isOpen();
+        if (mid === id && !isOpen) marker.togglePopup();
+        if (mid !== id && isOpen)  marker.togglePopup();
+      });
+
+      document.querySelectorAll('.project-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.id === id);
+      });
+    }
+
+    // Mobile nav toggle
+    const nav     = document.getElementById('nav');
+    const navMenu = document.getElementById('nav-menu-btn');
+    const navList = document.getElementById('nav-links');
+    if (navMenu) {
+      navMenu.addEventListener('click', () => {
+        const open = nav.classList.toggle('nav--open');
+        navMenu.setAttribute('aria-expanded', String(open));
+      });
+      navList.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          nav.classList.remove('nav--open');
+          navMenu.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
+
+</body>
 </html>

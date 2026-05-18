@@ -1,447 +1,434 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Third Rock Analytics — GIS, mapping &amp; spatial analysis</title>
+  <meta name="description" content="Third Rock Analytics is a one-person GIS consultancy in Tacoma, WA. Custom cartography, spatial analysis, and web mapping for environmental, land, and community projects.">
+  <meta name="author" content="Jeff Zivkovic">
+  <meta name="keywords" content="GIS, mapping, spatial data, web mapping, cartography, geospatial, environmental data, geoinformatics, Third Rock Analytics, GIS consulting, Tacoma, Washington">
 
-    <title>Third Rock Analytics</title>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Third Rock Analytics — GIS, mapping &amp; spatial analysis">
+  <meta property="og:description" content="Custom cartography, spatial analysis, and web mapping for environmental, land, and community projects.">
+  <meta property="og:image" content="https://thirdrockanalytics.com/assets/logos/color-logo-text-no-bg-compressed.png">
+  <meta property="og:url" content="https://thirdrockanalytics.com/">
+  <meta property="og:type" content="website">
 
-    <!-- SEO Meta Tags -->
-    <meta
-      name="description"
-      content="Third Rock Analytics offers expert GIS development, spatial analysis, and cartographic solutions for environmental and land-focused projects."
-    />
-    <meta name="author" content="Jeff Zivkovic" />
-    <meta
-      name="keywords"
-      content="GIS, mapping, spatial data, web mapping, cartography, geospatial, environmental data, geoinformatics, Third Rock Analytics, GIS consulting, Tacoma, Washington"
-    />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Third Rock Analytics — GIS, mapping &amp; spatial analysis">
+  <meta name="twitter:description" content="Custom cartography, spatial analysis, and web mapping for environmental, land, and community projects.">
+  <meta name="twitter:image" content="https://thirdrockanalytics.com/assets/logos/color-logo-text-no-bg-compressed.png">
 
-    <!-- Open Graph -->
-    <meta property="og:title"       content="Third Rock Analytics // GIS, Mapping & Data Solutions" />
-    <meta property="og:description" content="Custom GIS and mapping services to help you visualize and understand your data." />
-    <meta property="og:image"       content="https://thirdrockanalytics.com/media/Full%20Color%20Logo_Text_White%20BG.png" />
-    <meta property="og:url"         content="https://thirdrockanalytics.com/" />
-    <meta property="og:type"        content="website" />
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card"        content="summary_large_image" />
-    <meta name="twitter:title"       content="Third Rock Analytics // GIS, Mapping & Data Solutions" />
-    <meta name="twitter:description" content="Custom GIS and mapping services to help you visualize and understand your data." />
-    <meta name="twitter:image"       content="https://thirdrockanalytics.com/media/Full%20Color%20Logo_Text_White%20BG.png" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/media/Favicon.png" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="/colors_and_type.css">
+  <link rel="stylesheet" href="/site.css">
+  <link rel="stylesheet" href="/additions.css">
+</head>
+<body>
 
-    <!-- Google Fonts — brand typefaces -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-logo" aria-label="Third Rock Analytics home">
+        <img src="/assets/logos/color-logo-text-no-bg-compressed.png" alt="Third Rock Analytics">
+      </a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#about"    class="nav-link">About</a></li>
+        <li><a href="/blog/"   class="nav-link">Field notes</a></li>
+        <li><a href="/map.html" class="nav-link">Project map</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Get in touch <span aria-hidden="true">→</span></a>
+      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-    <!-- Brand base styles, then page-specific overrides -->
-    <link rel="stylesheet" href="/css/third-rock.css" />
-    <link rel="stylesheet" href="/css/index.css" />
-    <link rel="stylesheet" href="/css/dots.css" />
-  </head>
 
-  <body>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="page">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow hero-eyebrow">GIS // Mapping // Data Solutions</div>
+          <h1 class="hero-title">
+            For people living on the <span class="accent">third rock.</span>
+          </h1>
+          <p class="hero-desc">
+            Third Rock Analytics is a one-person GIS practice in Tacoma, WA. Custom maps,
+            spatial analysis, and web mapping for environmental, land, and community
+            projects. From a single publication map to a full-stack spatial platform.
+          </p>
+          <div class="hero-actions">
+            <a href="#contact"  class="btn btn-primary btn-lg">Get in touch <span aria-hidden="true">→</span></a>
+            <a href="#services" class="btn btn-secondary btn-lg">See what we do</a>
+          </div>
+        </div>
 
-    <!-- ── HEADER ─────────────────────────────────────────────────────── -->
-    <header class="site-header" id="header">
-      <div class="container" id="header-container">
-        <div class="site-header__inner">
-
-          <a href="#home" class="nav-logo" aria-label="Third Rock Analytics home">
-            <img
-              class="nav-logo-img"
-              src="/media/Color Logo_Text_No BG.png"
-              alt="Third Rock Analytics"
-            />
-          </a>
-
-          <nav role="navigation" aria-label="Main navigation">
-            <ul class="nav-links">
-              <li><a href="#home"     class="nav-link active">Home</a></li>
-              <li><a href="#services" class="nav-link">Services</a></li>
-              <li><a href="#about"    class="nav-link">About</a></li>
-              <li><a href="#contact"  class="nav-link">Contact</a></li>
-              <li><a href="/map.html" class="nav-link">Map</a></li>
-            </ul>
-          </nav>
-
+        <div class="orbit-wrap">
+          <!-- Orbital diagram: Sun → Mercury → Venus → Earth. Earth pin = Tacoma HQ. -->
+          <svg viewBox="-20 0 500 460" class="orbit-svg" style="width:100%;height:100%" aria-hidden="true">
+            <defs>
+              <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%"   stop-color="#F1DDA8" stop-opacity="0.55"/>
+                <stop offset="65%"  stop-color="#D4A03A" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#D4A03A" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="earthShade" cx="35%" cy="35%" r="65%">
+                <stop offset="0%"   stop-color="#6F92AC"/>
+                <stop offset="100%" stop-color="#234159"/>
+              </radialGradient>
+            </defs>
+            <circle cx="115" cy="230" r="200" fill="url(#sunGlow)"/>
+            <g fill="none" stroke="#C9BFA8" stroke-width="1" stroke-dasharray="2 4" opacity="0.7">
+              <ellipse cx="115" cy="230" rx="115" ry="115"/>
+              <ellipse cx="115" cy="230" rx="195" ry="195"/>
+              <ellipse cx="115" cy="230" rx="320" ry="320"/>
+            </g>
+            <!-- Sun -->
+            <circle cx="115" cy="230" r="80" fill="#D4A03A"/>
+            <!-- Mercury -->
+            <circle cx="230" cy="230" r="9"  fill="#8A8074"/>
+            <!-- Venus -->
+            <circle cx="310" cy="230" r="18" fill="#C9A876"/>
+            <!-- Earth -->
+            <g transform="translate(435 230)">
+              <circle r="40" fill="url(#earthShade)"/>
+              <g fill="none" stroke="rgba(246,241,231,0.32)" stroke-width="1">
+                <line x1="-40" y1="0" x2="40" y2="0"/>
+                <line x1="0" y1="-40" x2="0" y2="40"/>
+                <ellipse cx="0" cy="0" rx="40" ry="14"/>
+                <ellipse cx="0" cy="0" rx="40" ry="28"/>
+                <ellipse cx="0" cy="0" rx="14" ry="40"/>
+                <ellipse cx="0" cy="0" rx="28" ry="40"/>
+              </g>
+              <!-- Tacoma pin -->
+              <circle cx="-14" cy="-12" r="3" fill="#D4A03A"/>
+              <circle cx="-14" cy="-12" r="7" fill="none" stroke="#D4A03A" stroke-opacity="0.4"/>
+            </g>
+          </svg>
         </div>
       </div>
-    </header>
+    </div>
+  </section>
 
 
-    <!-- ── HERO ──────────────────────────────────────────────────────── -->
-    <section class="page-hero" id="home" role="banner">
-      <div class="page-hero__overlay" aria-hidden="true"></div>
-      <div class="container page-hero__content">
-        <p class="eyebrow page-hero__eyebrow">GIS // Mapping // Data Solutions</p>
-        <h1 class="page-hero__title">
-          Custom GIS and Spatial Solutions for Environmental, Land, and
-          Community Projects
-        </h1>
-        <div class="page-hero__actions">
-          <a href="#services" class="btn btn-primary btn-lg">See what we do</a>
-          <a href="#contact"  class="btn btn-ghost-white btn-lg">Get in touch</a>
+  <main id="main">
+
+    <!-- SERVICES -->
+    <section class="section section-services" id="services">
+      <div class="page">
+        <div class="section-header">
+          <div class="eyebrow" style="margin-bottom:12px">What we do</div>
+          <h2>Services</h2>
+          <p class="lead">
+            Custom GIS and mapping services to help you visualize and understand your data.
+          </p>
+        </div>
+        <div class="srv-grid">
+
+          <article class="srv-card">
+            <div class="srv-card__image">
+              <img src="/assets/photos/elevation.webp" alt="Elevation map with contour lines and hillshade." loading="lazy">
+              <div class="srv-card__num">01</div>
+            </div>
+            <div class="srv-card__body">
+              <h3>Cartography &amp; map production</h3>
+              <p>Publication-ready maps for reports, presentations, and web use. Beautiful, clear, and tailored to your audience.</p>
+            </div>
+          </article>
+
+          <article class="srv-card">
+            <div class="srv-card__image">
+              <img src="/assets/photos/ndvi.webp" alt="Raster imagery showing NDVI values." loading="lazy">
+              <div class="srv-card__num">02</div>
+            </div>
+            <div class="srv-card__body">
+              <h3>Spatial analysis &amp; modeling</h3>
+              <p>Insights from your data through spatial statistics, geoprocessing, and predictive modeling.</p>
+            </div>
+          </article>
+
+          <article class="srv-card">
+            <div class="srv-card__image">
+              <img src="/assets/photos/webmap.webp" alt="Example web map with popup." loading="lazy">
+              <div class="srv-card__num">03</div>
+            </div>
+            <div class="srv-card__body">
+              <h3>Web mapping &amp; dashboards</h3>
+              <p>Interactive tools to explore and visualize your spatial data online.</p>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
 
 
-    <!-- ── MAIN CONTENT ───────────────────────────────────────────────── -->
-    <main id="main-content">
+    <!-- ABOUT -->
+    <section class="section about" id="about">
+      <div class="page">
+        <div class="about-grid">
 
-      <!-- Services ─────────────────────────────────────────────────── -->
-      <section class="section" id="services">
-        <div class="container">
-
-          <div class="section-header">
-            <p class="eyebrow">What we do</p>
-            <h2 class="section-title">Services</h2>
-            <div class="section-rule"></div>
+          <div class="about-intro">
+            <div class="eyebrow" style="margin-bottom:12px">Who we are</div>
+            <h2>A one-person consultancy <em>dedicated to making your data make sense.</em></h2>
+            <p class="lead">
+              Third Rock Analytics is a one-person consultancy dedicated to making your data
+              make sense. We provide focused GIS support for projects of all scales, from local
+              nonprofits to large organizations. Whether you need a single map, an interactive
+              web application, or ongoing spatial analysis, we can help you visualize and find
+              meaning in your data. We can work together to find a budget and scope that fits
+              your needs, and maintain clear communication every step of the way.
+            </p>
+            <p class="about-tag">Let's put your data on the map.</p>
           </div>
 
-          <div class="services-list">
-
-            <article class="service-row">
-              <div class="service-row__content reverse">
-                <div class="icon-chip" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                       stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="3 11 22 2 13 21 11 13 3 11"/>
-                  </svg>
-                </div>
-                <h3 class="service-row__title">Cartography &amp; Map Production</h3>
-                <p class="service-row__desc align-right">
-                  Publication-ready maps for reports, presentations, and web use.
-                  Beautiful, clear, and tailored to your audience.
-                </p>
+          <div class="about-people">
+            <article class="person">
+              <div class="person-photo">
+                <img src="/assets/photos/jeff.jpg" alt="Jeff Zivkovic, Analyst / Developer / Founder" loading="lazy">
               </div>
-              <div class="service-row__media">
-                <img
-                  src="./media/elevation.webp"
-                  alt="Elevation map with contour lines and hillshade."
-                  loading="lazy"
-                />
+              <div class="person-body">
+                <div class="person-role">Analyst · Developer · Founder</div>
+                <h3>Jeff Zivkovic</h3>
+                <p>
+                  Hi, I'm Jeff Zivkovic. I come from a background in Electrical and Computer
+                  Engineering from Ohio State, with a Master's in Geoinformatics from the
+                  University of Texas at San Antonio. I got into GIS and spatial analysis
+                  because I love the combination of raw data, processing, analysis, and
+                  visualization. With several years of experience working academically as well
+                  as in the energy and engineering sectors, I have the skills to help you solve
+                  your spatial problems.
+                </p>
               </div>
             </article>
 
-            <article class="service-row service-row--reverse">
-              <div class="service-row__content">
-                <div class="icon-chip" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                       stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>
-                  </svg>
-                </div>
-                <h3 class="service-row__title">Spatial Analysis &amp; Modeling</h3>
-                <p class="service-row__desc">
-                  Insights from your data through spatial statistics,
-                  geoprocessing, and predictive modeling.
+            <article class="person person--luna">
+              <div class="person-photo">
+                <img src="/assets/photos/luna.webp" alt="Luna, an Australian Shepherd mix" loading="lazy">
+              </div>
+              <div class="person-body">
+                <div class="person-role">Certified Good Girl</div>
+                <h3>Luna</h3>
+                <p>
+                  Meet Luna. She's a surprisingly lazy Aussie mix that is always around
+                  looking for a snack or some pets. A true joy-bringer throughout the day,
+                  she ensures that we never feel alone. Though her geospatial skills are
+                  limited to finding the best sunny spots in the house, she is still a
+                  valuable member of the team.
                 </p>
               </div>
-              <div class="service-row__media">
-                <img
-                  src="./media/ndvi.webp"
-                  alt="Raster imagery showing NDVI values."
-                  loading="lazy"
-                />
-              </div>
             </article>
-
-            <article class="service-row">
-              <div class="service-row__content reverse">
-                <div class="icon-chip" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                       stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="3" width="20" height="14" rx="2"/>
-                    <path d="M8 21h8M12 17v4"/>
-                  </svg>
-                </div>
-                <h3 class="service-row__title">Web Mapping &amp; Dashboards</h3>
-                <p class="service-row__desc align-right">
-                  Interactive tools to explore and visualize your spatial data
-                  online.
-                </p>
-              </div>
-              <div class="service-row__media">
-                <img
-                  src="./media/webmap.webp"
-                  alt="Example web map with popup."
-                  loading="lazy"
-                />
-              </div>
-            </article>
-
-          </div>
-        </div>
-      </section>
-
-
-      <!-- About ────────────────────────────────────────────────────── -->
-      <section class="section bg-surface" id="about">
-        <div class="container">
-
-          <div class="section-header">
-            <p class="eyebrow">Who we are</p>
-            <h2 class="section-title">About</h2>
-            <div class="section-rule"></div>
           </div>
 
-          <div class="about-body">
-            <p>
-              Third Rock Analytics is a one-person consultancy dedicated to making your data make sense. We provide focused
-              GIS support for projects of all scales, from local nonprofits to large oganizations. Whether you need a single map,
-              an interactive web application, or ongoing spatial analysis, we can help you visualize and find meaning in your data.
-              We can work together to find a budget and scope that fits your needs, and maintain clear communication every step of the way.
-            </p>
-            <p class="about-body__tagline">Let's put your data on the map.</p>
-          </div>
-
-          <!-- Team -->
-          <div class="team-section">
-            <h3 class="team-section__title">
-              <span class="label">Meet the team</span>
-            </h3>
-
-            <div class="team-list">
-
-              <article class="team-card">
-                <div class="team-card__media">
-                  <img
-                    src="./media/Jeff.jpg"
-                    alt="Jeff Zivkovic, Analyst/Developer/Founder"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="team-card__content">
-                  <h4 class="team-card__name">Jeff Zivkovic</h4>
-                  <p class="team-card__role mono">Analyst / Developer / Founder</p>
-                  <p class="team-card__bio">
-                    Hi, I'm Jeff Zivkovic. I come from a background in Electrical
-                    and Computer Engineering from Ohio State, with a Master's in
-                    Geoinformatics from the University of Texas at San Antonio. I
-                    got into GIS and spatial analysis because I love the
-                    combination of raw data, processing, analysis, and
-                    visualization. With several years of experience working
-                    academically as well as in the energy and engineering sectors,
-                    I have the skills to help you solve your spatial problems.
-                  </p>
-                </div>
-              </article>
-
-              <article class="team-card team-card--reverse">
-                <div class="team-card__media">
-                  <img
-                    src="./media/luna.webp"
-                    alt="Luna, Certified Good Girl"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="team-card__content">
-                  <h4 class="team-card__name align-right">Luna</h4>
-                  <p class="team-card__role mono align-right">Certified Good Girl</p>
-                  <p class="team-card__bio align-right">
-                    Meet Luna. She's a surprisingly lazy Aussie mix that is always
-                    around looking for a snack or some pets. A true joy-bringer
-                    throughout the day, she ensures that we never feel alone.
-                    Though her geospatial skills are limited to finding the best
-                    sunny spots in the house, she is still a valuable member of
-                    the team.
-                  </p>
-                </div>
-              </article>
-
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-
-      <!-- Contact ──────────────────────────────────────────────────── -->
-      <section class="section" id="contact">
-        <div class="container">
-
-          <div class="section-header section-header-centered">
-            <p class="eyebrow">Work with us</p>
-            <h2 class="section-title">Contact</h2>
-            <div class="section-rule" style="margin: var(--space-4) auto;"></div>
-            <p class="section-desc">
-              Have a project in mind or just want to connect? Reach out below.
-            </p>
-          </div>
-
-          <div class="contact-wrap">
-            <form
-              class="contact-form card"
-              action="https://formsubmit.co/615cec5bd5c20980e87217904e704bb9"
-              method="POST"
-              novalidate
-            >
-              <div class="field">
-                <label for="name" class="field-label">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="input"
-                  placeholder="Your name"
-                  required
-                  aria-describedby="name-error"
-                />
-              </div>
-
-              <div class="field">
-                <label for="email" class="field-label">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="input"
-                  placeholder="you@example.com"
-                  required
-                  aria-describedby="email-error"
-                />
-              </div>
-
-              <div class="field">
-                <label for="message" class="field-label">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="5"
-                  class="textarea"
-                  placeholder="Tell me about your project..."
-                  required
-                  aria-describedby="message-error"
-                ></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary w-full">
-                Send Message
-              </button>
-            </form>
-          </div>
-
-        </div>
-      </section>
-
-    </main>
-
-
-    <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-inner">
-
-          <div class="footer-brand">
-            <a href="#home" class="footer-logo" aria-label="Third Rock Analytics home">
-              <img
-                class="footer-logo-img"
-                src="/media/Color Logo_Text_No BG.png"
-                alt="Third Rock Analytics"
-              />
-            </a>
-            <p class="footer-tagline">
-              GIS, mapping, and spatial analysis for environmental, land, and
-              community projects. Based in Tacoma, WA.
-            </p>
-          </div>
-
-          <!-- <div>
-            <p class="footer-col-title">Services</p>
-            <ul class="footer-links">
-              <li><a href="#services" class="footer-link">Cartography &amp; Map Production</a></li>
-              <li><a href="#services" class="footer-link">Spatial Analysis &amp; Modeling</a></li>
-              <li><a href="#services" class="footer-link">Web Mapping &amp; Dashboards</a></li>
-            </ul>
-          </div> -->
-
-          <div>
-            <p class="footer-col-title">Company</p>
-            <ul class="footer-links">
-              <li><a href="#about"   class="footer-link">About</a></li>
-              <li><a href="/map.html" class="footer-link">Map</a></li>
-              <li><a href="#contact" class="footer-link">Contact</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <p class="footer-col-title">Contact</p>
-            <ul class="footer-links">
-              <li>
-                <a href="mailto:contact@thirdrockanalytics.com" class="footer-link">
-                  contact@thirdrockanalytics.com
-                </a>
-              </li>
-              <li><span class="footer-link">Tacoma, Washington</span></li>
-            </ul>
-          </div>
-
-        </div>
-
-        <div class="footer-bottom">
-          <span>&copy; 2026 Third Rock Analytics. All rights reserved.</span>
-          <span class="footer-bottom-right">thirdrockanalytics.com</span>
         </div>
       </div>
-    </footer>
+    </section>
 
 
-    <!-- JavaScript -->
-    <!-- <script src="./js/main.js"></script> -->
-    <script>
-      // ── iOS Safari viewport fix ───────────────────────────────────────
-      // window.innerHeight excludes the browser chrome that 100vh includes.
-      // Setting --vh100 and --header-height as CSS vars lets the hero and
-      // scroll offset always match real rendered dimensions on any device.
-      function setViewportVars() {
-        document.documentElement.style.setProperty('--vh100', window.innerHeight + 'px');
-        const h = document.getElementById('header');
-        if (h) document.documentElement.style.setProperty('--header-height', h.offsetHeight + 'px');
-      }
-      setViewportVars();
-      window.addEventListener('resize', setViewportVars, { passive: true });
+    <!-- MORE (Project map + Field notes teasers) -->
+    <section class="section more" id="more">
+      <div class="page">
+        <div class="section-header">
+          <div class="eyebrow" style="margin-bottom:12px">Explore</div>
+          <h2>More from Third Rock</h2>
+          <p class="lead">
+            An interactive map of active projects and occasional field notes on GIS tools,
+            methods, and problems.
+          </p>
+        </div>
+        <div class="more-grid">
 
-      // ── Header scroll shrink ──────────────────────────────────────────
-      const header = document.getElementById('header');
-      window.addEventListener('scroll', () => {
-        header.classList.toggle('site-header--scrolled', window.scrollY > 40);
-        setViewportVars(); // re-measure after header shrinks/grows
-      }, { passive: true });
+          <a href="/map.html" class="more-card more-card--map">
+            <div class="more-card__chrome" aria-hidden="true">
+              <img src="/assets/photos/webmap.webp" alt="" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div class="more-card__body">
+              <div class="more-card__eyebrow">Project map</div>
+              <div class="more-card__title">An interactive map of active projects.</div>
+              <div class="more-card__meta">
+                <span><b>STATUS</b> Tacoma HQ · Mojave wells live</span>
+                <span class="more-card__arrow">Open map →</span>
+              </div>
+            </div>
+          </a>
 
-      // ── Smooth scroll for all anchor links ───────────────────────────
-      document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', e => {
-          const target = document.querySelector(link.getAttribute('href'));
-          if (!target) return;
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth' });
+          <a href="/blog/" class="more-card more-card--blog">
+            <div class="more-card__chrome" aria-hidden="true">
+              <div class="post-stack">
+                <div class="post-stack__post">
+                  <div class="post-stack__cat">Field notes</div>
+                  <div class="post-stack__title">Writeups from the field — coming soon.</div>
+                  <div class="post-stack__rule"></div>
+                  <div class="post-stack__body"></div>
+                  <div class="post-stack__body short"></div>
+                </div>
+                <div class="post-stack__post offset">
+                  <div class="post-stack__cat">Drafts in progress</div>
+                  <div class="post-stack__title">On classification, bundle sizes, and datums.</div>
+                </div>
+              </div>
+            </div>
+            <div class="more-card__body">
+              <div class="more-card__eyebrow">Field notes</div>
+              <div class="more-card__title">Short writeups on GIS tools, methods, and problems.</div>
+              <div class="more-card__meta">
+                <span><b>STATUS</b> Content coming soon</span>
+                <span class="more-card__arrow">Coming soon</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CONTACT -->
+    <section class="section" id="contact" style="background:var(--color-sand)">
+      <div class="page">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="eyebrow" style="margin-bottom:12px">Work with us</div>
+            <h2>Have a project in mind or just want to connect?</h2>
+            <p>
+              Reach out below. We can work together to find a budget and scope that fits
+              your needs.
+            </p>
+            <div class="contact-coord"><b>EMAIL</b> contact@thirdrockanalytics.com</div>
+            <div class="contact-coord"><b>HQ</b> Tacoma, Washington</div>
+            <div class="contact-coord"><b>LAT</b> 47.2529° N &nbsp; <b>LON</b> 122.4443° W</div>
+          </div>
+
+          <form class="form"
+                action="https://formsubmit.co/615cec5bd5c20980e87217904e704bb9"
+                method="POST"
+                novalidate>
+            <input type="hidden" name="_subject" value="New project inquiry — Third Rock Analytics">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://thirdrockanalytics.com/?sent=1">
+            <div class="field-row">
+              <div class="field">
+                <label class="field-label" for="name">Name</label>
+                <input id="name" class="field-input" name="name" type="text" placeholder="Your name" required>
+              </div>
+              <div class="field">
+                <label class="field-label" for="email">Email</label>
+                <input id="email" class="field-input" name="email" type="email" placeholder="you@org.com" required>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="message">Message</label>
+              <textarea id="message" class="field-textarea" name="message" placeholder="A few sentences about what you're working on, what data you have, and any deadlines."></textarea>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-3)">
+              <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--fg-3);letter-spacing:0.04em">
+                Or email directly · contact@thirdrockanalytics.com
+              </span>
+              <button type="submit" class="btn btn-primary btn-lg">
+                Send message <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/assets/logos/color-logo-text-no-bg-compressed.png" alt="Third Rock Analytics">
+        <p class="footer-tagline">
+          GIS, mapping, and spatial analysis for environmental, land, and community projects.
+          Based in Tacoma, WA.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <a href="#services" class="footer-link">Cartography</a>
+        <a href="#services" class="footer-link">Spatial analysis</a>
+        <a href="#services" class="footer-link">Web mapping</a>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <a href="#about"    class="footer-link">About</a>
+        <a href="/blog/"    class="footer-link">Field notes</a>
+        <a href="/map.html" class="footer-link">Project map</a>
+        <a href="#contact"  class="footer-link">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Elsewhere</h5>
+        <a href="https://github.com/third-rock-analytics" class="footer-link">GitHub</a>
+        <a href="mailto:contact@thirdrockanalytics.com"    class="footer-link">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Third Rock Analytics · Tacoma, WA</span>
+      <span>47.2529° N · 122.4443° W</span>
+    </div>
+  </footer>
+
+
+  <script>
+    // Smooth scroll for all in-page anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const id = link.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        window.scrollTo({ top: target.offsetTop - 64, behavior: 'smooth' });
+      });
+    });
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(s => observer.observe(s));
+
+    // Mobile nav hamburger
+    const nav        = document.getElementById('nav');
+    const navMenu    = document.getElementById('nav-menu-btn');
+    const navList    = document.getElementById('nav-links');
+    if (navMenu) {
+      navMenu.addEventListener('click', () => {
+        const open = nav.classList.toggle('nav--open');
+        navMenu.setAttribute('aria-expanded', String(open));
+      });
+      // Close on any link click (anchor or page nav)
+      navList.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          nav.classList.remove('nav--open');
+          navMenu.setAttribute('aria-expanded', 'false');
         });
       });
+    }
+  </script>
 
-      // ── Active nav link on scroll ─────────────────────────────────────
-      const sections = document.querySelectorAll('section[id]');
-      const navLinks = document.querySelectorAll('.nav-link');
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            navLinks.forEach(l => l.classList.remove('active'));
-            const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
-            if (active) active.classList.add('active');
-          }
-        });
-      }, { rootMargin: '-40% 0px -55% 0px' });
-
-      sections.forEach(s => observer.observe(s));
-    </script>
-
-  </body>
+</body>
 </html>
