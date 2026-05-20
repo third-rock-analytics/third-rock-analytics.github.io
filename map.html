@@ -335,9 +335,59 @@
     }
     .map-locator b { color: var(--color-sun-soft); font-weight: 500; letter-spacing: 0.10em; }
 
+    .sheet-handle { display: none; }
+
     @media (max-width: 780px) {
-      .map-page { grid-template-columns: 1fr; grid-template-rows: 320px 1fr; }
-      .map-sidebar { border-right: none; border-bottom: 1px solid var(--color-stone-soft); }
+      .map-page {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+      }
+      .map-canvas {
+        grid-row: 1;
+        grid-column: 1;
+      }
+      .map-sidebar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        height: 72px;
+        max-height: calc(100% - 20px);
+        border-right: none;
+        border-top: 1px solid var(--color-stone-soft);
+        border-radius: 16px 16px 0 0;
+        box-shadow: 0 -4px 24px rgba(31, 26, 20, 0.12);
+        overflow: hidden;
+        transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 100;
+      }
+      .map-sidebar.sheet-open {
+        height: 55vh;
+        overflow-y: auto;
+      }
+      .map-sidebar__header {
+        padding: 0 var(--space-5) var(--space-4);
+        cursor: pointer;
+        user-select: none;
+      }
+      .sheet-handle {
+        display: block;
+        width: 32px;
+        height: 4px;
+        background: var(--color-stone-soft);
+        border-radius: 9999px;
+        margin: 10px auto 10px;
+      }
+      .map-locator { display: none; }
+      .maplibregl-popup-content {
+        max-width: min(280px, 82vw) !important;
+        padding: var(--space-4) var(--space-4) !important;
+      }
+      .popup-title { font-size: 15px !important; margin-bottom: 6px; }
+      .popup-desc { font-size: 12px !important; margin-bottom: 8px; }
+      .popup-stats { gap: 8px; padding: 8px 0; margin-bottom: 8px; }
+      .popup-meta { font-size: 9px; }
     }
   </style>
 </head>
@@ -366,6 +416,7 @@
 
     <aside class="map-sidebar" aria-label="Project list">
       <div class="map-sidebar__header">
+        <div class="sheet-handle" aria-hidden="true"></div>
         <div class="map-sidebar__eyebrow">Project map</div>
         <div class="map-sidebar__title">Every project, <em>pinned in place.</em></div>
         <div class="map-sidebar__sub"><b>2</b> projects live · click to fly</div>
@@ -476,6 +527,9 @@
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 
     map.on('load', () => {
+      if (isMobile()) {
+        map.setPadding({ bottom: 72, top: 0, left: 0, right: 0 });
+      }
       PROJECTS.forEach(p => {
         const el = document.createElement('div');
         el.className = 'tr-marker' + (p.id === activeId ? ' active' : '');
@@ -513,12 +567,17 @@
       }, 400);
     });
 
+    function isMobile() { return window.innerWidth <= 780; }
+
     function selectProject(id) {
       activeId = id;
       const p = PROJECTS.find(x => x.id === id);
       if (!p) return;
 
-      map.flyTo({ center: p.coords, zoom: p.zoom, speed: 1.2, curve: 1.4 });
+      map.flyTo({
+        center: p.coords, zoom: p.zoom, speed: 1.2, curve: 1.4,
+        padding: isMobile() ? { bottom: 72, top: 0, left: 0, right: 0 } : {},
+      });
 
       Object.entries(markers).forEach(([mid, { el, marker }]) => {
         el.classList.toggle('active', mid === id);
@@ -530,7 +589,17 @@
       document.querySelectorAll('.project-item').forEach(item => {
         item.classList.toggle('active', item.dataset.id === id);
       });
+
+      if (isMobile()) {
+        document.querySelector('.map-sidebar').classList.remove('sheet-open');
+      }
     }
+
+    // Bottom sheet toggle (mobile only)
+    const sidebar = document.querySelector('.map-sidebar');
+    document.querySelector('.map-sidebar__header').addEventListener('click', () => {
+      if (isMobile()) sidebar.classList.toggle('sheet-open');
+    });
 
     // Mobile nav toggle
     const nav     = document.getElementById('nav');
