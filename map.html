@@ -336,6 +336,9 @@
     .map-locator b { color: var(--color-sun-soft); font-weight: 500; letter-spacing: 0.10em; }
 
     .sheet-handle { display: none; }
+    .sheet-cta    { display: none; }
+    .nav { z-index: 200; }
+    .nav--open .nav-links { z-index: 201; }
 
     @media (max-width: 780px) {
       .map-page {
@@ -352,7 +355,7 @@
         left: 0;
         right: 0;
         top: auto;
-        height: 72px;
+        height: 80px;
         max-height: calc(100% - 20px);
         border-right: none;
         border-top: 1px solid var(--color-stone-soft);
@@ -366,6 +369,17 @@
         height: 55vh;
         overflow-y: auto;
       }
+      .map-sidebar.sheet-open::after {
+        content: '';
+        position: sticky;
+        bottom: 0;
+        display: block;
+        height: 48px;
+        margin-top: -48px;
+        background: linear-gradient(to bottom, transparent, var(--color-cream));
+        pointer-events: none;
+        z-index: 2;
+      }
       .map-sidebar__header {
         padding: 0 var(--space-5) var(--space-4);
         cursor: pointer;
@@ -377,9 +391,36 @@
         height: 4px;
         background: var(--color-stone-soft);
         border-radius: 9999px;
-        margin: 10px auto 10px;
+        margin: 8px auto 8px;
+      }
+      .sheet-cta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--color-loam);
+        color: rgba(246, 241, 231, 0.9);
+        border-radius: var(--radius-sm);
+        padding: 11px 14px;
+        font-family: var(--font-display);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        letter-spacing: -0.005em;
+      }
+      .sheet-cta b {
+        color: var(--color-sun-soft);
+        font-weight: 500;
+      }
+      .sheet-cta__chevron {
+        color: rgba(246, 241, 231, 0.6);
+        transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+      }
+      .map-sidebar.sheet-open .sheet-cta__chevron {
+        transform: rotate(180deg);
       }
       .map-locator { display: none; }
+      .map-sidebar__eyebrow { display: none; }
+      .map-sidebar__title { margin-top: var(--space-5); }
       .maplibregl-popup-content {
         max-width: min(280px, 82vw) !important;
         padding: var(--space-4) var(--space-4) !important;
@@ -417,6 +458,12 @@
     <aside class="map-sidebar" aria-label="Project list">
       <div class="map-sidebar__header">
         <div class="sheet-handle" aria-hidden="true"></div>
+        <div class="sheet-cta" aria-hidden="true">
+          <span>Projects <b>· 2 live</b></span>
+          <svg class="sheet-cta__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 10.5L8 5.5L13 10.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <div class="map-sidebar__eyebrow">Project map</div>
         <div class="map-sidebar__title">Every project, <em>pinned in place.</em></div>
         <div class="map-sidebar__sub"><b>2</b> projects live · click to fly</div>
@@ -528,7 +575,7 @@
 
     map.on('load', () => {
       if (isMobile()) {
-        map.setPadding({ bottom: 72, top: 0, left: 0, right: 0 });
+        map.setPadding({ bottom: 80, top: 0, left: 0, right: 0 });
       }
       PROJECTS.forEach(p => {
         const el = document.createElement('div');
@@ -576,7 +623,7 @@
 
       map.flyTo({
         center: p.coords, zoom: p.zoom, speed: 1.2, curve: 1.4,
-        padding: isMobile() ? { bottom: 72, top: 0, left: 0, right: 0 } : {},
+        padding: isMobile() ? { bottom: 80, top: 0, left: 0, right: 0 } : {},
       });
 
       Object.entries(markers).forEach(([mid, { el, marker }]) => {
@@ -609,11 +656,13 @@
       navMenu.addEventListener('click', () => {
         const open = nav.classList.toggle('nav--open');
         navMenu.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'visible' : 'hidden';
       });
       navList.querySelectorAll('a').forEach(a => {
         a.addEventListener('click', () => {
           nav.classList.remove('nav--open');
           navMenu.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = 'hidden';
         });
       });
     }
