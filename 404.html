@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — Third Rock Analytics</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/logos/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav" aria-label="Main">
+    <div class="wrap nav-inner">
+      <a href="/" class="nav-logo" aria-label="Third Rock Analytics home">
+        <img src="/assets/logos/logo.svg" alt="Third Rock Analytics" width="347" height="72">
+      </a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="/#services" class="nav-link">Services</a></li>
+        <li><a href="/#work" class="nav-link">Work</a></li>
+        <li><a href="/#about" class="nav-link">About</a></li>
+        <li><a href="/#process" class="nav-link">How it works</a></li>
+        <li><a href="/#contact" class="nav-link nav-link--cta">Book a free call</a></li>
+      </ul>
+      <a href="/#contact" class="btn btn--sm nav-cta">Book a free call</a>
+      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="band hero">
+      <div class="wrap">
+        <span class="section-label">404</span>
+        <h1>This page is off the map.</h1>
+        <p class="hero-sub">
+          The page you're looking for doesn't exist or has moved. Try the homepage, or
+          get in touch if you were looking for something specific.
+        </p>
+        <div class="hero-actions">
+          <a href="/" class="btn">Go to the homepage</a>
+          <a href="/#contact" class="btn btn--ghost">Book a free call</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <a href="/" class="footer-logo" aria-label="Third Rock Analytics home">
+        <img src="/assets/logos/logo.svg" alt="Third Rock Analytics" width="347" height="72">
+      </a>
+      <ul class="footer-links" role="list">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/map/">Project map</a></li>
+        <li><a href="mailto:contact@thirdrockanalytics.com">contact@thirdrockanalytics.com</a></li>
+      </ul>
+      <p class="footer-legal">© 2026 Third Rock Analytics LLC · Veteran-owned small business · Tacoma, WA</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav
+    const nav = document.getElementById('nav');
+    const navBtn = document.getElementById('nav-menu-btn');
+    navBtn.addEventListener('click', () => {
+      navBtn.setAttribute('aria-expanded', String(nav.classList.toggle('nav--open')));
+    });
+    nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('nav--open');
+      navBtn.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
+
+</body>
+</html>

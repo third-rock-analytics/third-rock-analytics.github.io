@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -10,162 +10,34 @@
 
   <meta property="og:title"       content="Setting up shop — Third Rock Analytics">
   <meta property="og:description" content="Notes on starting a one-person GIS practice: what it's for, what runs it, and where these field notes are headed.">
-  <meta property="og:image"       content="https://thirdrockanalytics.com/assets/logos/color-logo-text-no-bg-compressed.png">
+  <meta property="og:image"       content="https://thirdrockanalytics.com/assets/logos/og-image.png">
   <meta property="og:url"         content="https://thirdrockanalytics.com/blog/2026-05-setting-up-shop/">
   <meta property="og:type"        content="article">
 
   <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/logos/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="/colors_and_type.css">
-  <link rel="stylesheet" href="/site.css">
-  <link rel="stylesheet" href="/additions.css">
-
-  <style>
-    /* ── POST LAYOUT ──────────────────────────────────────────────── */
-    .post-header {
-      padding: var(--space-24) 0 var(--space-12);
-      border-bottom: 1px solid var(--color-stone-soft);
-    }
-    .post-header .page { max-width: 760px; }
-    .post-meta {
-      display: flex;
-      align-items: center;
-      gap: var(--space-4);
-      margin-bottom: var(--space-5);
-    }
-    .post-date {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--fg-3);
-      letter-spacing: 0.06em;
-    }
-    .post-header h1 {
-      font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
-      font-weight: 600;
-      font-variation-settings: 'opsz' 72;
-      letter-spacing: -0.03em;
-      line-height: 1.02;
-      color: var(--fg-1);
-      margin-bottom: var(--space-5);
-      text-wrap: balance;
-    }
-    .post-header .lead { max-width: 56ch; margin-bottom: var(--space-6); }
-    .post-byline {
-      display: flex;
-      gap: var(--space-3);
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--fg-3);
-      letter-spacing: 0.06em;
-    }
-    .post-byline span + span::before { content: '·'; margin-right: var(--space-3); }
-
-    /* Hero image below the header */
-    .post-hero-img {
-      width: 100%;
-      max-height: 520px;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* ── ARTICLE BODY ─────────────────────────────────────────────── */
-    .post-body {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: var(--space-16) var(--space-6) var(--space-24);
-    }
-
-    .post-body h2 {
-      font-size: var(--text-2xl);
-      font-weight: 600;
-      font-variation-settings: 'opsz' 36;
-      letter-spacing: -0.02em;
-      color: var(--fg-1);
-      margin-top: var(--space-16);
-      margin-bottom: var(--space-4);
-    }
-    .post-body p {
-      font-size: var(--text-md);
-      line-height: 1.72;
-      color: var(--fg-2);
-      margin-bottom: var(--space-5);
-      max-width: 65ch;
-    }
-    .post-body a {
-      color: var(--color-earth);
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 0.18em;
-    }
-    .post-body a:hover { color: var(--color-earth-deep); }
-
-    /* Inline code */
-    .post-body code {
-      font-family: var(--font-mono);
-      font-size: 0.875em;
-      background: var(--color-sand);
-      color: var(--color-rust);
-      padding: 1px 5px;
-      border-radius: var(--radius-xs);
-    }
-
-    /* Lists */
-    .post-body ul, .post-body ol {
-      margin-bottom: var(--space-5);
-      padding-left: var(--space-6);
-    }
-    .post-body ul { list-style: disc; }
-    .post-body li {
-      font-size: var(--text-md);
-      line-height: 1.65;
-      color: var(--fg-2);
-      margin-bottom: var(--space-3);
-      max-width: 65ch;
-    }
-
-    /* Post footer nav */
-    .post-footer-nav {
-      border-top: 1px solid var(--color-stone-soft);
-      padding: var(--space-10) 0 var(--space-16);
-    }
-    .post-footer-nav .page {
-      max-width: 760px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: var(--space-6);
-      flex-wrap: wrap;
-    }
-    .post-footer-nav a {
-      font-family: var(--font-display);
-      font-size: var(--text-sm);
-      font-weight: 500;
-      color: var(--color-earth);
-      text-decoration: none;
-    }
-    .post-footer-nav a:hover { color: var(--color-earth-deep); }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
+  <nav class="nav" id="nav" aria-label="Main">
+    <div class="wrap nav-inner">
       <a href="/" class="nav-logo" aria-label="Third Rock Analytics home">
-        <img src="/assets/logos/color-logo-text-no-bg-compressed.png" alt="Third Rock Analytics">
+        <img src="/assets/logos/logo.svg" alt="Third Rock Analytics" width="347" height="72">
       </a>
       <ul class="nav-links" id="nav-links" role="list">
         <li><a href="/#services" class="nav-link">Services</a></li>
-        <li><a href="/#about"    class="nav-link">About</a></li>
-        <li><a href="/blog/"     class="nav-link active">Field notes</a></li>
-        <li><a href="/map/"  class="nav-link">Project map</a></li>
+        <li><a href="/#process" class="nav-link">How it works</a></li>
+        <li><a href="/map/" class="nav-link">Project map</a></li>
+        <li><a href="/blog/" class="nav-link" aria-current="page">Field notes</a></li>
+        <li><a href="/#contact" class="nav-link nav-link--cta">Book a free call</a></li>
       </ul>
-      <a href="/#contact" class="nav-cta">Get in touch <span aria-hidden="true">→</span></a>
-      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <a href="/#contact" class="btn btn--sm nav-cta">Book a free call</a>
+      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -174,20 +46,14 @@
 
   <!-- POST HEADER -->
   <header class="post-header">
-    <div class="page">
-      <div class="post-meta">
-        <span class="eyebrow">Field notes</span>
-        <span class="post-date">May 2026</span>
-      </div>
+    <div class="wrap">
+      <p class="post-meta"><a href="/blog/">Field notes</a> · May 2026</p>
       <h1>Setting up shop</h1>
       <p class="lead">
         Notes on starting a one-person GIS practice. What it's for,
         what runs it, and where these field notes are headed.
       </p>
-      <div class="post-byline">
-        <span>Jeff Zivkovic</span>
-        <span>3 min read</span>
-      </div>
+      <p class="post-byline">Jeff Zivkovic · 3 min read</p>
     </div>
   </header>
 
@@ -199,11 +65,9 @@
     <div class="post-body">
 
       <p>
-        Third Rock Analytics started as a side project a couple of years
-        ago. This year, it's the main thing. This is the first post in
-        Field notes, so it makes sense to start with the basics: what
-        this practice does, why it's structured the way it is, and how
-        the back office is set up.
+        This is the first post in Field notes, so it makes sense to
+        start with the basics: what this practice does, why it's
+        structured the way it is, and how the back office is set up.
       </p>
 
       <p>
@@ -326,67 +190,59 @@
   </article>
 
 
+  <!-- CTA -->
+  <aside class="post-cta">
+    <div class="post-cta__box">
+      <div>
+        <h2>Have a project like this?</h2>
+        <p>Start with a free 30-minute call. No prep needed.</p>
+      </div>
+      <a href="/#contact" class="btn">Book a free call</a>
+    </div>
+  </aside>
+
+
   <!-- POST FOOTER NAV -->
   <nav class="post-footer-nav" aria-label="Post navigation">
-    <div class="page">
-      <a href="/blog/">← All field notes</a>
+    <div class="wrap">
+      <div class="post-nav-row">
+        <a href="/blog/2026-05-first-clients/" class="post-nav-btn post-nav-btn--next">
+          <span class="post-nav-btn__label">Next →</span>
+          <span class="post-nav-btn__title">First clients</span>
+        </a>
+      </div>
+      <a href="/blog/" class="post-nav-all">← All field notes</a>
     </div>
   </nav>
 
 
-  <!-- SITE FOOTER -->
   <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="/assets/logos/color-logo-text-no-bg-compressed.png" alt="Third Rock Analytics">
-        <p class="footer-tagline">
-          GIS, mapping, and spatial analysis for environmental, land, and community projects.
-          Based in Tacoma, WA.
-        </p>
-      </div>
-      <div class="footer-col">
-        <h5>Services</h5>
-        <a href="/#services" class="footer-link">Cartography</a>
-        <a href="/#services" class="footer-link">Spatial analysis</a>
-        <a href="/#services" class="footer-link">Web mapping</a>
-      </div>
-      <div class="footer-col">
-        <h5>Explore</h5>
-        <a href="/#about"    class="footer-link">About</a>
-        <a href="/blog/"     class="footer-link">Field notes</a>
-        <a href="/map/"  class="footer-link">Project map</a>
-        <a href="/#contact"  class="footer-link">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h5>Elsewhere</h5>
-        <a href="https://github.com/third-rock-analytics" class="footer-link">GitHub</a>
-        <a href="mailto:contact@thirdrockanalytics.com"    class="footer-link">Email</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Third Rock Analytics · Tacoma, WA</span>
-      <span>47.2529° N · 122.4443° W</span>
+    <div class="wrap footer-inner">
+      <a href="/" class="footer-logo" aria-label="Third Rock Analytics home">
+        <img src="/assets/logos/logo.svg" alt="Third Rock Analytics" width="347" height="72">
+      </a>
+      <ul class="footer-links" role="list">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/map/">Project map</a></li>
+        <li><a href="/blog/">Field notes</a></li>
+        <li><a href="mailto:contact@thirdrockanalytics.com">contact@thirdrockanalytics.com</a></li>
+      </ul>
+      <p class="footer-legal">© 2026 Third Rock Analytics LLC · Veteran-owned small business · Tacoma, WA</p>
     </div>
   </footer>
 
 
   <script>
-    // Mobile nav toggle
-    const nav     = document.getElementById('nav');
-    const navMenu = document.getElementById('nav-menu-btn');
-    const navList = document.getElementById('nav-links');
-    if (navMenu) {
-      navMenu.addEventListener('click', () => {
-        const open = nav.classList.toggle('nav--open');
-        navMenu.setAttribute('aria-expanded', String(open));
-      });
-      navList.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          nav.classList.remove('nav--open');
-          navMenu.setAttribute('aria-expanded', 'false');
-        });
-      });
-    }
+    // Mobile nav
+    const nav = document.getElementById('nav');
+    const navBtn = document.getElementById('nav-menu-btn');
+    navBtn.addEventListener('click', () => {
+      navBtn.setAttribute('aria-expanded', String(nav.classList.toggle('nav--open')));
+    });
+    nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('nav--open');
+      navBtn.setAttribute('aria-expanded', 'false');
+    }));
   </script>
 
 </body>

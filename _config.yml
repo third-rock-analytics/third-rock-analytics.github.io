@@ -1,2 +1,2 @@
 exclude:
-  - blog/post-template/
+  - blog/   # field notes hidden for now; remove this line to republish

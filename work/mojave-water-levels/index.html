@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mojave well monitoring dashboard — Work — Third Rock Analytics</title>
+  <meta name="description" content="A web dashboard that maps 731 groundwater monitoring wells and charts any well's full water-level history, pulled live from USGS.">
+  <meta name="author" content="Jeff Zivkovic">
+
+  <meta property="og:title" content="Mojave well monitoring dashboard — Third Rock Analytics">
+  <meta property="og:description" content="A web dashboard that maps 731 groundwater monitoring wells and charts any well's full water-level history, pulled live from USGS.">
+  <meta property="og:image" content="https://thirdrockanalytics.com/work/mojave-water-levels/dashboard.webp">
+  <meta property="og:url" content="https://thirdrockanalytics.com/work/mojave-water-levels/">
+  <meta property="og:type" content="article">
+
+  <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/logos/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav" aria-label="Main">
+    <div class="wrap nav-inner">
+      <a href="/" class="nav-logo" aria-label="Third Rock Analytics home">
+        <img src="/assets/logos/logo.svg" alt="Third Rock Analytics" width="347" height="72">
+      </a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="/#services" class="nav-link">Services</a></li>
+        <li><a href="/#work" class="nav-link" aria-current="page">Work</a></li>
+        <li><a href="/#about" class="nav-link">About</a></li>
+        <li><a href="/#process" class="nav-link">How it works</a></li>
+        <li><a href="/#contact" class="nav-link nav-link--cta">Book a free call</a></li>
+      </ul>
+      <a href="/#contact" class="btn btn--sm nav-cta">Book a free call</a>
+      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+
+  <header class="post-header">
+    <div class="wrap">
+      <p class="post-meta"><a href="/#work">Work</a> · Web dashboard · 2023</p>
+      <h1>Mojave well monitoring dashboard</h1>
+      <p class="lead">
+        A web dashboard that puts 731 groundwater monitoring wells on one map and charts
+        any well's full water-level history with a single click.
+      </p>
+      <ul class="project-facts" style="margin-top:28px;border:1px solid var(--line);border-radius:var(--radius)">
+        <li><span>Wells</span><strong>731</strong></li>
+        <li><span>Service area</span><strong>4,873 sq mi</strong></li>
+        <li><span>Data</span><strong>USGS, live</strong></li>
+      </ul>
+      <p class="post-byline">Built in 2023 while working with the Mojave Water Agency.</p>
+    </div>
+  </header>
+
+  <img class="post-hero-img" style="object-position: center bottom" src="/work/mojave-water-levels/dashboard.webp" width="1600" height="1000"
+       alt="Dashboard overview: well clusters across the Mojave Water Agency service area on satellite imagery.">
+  <p class="post-hero-caption">Overview: wells are clustered by area inside the agency's service boundary. Imagery: Esri.</p>
+
+
+  <article>
+    <div class="post-body">
+
+      <h2>The problem</h2>
+      <p>
+        The agency monitors groundwater across a service area of nearly 4,900 square
+        miles. The team wanted a quick way to view water-level data for the majority of
+        the wells in that area, all from one place.
+      </p>
+
+      <h2>What I built</h2>
+      <p>
+        One map with every monitoring well on it, clustered by area so it stays readable
+        at any zoom. Click a well and its full record is pulled from USGS and drawn as a
+        hydrograph, in some cases going back more than a century.
+      </p>
+
+      <figure>
+        <img src="/work/mojave-water-levels/hydrograph.webp" width="1220" height="732" loading="lazy"
+             alt="Hydrograph of one well showing depth to groundwater and water-level elevation from the 1910s to the 2020s.">
+        <figcaption>
+          Clicking a well charts its record from USGS. Depth to water on the left, elevation
+          above sea level (NAVD88) on the right. This well's record starts in the 1910s.
+        </figcaption>
+      </figure>
+
+      <ul>
+        <li>Depth to groundwater and water-level elevation on the same chart</li>
+        <li>A consistent 100-foot scale, so wells can be compared at a glance, with artesian wells handled correctly</li>
+        <li>Wells that share a location plotted together on one chart</li>
+        <li>Search by state well number, USGS site name or number, or common name</li>
+        <li>Distance and area measuring, plus terrain and street basemaps</li>
+        <li>A link from every chart to the full USGS record</li>
+      </ul>
+
+      <h2>How the data works</h2>
+      <p>
+        The well list was prepared in Python from the agency's own records and
+        cross-referenced with USGS site information. The water-level readings aren't
+        stored in the map at all. They're requested from USGS when someone clicks a well,
+        so the charts stay current without anyone updating a file.
+      </p>
+
+      <h2>Built to be light</h2>
+      <p>
+        The whole dashboard is a single 626 KB file: every well location, the service
+        boundary, and the code. There's no database or server behind it, so it can be
+        hosted anywhere that serves a web page.
+      </p>
+      <p>Tools: Python for data prep, Leaflet for the map, D3 for the charts.</p>
+
+      <h2>Where it ended up</h2>
+      <p>
+        The dashboard was used internally at the agency rather than released to the
+        public. Because it reads straight from USGS, the same approach works anywhere USGS
+        monitors wells, and it can be adapted to an organization's own monitoring data.
+      </p>
+
+    </div><!-- /post-body -->
+  </article>
+
+
+  <aside class="post-cta">
+    <div class="post-cta__box">
+      <div>
+        <h2>Have monitoring data that's hard to read?</h2>
+        <p>Start with a free 30-minute call. No prep needed.</p>
+      </div>
+      <a href="/#contact" class="btn">Book a free call</a>
+    </div>
+  </aside>
+
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <a href="/" class="footer-logo" aria-label="Third Rock Analytics home">
+        <img src="/assets/logos/logo.svg" alt="Third Rock Analytics" width="347" height="72">
+      </a>
+      <ul class="footer-links" role="list">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/map/">Project map</a></li>
+        <li><a href="mailto:contact@thirdrockanalytics.com">contact@thirdrockanalytics.com</a></li>
+      </ul>
+      <p class="footer-legal">© 2026 Third Rock Analytics LLC · Veteran-owned small business · Tacoma, WA</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav
+    const nav = document.getElementById('nav');
+    const navBtn = document.getElementById('nav-menu-btn');
+    navBtn.addEventListener('click', () => {
+      navBtn.setAttribute('aria-expanded', String(nav.classList.toggle('nav--open')));
+    });
+    nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('nav--open');
+      navBtn.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
+
+</body>
+</html>

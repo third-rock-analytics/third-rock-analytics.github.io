@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -6,448 +6,192 @@
   <title>Project map — Third Rock Analytics</title>
   <meta name="description" content="An interactive map of Third Rock Analytics projects.">
   <meta name="author" content="Jeff Zivkovic">
-
-  <!-- Open Graph -->
+  <link rel="canonical" href="https://thirdrockanalytics.com/map/">
   <meta property="og:title" content="Project map — Third Rock Analytics">
   <meta property="og:description" content="Every Third Rock Analytics project, pinned in place on an interactive map.">
+  <meta property="og:image" content="https://thirdrockanalytics.com/assets/logos/og-image.png">
   <meta property="og:url" content="https://thirdrockanalytics.com/map/">
   <meta property="og:type" content="website">
-
-  <!-- Favicon -->
   <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
-
-  <!-- Fonts -->
+  <link rel="apple-touch-icon" href="/assets/logos/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- MapLibre -->
   <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="/colors_and_type.css">
-  <link rel="stylesheet" href="/site.css">
-  <link rel="stylesheet" href="/additions.css">
+  <link rel="stylesheet" href="/style.css">
 
   <style>
     body { overflow: hidden; }
+    .nav > .wrap { border-inline: 0; }  /* no frame lines over the full-bleed map */
 
     .map-page {
       position: fixed;
-      top: 64px;
+      top: var(--nav-h);
       left: 0;
       right: 0;
       bottom: 0;
       display: grid;
-      grid-template-columns: 380px 1fr;
+      grid-template-columns: 360px 1fr;
     }
 
-    /* ── SIDEBAR ─────────────────────────────────────────────────── */
+    /* Sidebar */
     .map-sidebar {
-      background: var(--color-cream);
-      border-right: 1px solid var(--color-stone-soft);
+      background: #fff;
+      border-right: 1px solid var(--line);
       overflow-y: auto;
       display: flex;
       flex-direction: column;
     }
     .map-sidebar__header {
-      padding: var(--space-6) var(--space-6) var(--space-5);
-      border-bottom: 1px solid var(--color-stone-soft);
-      background: var(--color-cream);
       position: sticky;
       top: 0;
       z-index: 1;
+      padding: 24px 24px 20px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
     }
-    .map-sidebar__eyebrow {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--color-sun-deep);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: var(--space-2);
-      font-weight: 500;
-    }
-    .map-sidebar__title {
-      font-family: var(--font-display);
-      font-size: var(--text-2xl);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      font-variation-settings: 'opsz' 36;
-      color: var(--fg-1);
-      margin-bottom: var(--space-2);
-    }
-    .map-sidebar__title em {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-weight: 400;
-      color: var(--color-earth-deep);
-    }
-    .map-sidebar__sub {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--fg-3);
-      letter-spacing: 0.06em;
-    }
-    .map-sidebar__sub b { color: var(--color-sun-deep); font-weight: 500; letter-spacing: 0.10em; }
+    .map-sidebar__title { font-size: var(--text-xl); font-weight: 600; color: var(--ink); letter-spacing: -0.02em; }
+    .map-sidebar__sub { margin-top: 4px; font-size: var(--text-sm); color: var(--muted); }
 
-    /* ── PROJECT LIST ────────────────────────────────────────────── */
     .project-list { display: flex; flex-direction: column; }
     .project-item {
-      padding: var(--space-5) var(--space-6);
-      border-bottom: 1px solid var(--color-stone-soft);
-      cursor: pointer;
-      transition: background var(--transition-fast);
       display: flex;
-      gap: var(--space-4);
+      gap: 14px;
       align-items: flex-start;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
     }
-    .project-item:hover { background: rgba(212, 160, 58, 0.06); }
-    .project-item.active { background: var(--color-sun-tint); }
+    .project-item:hover { background: var(--bg-alt); }
+    .project-item.active { background: var(--earth-tint); box-shadow: inset 3px 0 0 var(--earth); }
     .project-item__index {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--color-sun-deep);
-      letter-spacing: 0.10em;
-      font-weight: 500;
-      min-width: 24px;
-      padding-top: 3px;
-    }
-    .project-item__body { flex: 1; min-width: 0; }
-    .project-item__title {
-      font-family: var(--font-display);
-      font-size: var(--text-md);
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--fg-1);
-      line-height: 1.25;
-      margin-bottom: var(--space-1);
-      font-variation-settings: 'opsz' 24;
-    }
-    .project-item__loc {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--fg-3);
-      letter-spacing: 0.04em;
-      margin-bottom: var(--space-1);
-    }
-    .project-item__tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: var(--space-2); }
-    .project-item__tag {
-      font-family: var(--font-mono);
-      font-size: var(--text-2xs);
-      padding: 2px 7px;
-      background: var(--color-sand);
-      color: var(--fg-3);
-      border-radius: 9999px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    .project-item__status {
-      font-family: var(--font-mono);
-      font-size: var(--text-2xs);
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: var(--color-success);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: var(--space-2);
-      font-weight: 500;
-    }
-    .project-item__status::before {
-      content: '';
-      width: 7px;
-      height: 7px;
-      background: var(--color-success);
+      flex: none;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: grid;
+      place-items: center;
+      margin-top: 1px;
     }
+    .project-item.active .project-item__index { background: var(--earth); }
+    .project-item__body { flex: 1; min-width: 0; }
+    .project-item__title { font-weight: 600; color: var(--ink); line-height: 1.3; }
+    .project-item__loc { margin-top: 2px; font-size: var(--text-sm); color: var(--muted); }
 
-    /* ── COMING SOON BLOCK ───────────────────────────────────────── */
-    .sidebar-cs {
-      margin: var(--space-2) var(--space-6) var(--space-6);
-      padding: var(--space-5);
-      background: var(--color-sand);
-      border-radius: var(--radius-md);
-      border-left: 2px solid var(--color-sun);
-    }
-    .sidebar-cs__label {
-      font-family: var(--font-mono);
-      font-size: var(--text-2xs);
-      color: var(--color-sun-deep);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-bottom: var(--space-2);
-    }
-    .sidebar-cs__body {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: var(--text-sm);
-      color: var(--fg-2);
-      line-height: 1.55;
-    }
-    .sidebar-cs__action {
-      margin-top: var(--space-3);
-      font-family: var(--font-display);
-      font-size: var(--text-sm);
-      font-weight: 500;
-      color: var(--color-sun-deep);
-      letter-spacing: -0.005em;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-    }
-    .sidebar-cs__action:hover { opacity: 0.8; }
+    .sidebar-cs { margin: 20px 24px 24px; padding: 20px; background: var(--bg-alt); border-radius: var(--radius); }
+    .sidebar-cs__label { font-weight: 600; color: var(--ink); }
+    .sidebar-cs__body { margin-top: 4px; font-size: var(--text-sm); }
+    .sidebar-cs .btn { margin-top: 14px; }
 
-    /* ── MAP CANVAS ──────────────────────────────────────────────── */
-    .map-canvas { position: relative; background: var(--color-loam); }
+    /* Map */
+    .map-canvas { position: relative; background: var(--bg-alt); }
     #map { position: absolute; inset: 0; }
-
-    .maplibregl-ctrl-attrib {
-      font-family: var(--font-mono);
-      font-size: 10px !important;
-      background: rgba(246, 241, 231, 0.85) !important;
-      backdrop-filter: blur(8px);
-    }
-    .maplibregl-ctrl-attrib a { color: var(--color-earth-deep) !important; }
-    .maplibregl-ctrl-group {
-      background: rgba(246, 241, 231, 0.92) !important;
-      border-radius: var(--radius-sm) !important;
-      box-shadow: var(--shadow-sm) !important;
-    }
-    .maplibregl-ctrl-group button { border-radius: var(--radius-sm) !important; }
+    .maplibregl-ctrl-attrib { font-size: 11px !important; }
+    .maplibregl-ctrl-group { border-radius: 6px !important; }
 
     .tr-marker {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: var(--color-sun);
-      border: 3px solid var(--color-loam);
-      box-shadow: 0 2px 8px rgba(31, 26, 20, 0.3);
-      cursor: pointer;
-      transition: transform var(--transition-fast);
+      background: var(--ink);
+      border: 2px solid #fff;
+      box-shadow: 0 1px 4px rgba(22, 24, 27, 0.35);
+      color: #fff;
+      font: 600 12px/1 var(--font);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--fg-on-primary);
+      cursor: pointer;
     }
-    .tr-marker:hover { transform: scale(1.15); }
-    .tr-marker.active {
-      background: var(--color-sun-deep);
-      transform: scale(1.2);
-      box-shadow: 0 0 0 8px rgba(212, 160, 58, 0.22), 0 2px 8px rgba(31, 26, 20, 0.3);
-    }
+    .tr-marker.active { background: var(--earth); width: 32px; height: 32px; }
 
     .maplibregl-popup-content {
-      background: var(--color-cream) !important;
-      padding: var(--space-5) var(--space-6) !important;
-      border-radius: var(--radius-md) !important;
-      box-shadow: var(--shadow-lg) !important;
-      max-width: 340px !important;
-      border: 1px solid var(--color-stone-soft) !important;
+      padding: 18px 20px !important;
+      border-radius: var(--radius) !important;
+      box-shadow: 0 8px 24px rgba(22, 24, 27, 0.14) !important;
+      max-width: 320px !important;
+      font-family: var(--font);
     }
-    .maplibregl-popup-close-button {
-      font-family: var(--font-display) !important;
-      font-size: 20px !important;
-      color: var(--fg-3) !important;
-      padding: 4px 10px !important;
-    }
-    .maplibregl-popup-tip {
-      border-top-color: var(--color-cream) !important;
-      border-bottom-color: var(--color-cream) !important;
-    }
-    .popup-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--color-sun-deep);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-    .popup-title {
-      font-family: var(--font-display);
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: -0.015em;
-      color: var(--fg-1);
-      margin-bottom: 8px;
-      line-height: 1.25;
-      font-variation-settings: 'opsz' 24;
-    }
-    .popup-desc { font-size: 13px; color: var(--fg-2); line-height: 1.55; margin-bottom: 12px; }
+    .maplibregl-popup-close-button { font-size: 20px !important; color: var(--muted) !important; padding: 2px 8px !important; }
+    .popup-eyebrow { font-size: 0.75rem; font-weight: 500; color: var(--muted); }
+    .popup-title { margin-top: 2px; font-size: 1.0625rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+    .popup-desc { margin-top: 6px; font-size: 0.8125rem; line-height: 1.55; color: var(--text); }
     .popup-stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      padding: 10px 0;
-      border-top: 1px solid var(--color-stone-soft);
-      border-bottom: 1px solid var(--color-stone-soft);
-      margin-bottom: 12px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
     }
-    .popup-stat b {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      color: var(--fg-3);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-bottom: 2px;
-    }
-    .popup-stat span {
-      font-family: var(--font-display);
-      font-size: 14px;
-      color: var(--fg-1);
-      font-weight: 600;
-      letter-spacing: -0.005em;
-    }
-    .popup-meta {
-      display: flex;
-      gap: 12px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--fg-3);
-      letter-spacing: 0.04em;
-    }
-    .popup-meta b { color: var(--color-sun-deep); font-weight: 500; letter-spacing: 0.08em; }
+    .popup-stat b { display: block; font-size: 0.75rem; font-weight: 500; color: var(--muted); }
+    .popup-link { display: inline-block; margin-top: 12px; font-size: 0.8125rem; font-weight: 500; color: var(--earth); }
+    .popup-stat span { font-size: 0.875rem; font-weight: 600; color: var(--ink); }
 
-    .map-locator {
-      position: absolute;
-      bottom: 36px;
-      left: 16px;
-      z-index: 5;
-      background: rgba(31, 26, 20, 0.78);
-      backdrop-filter: blur(8px);
-      color: rgba(246, 241, 231, 0.85);
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.06em;
-      display: flex;
-      gap: var(--space-4);
-      pointer-events: none;
-    }
-    .map-locator b { color: var(--color-sun-soft); font-weight: 500; letter-spacing: 0.10em; }
-
-    .sheet-handle { display: none; }
-    .sheet-cta    { display: none; }
-    .nav { z-index: 200; }
-    .nav--open .nav-links { z-index: 201; }
+    .sheet-handle, .sheet-cta { display: none; }
 
     @media (max-width: 780px) {
-      .map-page {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr;
-      }
-      .map-canvas {
-        grid-row: 1;
-        grid-column: 1;
-      }
+      .map-page { grid-template-columns: 1fr; }
+      .map-canvas { grid-row: 1; grid-column: 1; }
       .map-sidebar {
         position: absolute;
-        bottom: 0;
         left: 0;
         right: 0;
-        top: auto;
-        height: 80px;
+        bottom: 0;
+        height: 76px;
         max-height: calc(100% - 20px);
-        border-right: none;
-        border-top: 1px solid var(--color-stone-soft);
-        border-radius: 16px 16px 0 0;
-        box-shadow: 0 -4px 24px rgba(31, 26, 20, 0.12);
+        border-right: 0;
+        border-top: 1px solid var(--line);
+        border-radius: 14px 14px 0 0;
+        box-shadow: 0 -4px 20px rgba(22, 24, 27, 0.12);
         overflow: hidden;
-        transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        transition: height 300ms ease;
         z-index: 100;
       }
-      .map-sidebar.sheet-open {
-        height: 55vh;
-        overflow-y: auto;
-      }
-      .map-sidebar.sheet-open::after {
-        content: '';
-        position: sticky;
-        bottom: 0;
-        display: block;
-        height: 48px;
-        margin-top: -48px;
-        background: linear-gradient(to bottom, transparent, var(--color-cream));
-        pointer-events: none;
-        z-index: 2;
-      }
-      .map-sidebar__header {
-        padding: 0 var(--space-5) var(--space-4);
-        cursor: pointer;
-        user-select: none;
-      }
-      .sheet-handle {
-        display: block;
-        width: 32px;
-        height: 4px;
-        background: var(--color-stone-soft);
-        border-radius: 9999px;
-        margin: 8px auto 8px;
-      }
+      .map-sidebar.sheet-open { height: 60vh; overflow-y: auto; }
+      .map-sidebar__header { padding: 0 20px 16px; cursor: pointer; user-select: none; }
+      .sheet-handle { display: block; width: 32px; height: 4px; margin: 8px auto; background: var(--line); border-radius: 999px; }
       .sheet-cta {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: var(--color-loam);
-        color: rgba(246, 241, 231, 0.9);
-        border-radius: var(--radius-sm);
-        padding: 11px 14px;
-        font-family: var(--font-display);
+        padding: 10px 14px;
+        border-radius: 6px;
+        background: var(--ink);
+        color: #fff;
         font-size: var(--text-sm);
         font-weight: 500;
-        letter-spacing: -0.005em;
       }
-      .sheet-cta b {
-        color: var(--color-sun-soft);
-        font-weight: 500;
-      }
-      .sheet-cta__chevron {
-        color: rgba(246, 241, 231, 0.6);
-        transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
-        flex-shrink: 0;
-      }
-      .map-sidebar.sheet-open .sheet-cta__chevron {
-        transform: rotate(180deg);
-      }
-      .map-locator { display: none; }
-      .map-sidebar__eyebrow { display: none; }
-      .map-sidebar__title { margin-top: var(--space-5); }
-      .maplibregl-popup-content {
-        max-width: min(280px, 82vw) !important;
-        padding: var(--space-4) var(--space-4) !important;
-      }
-      .popup-title { font-size: 15px !important; margin-bottom: 6px; }
-      .popup-desc { font-size: 12px !important; margin-bottom: 8px; }
-      .popup-stats { gap: 8px; padding: 8px 0; margin-bottom: 8px; }
-      .popup-meta { font-size: 9px; }
+      .sheet-cta__chevron { transition: transform 300ms ease; }
+      .map-sidebar.sheet-open .sheet-cta__chevron { transform: rotate(180deg); }
+      .map-sidebar__title { margin-top: 20px; }
+      .maplibregl-popup-content { max-width: min(280px, 82vw) !important; padding: 14px 16px !important; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
+  <nav class="nav" id="nav" aria-label="Main">
+    <div class="wrap nav-inner">
       <a href="/" class="nav-logo" aria-label="Third Rock Analytics home">
-        <img src="/assets/logos/color-logo-text-no-bg-compressed.png" alt="Third Rock Analytics">
+        <img src="/assets/logos/logo.svg" alt="Third Rock Analytics" width="347" height="72">
       </a>
       <ul class="nav-links" id="nav-links" role="list">
         <li><a href="/#services" class="nav-link">Services</a></li>
-        <li><a href="/#about"    class="nav-link">About</a></li>
-        <li><a href="/blog/"     class="nav-link">Field notes</a></li>
-        <li><a href="/map/"  class="nav-link active">Project map</a></li>
+        <li><a href="/#work" class="nav-link" aria-current="page">Work</a></li>
+        <li><a href="/#about" class="nav-link">About</a></li>
+        <li><a href="/#process" class="nav-link">How it works</a></li>
+        <li><a href="/#contact" class="nav-link nav-link--cta">Book a free call</a></li>
       </ul>
-      <a href="/#contact" class="nav-cta">Get in touch <span aria-hidden="true">→</span></a>
-      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <a href="/#contact" class="btn btn--sm nav-cta">Book a free call</a>
+      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -459,52 +203,30 @@
       <div class="map-sidebar__header">
         <div class="sheet-handle" aria-hidden="true"></div>
         <div class="sheet-cta" aria-hidden="true">
-          <span>Projects <b>· 2 live</b></span>
+          <span>Projects (2)</span>
           <svg class="sheet-cta__chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M3 10.5L8 5.5L13 10.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="map-sidebar__eyebrow">Project map</div>
-        <div class="map-sidebar__title">Every project, <em>pinned in place.</em></div>
-        <div class="map-sidebar__sub"><b>2</b> projects live · click to fly</div>
+        <h1 class="map-sidebar__title">Project map</h1>
+        <p class="map-sidebar__sub">Select a project to zoom to it.</p>
       </div>
       <div class="project-list" id="project-list"></div>
       <div class="sidebar-cs">
-        <div class="sidebar-cs__label">More to come</div>
-        <div class="sidebar-cs__body">
-          Additional projects will land here as they're published.
-          Every project starts with a conversation — if you have one in mind,
-          the contact form is the fastest way in.
-        </div>
-        <a href="/#contact" class="sidebar-cs__action">Start a project <span aria-hidden="true">→</span></a>
+        <p class="sidebar-cs__label">Have a project in mind?</p>
+        <p class="sidebar-cs__body">More projects get added here as they're published. Every one starts with a free call.</p>
+        <a href="/#contact" class="btn btn--sm">Book a free call</a>
       </div>
     </aside>
 
     <div class="map-canvas">
       <div id="map"></div>
-      <div class="map-locator">
-        <span><b>BASEMAP</b> OpenFreeMap positron</span>
-        <span><b>CRS</b> EPSG:3857</span>
-      </div>
     </div>
 
   </div>
 
 
   <script>
-    // Design-package color palette mapped to tag names
-    const TAG_COLORS = {
-      'HQ':        'background:rgba(212,160,58,0.20);color:#B5832A',
-      'Studio':    'background:rgba(52,90,120,0.14);color:#234159',
-      'GeoJSON':   'background:rgba(107,122,90,0.18);color:#44503A',
-      'Hydrology': 'background:rgba(149,179,199,0.28);color:#234159',
-      'Leaflet':   'background:rgba(181,104,62,0.18);color:#7A371A',
-    };
-
-    function tagHtml(t) {
-      const s = TAG_COLORS[t] || '';
-      return `<span class="project-item__tag" style="${s}">${t}</span>`;
-    }
 
     const PROJECTS = [
       {
@@ -518,26 +240,25 @@
         kind: 'HQ',
         desc: 'Third Rock Analytics is based in Tacoma. We work with nonprofits and private clients on environmental, land, and community GIS projects, mostly in the Pacific Northwest but anywhere the work makes sense.',
         stats: [
-          { label: 'Founded', value: 'One-person studio' },
+          { label: 'Clients', value: 'Orgs & landowners' },
           { label: 'Reach',   value: 'Nationwide' },
         ],
-        tags: ['HQ', 'Studio'],
       },
       {
         id: 'mojave',
         index: '02',
-        title: 'Mojave water levels',
+        title: 'Mojave well monitoring dashboard',
         location: 'Mojave Desert, CA',
         coords: [-117.2183, 34.4851],
         zoom: 7,
         category: 'Live data',
-        kind: 'Web map',
-        desc: 'A live web map showing USGS groundwater monitoring data across well locations in the Mojave Desert. Kept lightweight so it loads reliably in the field.',
+        kind: 'Web dashboard',
+        link: '/work/mojave-water-levels/',
+        desc: 'Every groundwater monitoring well across a water agency service area on one map. Click any well to chart its full water-level history, pulled live from USGS.',
         stats: [
-          { label: 'Wells',  value: '700+' },
-          { label: 'Bundle', value: '626 kb' },
+          { label: 'Wells',  value: '731' },
+          { label: 'Service area', value: '4,873 sq mi' },
         ],
-        tags: ['GeoJSON', 'Hydrology', 'Leaflet'],
       },
     ];
 
@@ -555,8 +276,6 @@
         <div class="project-item__body">
           <div class="project-item__title">${p.title}</div>
           <div class="project-item__loc">${p.location} · ${p.kind}</div>
-          <div class="project-item__tags">${p.tags.map(tagHtml).join('')}</div>
-          <div class="project-item__status">Live</div>
         </div>
       `;
       item.addEventListener('click', () => selectProject(p.id));
@@ -588,14 +307,11 @@
 
         const popup = new maplibregl.Popup({ offset: 20, closeButton: true })
           .setHTML(`
-            <div class="popup-eyebrow">${p.index} // ${p.category}</div>
+            <div class="popup-eyebrow">${p.category}</div>
             <div class="popup-title">${p.title}</div>
             <div class="popup-desc">${p.desc}</div>
             <div class="popup-stats">${statsHtml}</div>
-            <div class="popup-meta">
-              <span><b>LOC</b> ${p.location}</span>
-              <span><b>KIND</b> ${p.kind}</span>
-            </div>
+            ${p.link ? `<a class="popup-link" href="${p.link}">Read how it was built →</a>` : ''}
           `);
 
         const marker = new maplibregl.Marker({ element: el })
@@ -648,24 +364,16 @@
       if (isMobile()) sidebar.classList.toggle('sheet-open');
     });
 
-    // Mobile nav toggle
-    const nav     = document.getElementById('nav');
-    const navMenu = document.getElementById('nav-menu-btn');
-    const navList = document.getElementById('nav-links');
-    if (navMenu) {
-      navMenu.addEventListener('click', () => {
-        const open = nav.classList.toggle('nav--open');
-        navMenu.setAttribute('aria-expanded', String(open));
-        document.body.style.overflow = open ? 'visible' : 'hidden';
-      });
-      navList.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          nav.classList.remove('nav--open');
-          navMenu.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = 'hidden';
-        });
-      });
-    }
+    // Mobile nav
+    const nav = document.getElementById('nav');
+    const navBtn = document.getElementById('nav-menu-btn');
+    navBtn.addEventListener('click', () => {
+      navBtn.setAttribute('aria-expanded', String(nav.classList.toggle('nav--open')));
+    });
+    nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('nav--open');
+      navBtn.setAttribute('aria-expanded', 'false');
+    }));
   </script>
 
 </body>

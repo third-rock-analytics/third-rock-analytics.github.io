@@ -4,318 +4,115 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Field notes — Third Rock Analytics</title>
-  <meta name="description" content="Field notes from Third Rock Analytics. Short essays on GIS problems from a one-person practice.">
+  <meta name="description" content="Field notes from Third Rock Analytics: short, practical writeups on GIS tools, methods, and running a mapping practice.">
   <meta name="author" content="Jeff Zivkovic">
 
-  <!-- Open Graph -->
   <meta property="og:title" content="Field notes — Third Rock Analytics">
-  <meta property="og:description" content="Short essays on GIS problems from a one-person practice.">
+  <meta property="og:description" content="Short, practical writeups on GIS tools, methods, and running a mapping practice.">
+  <meta property="og:image" content="https://thirdrockanalytics.com/assets/logos/og-image.png">
   <meta property="og:url" content="https://thirdrockanalytics.com/blog/">
   <meta property="og:type" content="website">
 
-  <!-- Favicon -->
   <link rel="icon" href="/assets/logos/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/logos/apple-touch-icon.png">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="/colors_and_type.css">
-  <link rel="stylesheet" href="/site.css">
-  <link rel="stylesheet" href="/additions.css">
-
-  <style>
-    /* ── POST LIST PAGE ───────────────────────────────────────────── */
-    .notes-body {
-      padding: var(--space-12) 0 var(--space-24);
-      background: var(--color-sand);
-    }
-
-    .post-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-4);
-    }
-
-    .post-list__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-4);
-      padding-bottom: var(--space-5);
-      margin-bottom: var(--space-2);
-      border-bottom: 1px solid var(--color-stone);
-      flex-wrap: wrap;
-    }
-    .post-list__count {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--fg-3);
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-    }
-
-    /* Filter tabs */
-    .post-filter {
-      display: flex;
-      align-items: center;
-      gap: var(--space-1);
-    }
-    .post-filter__btn {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      color: var(--fg-3);
-      background: none;
-      border: 1px solid transparent;
-      border-radius: var(--radius-sm);
-      padding: 4px 10px;
-      cursor: pointer;
-      transition: color var(--transition-base),
-                  border-color var(--transition-base),
-                  background var(--transition-base);
-    }
-    .post-filter__btn:hover {
-      color: var(--fg-1);
-      border-color: var(--color-stone);
-    }
-    .post-filter__btn.active {
-      color: var(--color-earth);
-      background: rgba(52, 90, 120, 0.08);
-      border-color: rgba(52, 90, 120, 0.20);
-    }
-
-    /* ── CARD ─────────────────────────────────────────────────────── */
-    .post-card {
-      background: #fff;
-      border: 1px solid var(--color-stone-soft);
-      border-radius: var(--radius-lg);
-      transition: border-color var(--transition-base),
-                  box-shadow var(--transition-base),
-                  background var(--transition-base);
-    }
-    .post-card:hover {
-      background: var(--color-cream);
-      border-color: var(--color-stone);
-      box-shadow: inset 3px 0 0 var(--color-earth),
-                  0 4px 20px rgba(31,26,20,0.07);
-    }
-
-    .post-card__link {
-      display: block;
-      padding: var(--space-8) var(--space-10);
-      text-decoration: none;
-      color: inherit;
-    }
-    @media (max-width: 640px) {
-      .post-card__link { padding: var(--space-5) var(--space-6); }
-    }
-
-    /* Meta row: date · tags */
-    .post-card__meta {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-      flex-wrap: wrap;
-      margin-bottom: var(--space-4);
-    }
-    .post-card__date {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--fg-3);
-      letter-spacing: 0.06em;
-    }
-    .post-card__meta-sep {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      color: var(--color-stone);
-    }
-
-    /* Tags */
-    .post-tag {
-      font-family: var(--font-mono);
-      font-size: var(--text-2xs);
-      font-weight: 500;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: var(--color-earth);
-      background: rgba(52, 90, 120, 0.07);
-      padding: 2px 8px;
-      border-radius: var(--radius-xs);
-      border: 1px solid rgba(52, 90, 120, 0.18);
-    }
-
-    /* Title */
-    .post-card__title {
-      font-family: var(--font-display);
-      font-size: clamp(var(--text-xl), 2.4vw, var(--text-2xl));
-      font-weight: 600;
-      font-variation-settings: 'opsz' 36;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      color: var(--fg-1);
-      margin-bottom: var(--space-3);
-      text-wrap: balance;
-      transition: color var(--transition-base);
-    }
-    .post-card:hover .post-card__title { color: var(--color-earth); }
-
-    /* Excerpt */
-    .post-card__excerpt {
-      font-size: var(--text-base);
-      line-height: 1.65;
-      color: var(--fg-2);
-      margin-bottom: var(--space-5);
-      width: 100%;
-      max-width: none;
-    }
-
-    /* Card footer: reading time + read link */
-    .post-card__footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: var(--space-4);
-      border-top: 1px solid var(--color-stone-soft);
-    }
-    .post-card__readtime {
-      font-family: var(--font-mono);
-      font-size: var(--text-2xs);
-      color: var(--fg-3);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .post-card__read {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      font-weight: 500;
-      color: var(--color-earth);
-      letter-spacing: 0.06em;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: gap var(--transition-base);
-    }
-    .post-card:hover .post-card__read { gap: 10px; }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
+  <nav class="nav" id="nav" aria-label="Main">
+    <div class="wrap nav-inner">
       <a href="/" class="nav-logo" aria-label="Third Rock Analytics home">
-        <img src="/assets/logos/color-logo-text-no-bg-compressed.png" alt="Third Rock Analytics">
+        <img src="/assets/logos/logo.svg" alt="Third Rock Analytics" width="347" height="72">
       </a>
       <ul class="nav-links" id="nav-links" role="list">
         <li><a href="/#services" class="nav-link">Services</a></li>
-        <li><a href="/#about"    class="nav-link">About</a></li>
-        <li><a href="/blog/"     class="nav-link active">Field notes</a></li>
-        <li><a href="/map/"  class="nav-link">Project map</a></li>
+        <li><a href="/#process" class="nav-link">How it works</a></li>
+        <li><a href="/map/" class="nav-link">Project map</a></li>
+        <li><a href="/blog/" class="nav-link" aria-current="page">Field notes</a></li>
+        <li><a href="/#contact" class="nav-link nav-link--cta">Book a free call</a></li>
       </ul>
-      <a href="/#contact" class="nav-cta">Get in touch <span aria-hidden="true">→</span></a>
-      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <a href="/#contact" class="btn btn--sm nav-cta">Book a free call</a>
+      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
-  <main>
+  <main class="wrap">
 
-    <!-- HERO -->
-    <section class="notes-hero">
-      <div class="page">
-        <span class="eyebrow">Field notes</span>
-        <h1 style="margin-top:var(--space-3)">
-          Short essays from <em>the field.</em>
-        </h1>
-        <p class="lead">
-          Notes on problems that come up in a one-person GIS practice:
-          classification breaks, bundle sizes, datum mismatches, and
-          what tools actually hold up in the field.
-        </p>
-      </div>
-    </section>
+    <header class="page-head">
+      <h1>Field notes</h1>
+      <p>
+        Short, practical writeups on GIS tools, methods, and the problems that come up
+        along the way.
+      </p>
+    </header>
 
-    <!-- BODY -->
-    <section class="notes-body">
-      <div class="page">
-        <div class="post-list">
+    <section class="post-list" aria-label="Posts">
 
-          <div class="post-list__header">
-            <div class="post-filter" id="post-filter" role="group" aria-label="Filter by topic">
-              <button class="post-filter__btn active" data-tag="all">All</button>
-              <button class="post-filter__btn" data-tag="Practice">Practice</button>
-              <button class="post-filter__btn" data-tag="Tooling">Tooling</button>
-            </div>
-            <span class="post-list__count" id="post-count">1 post</span>
-          </div>
-
-          <article class="post-card">
-            <a href="/blog/2026-05-setting-up-shop/" class="post-card__link">
-              <div class="post-card__meta">
-                <span class="post-card__date">May 21, 2026</span>
-                <span class="post-card__meta-sep">·</span>
-                <span class="post-tag">Practice</span>
-                <span class="post-tag">Tooling</span>
-              </div>
-              <h2 class="post-card__title">Setting up shop</h2>
-              <p class="post-card__excerpt">
-                Notes on starting a one-person GIS practice. What it's for,
-                what runs it, and where these field notes are headed.
-              </p>
-              <div class="post-card__footer">
-                <span class="post-card__readtime">3 min read</span>
-                <span class="post-card__read">Read <span aria-hidden="true">→</span></span>
-              </div>
-            </a>
-          </article>
-
+      <div class="post-list__header">
+        <div class="post-filter" id="post-filter" role="group" aria-label="Filter by topic">
+          <button class="post-filter__btn active" data-tag="all">All</button>
+          <button class="post-filter__btn" data-tag="Practice">Practice</button>
+          <button class="post-filter__btn" data-tag="Tooling">Tooling</button>
         </div>
+        <span class="post-list__count" id="post-count">2 posts</span>
       </div>
+
+      <article class="post-card">
+        <a href="/blog/2026-05-first-clients/" class="post-card__link">
+          <div class="post-card__meta">
+            <span>May 31, 2026 · 4 min read</span>
+            <span class="post-tag">Practice</span>
+          </div>
+          <h2 class="post-card__title">First clients</h2>
+          <p class="post-card__excerpt">
+            Every new practice faces the same bind: potential clients want
+            to see your work, but you need clients to do work. This is how
+            I started breaking that loop.
+          </p>
+          <span class="post-card__read">Read →</span>
+        </a>
+      </article>
+
+      <article class="post-card">
+        <a href="/blog/2026-05-setting-up-shop/" class="post-card__link">
+          <div class="post-card__meta">
+            <span>May 21, 2026 · 3 min read</span>
+            <span class="post-tag">Practice</span>
+            <span class="post-tag">Tooling</span>
+          </div>
+          <h2 class="post-card__title">Setting up shop</h2>
+          <p class="post-card__excerpt">
+            Notes on starting a one-person GIS practice. What it's for,
+            what runs it, and where these field notes are headed.
+          </p>
+          <span class="post-card__read">Read →</span>
+        </a>
+      </article>
+
     </section>
 
   </main>
 
-
-  <!-- FOOTER -->
   <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="/assets/logos/color-logo-text-no-bg-compressed.png" alt="Third Rock Analytics">
-        <p class="footer-tagline">
-          GIS, mapping, and spatial analysis for environmental, land, and community projects.
-          Based in Tacoma, WA.
-        </p>
-      </div>
-      <div class="footer-col">
-        <h5>Services</h5>
-        <a href="/#services" class="footer-link">Cartography</a>
-        <a href="/#services" class="footer-link">Spatial analysis</a>
-        <a href="/#services" class="footer-link">Web mapping</a>
-      </div>
-      <div class="footer-col">
-        <h5>Explore</h5>
-        <a href="/#about"    class="footer-link">About</a>
-        <a href="/blog/"     class="footer-link">Field notes</a>
-        <a href="/map/"  class="footer-link">Project map</a>
-        <a href="/#contact"  class="footer-link">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h5>Elsewhere</h5>
-        <a href="https://github.com/third-rock-analytics"  class="footer-link">GitHub</a>
-        <a href="mailto:contact@thirdrockanalytics.com"     class="footer-link">Email</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Third Rock Analytics · Tacoma, WA</span>
-      <span>47.2529° N · 122.4443° W</span>
+    <div class="wrap footer-inner">
+      <a href="/" class="footer-logo" aria-label="Third Rock Analytics home">
+        <img src="/assets/logos/logo.svg" alt="Third Rock Analytics" width="347" height="72">
+      </a>
+      <ul class="footer-links" role="list">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/map/">Project map</a></li>
+        <li><a href="/blog/">Field notes</a></li>
+        <li><a href="mailto:contact@thirdrockanalytics.com">contact@thirdrockanalytics.com</a></li>
+      </ul>
+      <p class="footer-legal">© 2026 Third Rock Analytics LLC · Veteran-owned small business · Tacoma, WA</p>
     </div>
   </footer>
-
 
   <script>
     // Post filter
@@ -325,8 +122,7 @@
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const tag = btn.dataset.tag;
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        filterBtns.forEach(b => b.classList.toggle('active', b === btn));
         let visible = 0;
         postCards.forEach(card => {
           const tags = Array.from(card.querySelectorAll('.post-tag')).map(t => t.textContent.trim());
@@ -334,28 +130,21 @@
           card.hidden = !show;
           if (show) visible++;
         });
-        if (postCount) postCount.textContent = visible === 1 ? '1 post' : `${visible} posts`;
+        postCount.textContent = visible === 1 ? '1 post' : `${visible} posts`;
       });
     });
 
-    // Mobile nav toggle
-    const nav     = document.getElementById('nav');
-    const navMenu = document.getElementById('nav-menu-btn');
-    const navList = document.getElementById('nav-links');
-    if (navMenu) {
-      navMenu.addEventListener('click', () => {
-        const open = nav.classList.toggle('nav--open');
-        navMenu.setAttribute('aria-expanded', String(open));
-      });
-      navList.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          nav.classList.remove('nav--open');
-          navMenu.setAttribute('aria-expanded', 'false');
-        });
-      });
-    }
+    // Mobile nav
+    const nav = document.getElementById('nav');
+    const navBtn = document.getElementById('nav-menu-btn');
+    navBtn.addEventListener('click', () => {
+      navBtn.setAttribute('aria-expanded', String(nav.classList.toggle('nav--open')));
+    });
+    nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('nav--open');
+      navBtn.setAttribute('aria-expanded', 'false');
+    }));
   </script>
 
 </body>
 </html>
-
